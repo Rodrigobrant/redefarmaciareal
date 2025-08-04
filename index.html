@@ -11,19 +11,21 @@
         header img { width: 150px; }
         nav { background-color: #66b849; display: flex; justify-content: center; padding: 10px; }
         nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
-        section { padding: 40px 20px; max-width: 1000px; margin: auto; }
+        .carousel { position: relative; width: 100%; overflow: hidden; }
+        .carousel img { width: 100%; display: none; }
+        .carousel img.active { display: block; }
+        section { padding: 40px 20px; max-width: 1200px; margin: auto; }
         .promo { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
         .promo-item { background: white; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); padding: 20px; text-align: center; }
         .promo-item img { width: 100px; margin-bottom: 10px; }
+        .whatsapp-btn { background-color: #25D366; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; display: inline-block; margin-top: 10px; }
         footer { background-color: #66b849; color: white; text-align: center; padding: 20px; }
-        .whatsapp-btn { position: fixed; bottom: 20px; right: 20px; background-color: #25D366; padding: 15px; border-radius: 50%; }
-        .whatsapp-btn img { width: 30px; }
     </style>
 </head>
 <body>
 
     <header>
-        <img src="images/logo.png" alt="Farmácias Real">
+        <img src="logo.png" alt="Farmácias Real">
         <h1>Farmácias Real</h1>
         <p>A sua saúde é o nosso compromisso!</p>
     </header>
@@ -36,23 +38,44 @@
         <a href="https://wa.me/5571987654321" target="_blank">Atendimento</a>
     </nav>
 
+    <div class="carousel">
+        <img src="banner1.png" class="active" alt="Oferta 1">
+        <img src="banner2.png" alt="Oferta 2">
+        <img src="banner3.png" alt="Oferta 3">
+    </div>
+
     <section>
         <h2>Ofertas da Semana</h2>
         <div class="promo">
             <div class="promo-item">
-                <img src="images/vitamina-c.png" alt="Vitamina C">
+                <img src="vitamina-c.png" alt="Vitamina C">
                 <h3>Vitamina C</h3>
                 <p>R$ 19,99</p>
+                <a href="https://wa.me/5571987654321" class="whatsapp-btn">Comprar</a>
             </div>
             <div class="promo-item">
-                <img src="images/shampoo.png" alt="Shampoo Anticaspa">
+                <img src="shampoo.png" alt="Shampoo Anticaspa">
                 <h3>Shampoo Anticaspa</h3>
                 <p>R$ 24,90</p>
+                <a href="https://wa.me/5571987654321" class="whatsapp-btn">Comprar</a>
             </div>
             <div class="promo-item">
-                <img src="images/paracetamol.png" alt="Paracetamol 750mg">
+                <img src="paracetamol.png" alt="Paracetamol 750mg">
                 <h3>Paracetamol 750mg</h3>
                 <p>R$ 5,99</p>
+                <a href="https://wa.me/5571987654321" class="whatsapp-btn">Comprar</a>
+            </div>
+            <div class="promo-item">
+                <img src="centrum.png" alt="Centrum">
+                <h3>Centrum AD</h3>
+                <p>R$ 39,00</p>
+                <a href="https://wa.me/5571987654321" class="whatsapp-btn">Comprar</a>
+            </div>
+            <div class="promo-item">
+                <img src="protetor.png" alt="Protetor Solar">
+                <h3>Protetor Solar 50FPS</h3>
+                <p>R$ 69,90</p>
+                <a href="https://wa.me/5571987654321" class="whatsapp-btn">Comprar</a>
             </div>
         </div>
     </section>
@@ -61,9 +84,15 @@
         <p>&copy; 2025 Farmácias Real — www.redefarmaciareal.com.br</p>
     </footer>
 
-    <a href="https://wa.me/5571987654321" class="whatsapp-btn" target="_blank">
-        <img src="images/whatsapp.png" alt="WhatsApp">
-    </a>
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel img');
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 3000);
+    </script>
 
 </body>
 </html>
