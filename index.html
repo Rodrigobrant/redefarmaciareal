@@ -5,29 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Farmácias Real</title>
-    <style>
-        body { margin: 0; font-family: Arial, sans-serif; background: #f8f8f8; color: #333; }
-        header { background-color: #7ED957; padding: 20px; text-align: center; color: white; }
-        header img { width: 150px; }
-        nav { background-color: #66b849; display: flex; justify-content: center; padding: 10px; }
-        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
-        .carousel { position: relative; width: 100%; overflow: hidden; }
-        .carousel img { width: 100%; display: none; }
-        .carousel img.active { display: block; }
-        section { padding: 40px 20px; max-width: 1200px; margin: auto; }
-        .promo { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .promo-item { background: white; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); padding: 20px; text-align: center; }
-        .promo-item img { width: 100px; margin-bottom: 10px; }
-        .whatsapp-btn { background-color: #25D366; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; display: inline-block; margin-top: 10px; }
-        footer { background-color: #66b849; color: white; text-align: center; padding: 20px; font-size: 12px; line-height: 1.5; }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
-        <img src="imagem/logo.png" alt="Farmácias Real">
-        <h1>Farmácias Real</h1>
-        <p>A sua saúde é o nosso compromisso!</p>
+        <div class="container">
+            <img src="imagem/logo.png" alt="Farmácias Real">
+            <div class="title">
+                <h1>Farmácias Real</h1>
+                <p>A sua saúde é o nosso compromisso!</p>
+            </div>
+        </div>
     </header>
 
     <nav>
@@ -81,13 +71,19 @@
     </section>
 
     <footer>
-        <p>&copy; 2025 Farmácias Real — www.redefarmaciareal.com.br</p>
-        <p>A FARMÁCIA REAL segue as determinações da Anvisa. As informações contidas neste site não devem ser usadas para automedicação e não substituem, em hipótese alguma, as orientações dadas pelo profissional da área médica. Somente o médico está apto a diagnosticar qualquer problema de saúde e prescrever o tratamento adequado.</p>
-        <p>Razão Social: BRANT E FIRMO LTDA | Nome Fantasia: REDE FARMÁCIA REAL - DROGARIA E PERFUMARIA | CNPJ: 11.767.169/0001-98</p>
-        <p>Endereço: Praça Ladislau Cavalcante, 165 - Centro - Esplanada/BA, CEP: 48370-000 | Horário de Atendimento: Das 08:00 às 21:00</p>
-        <p>Farmacêutico Responsável: Danielle Santana Cruz | CRF/BA: 19535 | AFE: 0.99.396-2 | SAC: Tel.: (75) 9-9862-3295</p>
-        <p>Os preços e as promoções são válidos apenas para compras via internet. As fotos contidas em nosso site são meramente ilustrativas. *Preços e disponibilidade sujeitos a alterações no decorrer do dia.</p>
+        <div class="footer-content">
+            <p>&copy; 2025 Farmácias Real — www.redefarmaciareal.com.br</p>
+            <p>A FARMÁCIA REAL segue as determinações da Anvisa. As informações contidas neste site não devem ser usadas para automedicação e não substituem, em hipótese alguma, as orientações dadas pelo profissional da área médica.</p>
+            <p>Razão Social: BRANT E FIRMO LTDA | Nome Fantasia: REDE FARMÁCIA REAL - DROGARIA E PERFUMARIA | CNPJ: 11.767.169/0001-98</p>
+            <p>Endereço: Praça Ladislau Cavalcante, 165 - Centro - Esplanada/BA, CEP: 48370-000 | Horário de Atendimento: Das 08:00 às 21:00</p>
+            <p>Farmacêutico Responsável: Danielle Santana Cruz | CRF/BA: 19535 | AFE: 0.99.396-2 | SAC: Tel.: (75) 9-9862-3295</p>
+            <p>Os preços e as promoções são válidos apenas para compras via internet. As fotos contidas em nosso site são meramente ilustrativas. *Preços e disponibilidade sujeitos a alterações no decorrer do dia.</p>
+        </div>
     </footer>
+
+    <a href="https://wa.me/5575998623295" class="whatsapp-float" target="_blank">
+        <img src="imagem/whatsapp.png" alt="Fale Conosco">
+    </a>
 
     <script>
         let currentSlide = 0;
