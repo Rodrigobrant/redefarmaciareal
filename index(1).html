@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmácias Real</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <img src="imagem/logo.png" alt="Farmácias Real">
+            <div class="title">
+                <h1>Farmácias Real</h1>
+                <p>A sua saúde é o nosso compromisso!</p>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <a href="#">Início</a>
+        <a href="#">Catálogo</a>
+        <a href="#">Promoções</a>
+        <a href="#">Informativos</a>
+        <a href="https://wa.me/5575998623295" target="_blank">Atendimento</a>
+    </nav>
+
+    <div class="carousel">
+        <img src="imagem/banner1.png" class="active" alt="Oferta 1">
+        <img src="imagem/banner2.png" alt="Oferta 2">
+        <img src="imagem/banner3.png" alt="Oferta 3">
+    </div>
+
+    <section>
+        <h2>Ofertas da Semana</h2>
+        <div class="promo">
+            <div class="promo-item">
+                <img src="imagem/vitamina-c.png" alt="Vitamina C">
+                <h3>Vitamina C</h3>
+                <p>R$ 19,99</p>
+                <a href="https://wa.me/5575998623295" class="whatsapp-btn">Comprar</a>
+            </div>
+            <div class="promo-item">
+                <img src="imagem/shampoo.png" alt="Shampoo Anticaspa">
+                <h3>Shampoo Anticaspa</h3>
+                <p>R$ 24,90</p>
+                <a href="https://wa.me/5575998623295" class="whatsapp-btn">Comprar</a>
+            </div>
+            <div class="promo-item">
+                <img src="imagem/paracetamol.png" alt="Paracetamol 750mg">
+                <h3>Paracetamol 750mg</h3>
+                <p>R$ 5,99</p>
+                <a href="https://wa.me/5575998623295" class="whatsapp-btn">Comprar</a>
+            </div>
+            <div class="promo-item">
+                <img src="imagem/centrum.png" alt="Centrum">
+                <h3>Centrum AD</h3>
+                <p>R$ 39,00</p>
+                <a href="https://wa.me/5575998623295" class="whatsapp-btn">Comprar</a>
+            </div>
+            <div class="promo-item">
+                <img src="imagem/protetor.png" alt="Protetor Solar">
+                <h3>Protetor Solar 50FPS</h3>
+                <p>R$ 69,90</p>
+                <a href="https://wa.me/5575998623295" class="whatsapp-btn">Comprar</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Farmácias Real — www.redefarmaciareal.com.br</p>
+            <p>A FARMÁCIA REAL segue as determinações da Anvisa. As informações contidas neste site não devem ser usadas para automedicação e não substituem, em hipótese alguma, as orientações dadas pelo profissional da área médica.</p>
+            <p>Razão Social: BRANT E FIRMO LTDA | Nome Fantasia: REDE FARMÁCIA REAL - DROGARIA E PERFUMARIA | CNPJ: 11.767.169/0001-98</p>
+            <p>Endereço: Praça Ladislau Cavalcante, 165 - Centro - Esplanada/BA, CEP: 48370-000 | Horário de Atendimento: Das 08:00 às 21:00</p>
+            <p>Farmacêutico Responsável: Danielle Santana Cruz | CRF/BA: 19535 | AFE: 0.99.396-2 | SAC: Tel.: (75) 9-9862-3295</p>
+            <p>Os preços e as promoções são válidos apenas para compras via internet. As fotos contidas em nosso site são meramente ilustrativas. *Preços e disponibilidade sujeitos a alterações no decorrer do dia.</p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/5575998623295" class="whatsapp-float" target="_blank">
+        <img src="imagem/whatsapp.png" alt="Fale Conosco">
+    </a>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel img');
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 3000);
+    </script>
+
+</body>
+</html>
