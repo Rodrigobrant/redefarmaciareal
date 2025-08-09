@@ -1,113 +1,112 @@
 
 body {
+    font-family: Arial, sans-serif;
     margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: #f8f8f8;
-    color: #333;
+    padding: 0;
+    background-color: #fff;
 }
-header {
-    background-color: #7ED957;
+
+/* Cabeçalho */
+.header {
+    background-color: #6EC34D;
     padding: 20px;
-    text-align: center;
     color: white;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-header .container {
+
+.header-container {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 20px;
+    justify-content: flex-start;
 }
-header img {
-    width: 80px;
+
+.logo {
+    margin-right: 15px;
 }
-nav {
-    background-color: #66b849;
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-    gap: 20px;
+
+.header-text h1 {
+    margin: 0;
+    font-size: 28px;
 }
-nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
+
+.header-text p {
+    margin: 0;
+    font-size: 16px;
 }
-.carousel img {
-    width: 100%;
-    display: none;
-    border-radius: 10px;
-}
-.carousel img.active {
-    display: block;
-}
-section {
-    padding: 40px 20px;
-    max-width: 1200px;
-    margin: auto;
-}
-.promo {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-}
-.promo-item {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+/* Produtos */
+.produtos {
     padding: 20px;
+}
+
+.produtos h2 {
+    margin-bottom: 15px;
+}
+
+.produtos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.produto {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
     text-align: center;
-    transition: transform 0.2s ease;
 }
-.promo-item:hover {
-    transform: translateY(-5px);
+
+.produto img {
+    max-width: 100%;
+    height: auto;
 }
-.promo-item img {
-    width: 100px;
-    margin-bottom: 10px;
+
+.preco {
+    font-size: 18px;
+    margin: 10px 0;
 }
-.whatsapp-btn {
+
+.preco-antigo {
+    text-decoration: line-through;
+    color: #888;
+    margin-right: 5px;
+}
+
+.btn-whatsapp {
     background-color: #25D366;
     color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
 }
-footer {
-    background-color: #66b849;
-    color: white;
+
+/* Rodapé */
+.footer {
+    background-color: white;
     padding: 20px;
-    font-size: 12px;
+    border-top: 1px solid #ddd;
 }
-.footer-content {
+
+.footer-container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
+    gap: 20px;
 }
-.footer-text {
-    flex: 1 1 70%;
-}
-.footer-logo {
-    flex: 1 1 20%;
-    text-align: right;
-}
-.footer-logo img {
+
+.logo-anvisa {
     width: 120px;
+    height: auto;
 }
-.whatsapp-float {
+
+/* Botão flutuante WhatsApp */
+.whatsapp-fixo {
     position: fixed;
-    width: 60px;
-    height: 60px;
     bottom: 20px;
     right: 20px;
-    z-index: 100;
+    background-color: transparent;
 }
-.whatsapp-float img {
-    width: 100%;
+
+.whatsapp-fixo img {
+    width: 60px;
+    height: 60px;
 }
