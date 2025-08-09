@@ -5,86 +5,130 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Farmácias Real</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
+        body { margin: 0; font-family: Arial, sans-serif; background: #f8f8f8; color: #333; }
+        header { background-color: #7ED957; padding: 20px; text-align: center; color: white; }
+        header img { width: 150px; }
+        nav { background-color: #66b849; display: flex; justify-content: center; padding: 10px; }
+        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
+        .carousel { position: relative; width: 100%; overflow: hidden; }
+        .carousel img { width: 100%; display: none; }
+        .carousel img.active { display: block; }
+        section { padding: 40px 20px; max-width: 1200px; margin: auto; }
+        .promo { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .promo-item { background: white; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); padding: 20px; text-align: center; }
+        .promo-item img { width: 100px; margin-bottom: 10px; }
+        .whatsapp-btn { background-color: #25D366; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; display: inline-block; margin-top: 10px; }
+        
+        /* Rodapé */
+        footer { background-color: #fff; color: #333; text-align: center; padding: 20px; font-size: 14px; }
+        footer .anvisa-logo { width: 120px; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto; }
+        footer .footer-text { max-width: 1000px; margin: auto; text-align: justify; }
+        
+        /* Botão fixo do WhatsApp */
+        .whatsapp-fixed {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25D366;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            z-index: 1000;
         }
-        header {
-            background-color: #6fd36f;
-            color: white;
-            padding: 40px;
-            text-align: center;
-        }
-        main {
-            padding: 20px;
-            text-align: center;
-        }
-        footer {
-            background-color: white;
-            padding: 20px;
-            font-size: 14px;
-            text-align: center;
-            color: #333;
-        }
-        .footer-logo {
-            display: block;
-            margin: 0 auto 15px auto;
-            max-width: 150px;
-        }
-        .whatsapp-button {
-            display: inline-block;
-            background-color: #25d366;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .whatsapp-button:hover {
-            background-color: #1ebe57;
+        .whatsapp-fixed img {
+            width: 35px;
+            height: 35px;
         }
     </style>
 </head>
 <body>
 
-<header>
-    <img src="logo-farmacia.png" alt="Farmácias Real" style="max-width:100px;">
-    <h1>Farmácias Real</h1>
-    <p>A sua saúde é o nosso compromisso!</p>
-</header>
+    <header>
+        <img src="imagem/logo.png" alt="Farmácias Real">
+        <h1>Farmácias Real</h1>
+        <p>A sua saúde é o nosso compromisso!</p>
+    </header>
 
-<main>
-    <h2>Pomada Especial</h2>
-    <p>R$ 19,99</p>
-    <button>Comprar</button>
-</main>
+    <nav>
+        <a href="#">Início</a>
+        <a href="#">Catálogo</a>
+        <a href="#">Promoções</a>
+        <a href="#">Informativos</a>
+        <a href="https://wa.me/5575998623295" target="_blank">Atendimento</a>
+    </nav>
 
-<footer>
-    <img src="logo-anvisa.png" alt="Logo Anvisa" class="footer-logo">
+    <div class="carousel">
+        <img src="imagem/banner1.png" class="active" alt="Oferta 1">
+        <img src="imagem/banner2.png" alt="Oferta 2">
+        <img src="imagem/banner3.png" alt="Oferta 3">
+    </div>
 
-    <p>
-        A FARMÁCIAS REAL segue as determinações da Anvisa. As informações contidas neste site não devem ser usadas para automedicação e não substituem, em hipótese alguma, as orientações dadas pelo profissional da área médica. Somente o médico está apto a diagnosticar qualquer problema de saúde e prescrever o tratamento adequado.
-    </p>
-    <p>
-        Razão Social: BRANT E FIRMO LTDA | Nome Fantasia: REDE FARMÁCIA REAL - DROGARIA E PERFUMARIA | CNPJ: 11.767.169/0001-98
-    </p>
-    <p>
-        Endereço: Praça Ladislau Cavalcante, 165 - Centro - Esplanada/BA, CEP: 48370-000 | Horário de Atendimento: Das 08:00 às 21:00
-    </p>
-    <p>
-        Farmacêutico Responsável: Danielle Santana Cruz | CRF/BA: 19535 | AFE: 0.99.396-2
-    </p>
-    <p>
-        SAC: Tel.: (75) 9-9862-3295 - Todos direitos reservados.
-    </p>
-    <p>
-        Os preços e as promoções são válidos apenas para compras via internet. As fotos contidas em nosso site são meramente ilustrativas. *Preços e disponibilidade sujeitos a alterações no decorrer do dia.
-    </p>
+    <section>
+        <h2>Ofertas da Semana</h2>
+        <div class="promo">
+            <div class="promo-item">
+                <img src="imagem/vitamina-c.png" alt="Vitamina C">
+                <h3>Vitamina C</h3>
+                <p>R$ 19,99</p>
+                <a href="https://wa.me/5575998623295" class="whatsapp-btn">Comprar</a>
+            </div>
+            <div class="promo-item">
+                <img src="imagem/shampoo.png" alt="Shampoo Anticaspa">
+                <h3>Shampoo Anticaspa</h3>
+                <p>R$ 24,90</p>
+                <a href="https://wa.me/5575998623295" class="whatsapp-btn">Comprar</a>
+            </div>
+            <div class="promo-item">
+                <img src="imagem/paracetamol.png" alt="Paracetamol 750mg">
+                <h3>Paracetamol 750mg</h3>
+                <p>R$ 5,99</p>
+                <a href="https://wa.me/5575998623295" class="whatsapp-btn">Comprar</a>
+            </div>
+            <div class="promo-item">
+                <img src="imagem/centrum.png" alt="Centrum">
+                <h3>Centrum AD</h3>
+                <p>R$ 39,00</p>
+                <a href="https://wa.me/5575998623295" class="whatsapp-btn">Comprar</a>
+            </div>
+            <div class="promo-item">
+                <img src="imagem/protetor.png" alt="Protetor Solar">
+                <h3>Protetor Solar 50FPS</h3>
+                <p>R$ 69,90</p>
+                <a href="https://wa.me/5575998623295" class="whatsapp-btn">Comprar</a>
+            </div>
+        </div>
+    </section>
 
-    <a href="https://wa.me/557598623295" class="whatsapp-button" target="_blank">💬 Fale Conosco no WhatsApp</a>
-</footer>
+    <footer>
+        <img src="imagem/anvisa.png" alt="ANVISA" class="anvisa-logo">
+        <div class="footer-text">
+            <p>A FARMÁCIAS REAL segue as determinações da Anvisa. As informações contidas neste site não devem ser usadas para automedicação e não substituem, em hipótese alguma, as orientações dadas pelo profissional da área médica. Somente o médico está apto a diagnosticar qualquer problema de saúde e prescrever o tratamento adequado.</p>
+            <p>Razão Social: BRANT E FIRMO LTDA | Nome Fantasia: REDE FARMÁCIA REAL - DROGARIA E PERFUMARIA | CNPJ: 11.767.169/0001-98</p>
+            <p>Endereço: Praça Ladislau Cavalcante, 165 - Centro - Esplanada/BA, CEP: 48370-000 | Horário de Atendimento: Das 08:00 às 21:00</p>
+            <p>Farmacêutico Responsável: Danielle Santana Cruz | CRF/BA: 19535 | AFE: 0.99.396-2 | SAC: Tel.: (75) 9-9862-3295</p>
+            <p>Os preços e as promoções são válidos apenas para compras via internet. As fotos contidas em nosso site são meramente ilustrativas. *Preços e disponibilidade sujeitos a alterações no decorrer do dia.</p>
+        </div>
+    </footer>
+
+    <!-- Botão fixo WhatsApp -->
+    <a href="https://wa.me/5575998623295" class="whatsapp-fixed" target="_blank">
+        <img src="imagem/whatsapp-icon.png" alt="WhatsApp">
+    </a>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel img');
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 3000);
+    </script>
 
 </body>
 </html>
