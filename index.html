@@ -19,10 +19,9 @@
             color: white;
         }
         header img {
-            width: 180px; /* Aumentado de 110px para 180px */
+            width: 180px;
             margin-bottom: 6px;
         }
-        /* header h1 removido */
         header h1 {
             display: none;
         }
@@ -55,12 +54,21 @@
         nav a:hover {
             color: #c8f7c5;
         }
+        .carousel-container {
+            display: flex;
+            justify-content: center;
+        }
+        .carousel {
+            width: 100%;
+            max-width: 600px;
+        }
         .carousel img {
             width: 100%;
             display: none;
-            max-height: 200px;
+            max-height: 120px; /* Reduzido para 120px conforme solicitado */
             object-fit: cover;
             border-radius: 8px;
+            margin: 0 auto;
         }
         .carousel img.active {
             display: block;
@@ -170,7 +178,6 @@
 
     <header>
         <img src="imagem/logo.png" alt="Farmácias Real" loading="lazy" />
-        <!-- Removido o <h1>Farmácias Real</h1> -->
         <p>A sua saúde é o nosso compromisso!</p>
     </header>
 
@@ -182,10 +189,12 @@
         <a href="https://wa.me/5575998623295" target="_blank" rel="noopener noreferrer">Atendimento</a>
     </nav>
 
-    <div class="carousel" aria-label="Imagens promocionais">
-        <img src="imagem/banner1.png" alt="Oferta 1" class="active" loading="lazy" />
-        <img src="imagem/banner2.png" alt="Oferta 2" loading="lazy" />
-        <img src="imagem/banner3.png" alt="Oferta 3" loading="lazy" />
+    <div class="carousel-container">
+      <div class="carousel" aria-label="Imagens promocionais">
+          <img src="imagem/banner1.png" alt="Oferta 1" class="active" loading="lazy" />
+          <img src="imagem/banner2.png" alt="Oferta 2" loading="lazy" />
+          <img src="imagem/banner3.png" alt="Oferta 3" loading="lazy" />
+      </div>
     </div>
 
     <section>
@@ -227,11 +236,11 @@
     <footer>
         <img src="imagem/logo-anvisa.png" alt="ANVISA" class="anvisa-logo" loading="lazy" />
         <div class="footer-text">
-            <p>A FARMÁCIA REAL segue as determinações da Anvisa. As informações contidas neste site não devem ser usadas para automedicação e não substituem, em hipótese alguma, as orientações dadas pelo profissional da área médica. Somente o médico está apto a diagnosticar qualquer problema de saúde e prescrever o tratamento adequado.</p>
+            <p>A FARMÁCIA REAL segue as determinações da Anvisa. As informações contidas neste site não devem ser usadas para automedicação e não substituem, em hipótese alguma, as orientaç[...]
             <p>Razão Social: BRANT E FIRMO LTDA | Nome Fantasia: REDE FARMÁCIA REAL - DROGARIA E PERFUMARIA | CNPJ: 11.767.169/0001-98</p>
             <p>Endereço: Praça Ladislau Cavalcante, 165 - Centro - Esplanada/BA, CEP: 48370-000 | Horário de Atendimento: Das 08:00 às 21:00</p>
             <p>Farmacêutico Responsável: Danielle Santana Cruz | CRF/BA: 19535 | AFE: 0.99.396-2 | SAC: Tel.: (75) 9-9862-3295</p>
-            <p>Os preços e as promoções são válidos apenas para compras via internet. As fotos contidas em nosso site são meramente ilustrativas. *Preços e disponibilidade sujeitos a alterações no decorrer do dia.</p>
+            <p>Os preços e as promoções são válidos apenas para compras via internet. As fotos contidas em nosso site são meramente ilustrativas. *Preços e disponibilidade sujeitos a alteraçõ[...]
         </div>
     </footer>
 
