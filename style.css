@@ -35,10 +35,17 @@ body {
 }
 
 /* Banner/Carrossel */
+.carousel {
+    position: relative;
+    max-width: 100%; /* ocupa a largura da tela */
+    margin: auto;
+    overflow: hidden;
+    border-radius: 10px;
+}
 .carousel img {
     width: 100%;
     display: none;
-    max-height: 200px;   /* MENOR altura do banner */
+    max-height: 280px;   /* MENOR altura do banner */
     object-fit: cover;
     border-radius: 8px;
 }
