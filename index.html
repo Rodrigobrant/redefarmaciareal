@@ -189,17 +189,108 @@
         <a href="https://wa.me/557598623295?text=Ol%C3%A1%2C+gostaria+de+fazer+um+pedido+na+Farm%C3%A1cias+Real!" target="_blank" rel="noopener noreferrer">Atendimento</a>
     </nav>
 
-    <div class="carousel-container">
-      <div class="carousel" aria-label="Imagens promocionais">
-          <img src="imagem/banner1.png" alt="Oferta 1" class="active" loading="lazy" />
-          <img src="imagem/banner2.png" alt="Oferta 2" loading="lazy" />
-          <img src="imagem/banner3.png" alt="Oferta 3" loading="lazy" />
-          <img src="imagem/banner4.png" alt="Oferta 4" loading="lazy" />
-          <img src="imagem/banner5.png" alt="Oferta 5" loading="lazy" /> 
-          <img src="imagem/banner6.png" alt="Oferta 6" loading="lazy" />  
-      </div>
+   <!-- 🚩 Carrossel de Banners -->
+<div class="carousel">
+    <div class="slides">
+        <img src="imagem/banner1.png" class="active" alt="Oferta 1">
+        <img src="imagem/banner2.png" alt="Oferta 2">
+        <img src="imagem/banner3.png" alt="Oferta 3">
     </div>
 
+    <!-- Botões -->
+    <button class="prev">&#10094;</button>
+    <button class="next">&#10095;</button>
+
+    <!-- Indicadores -->
+    <div class="dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
+</div>
+
+<style>
+.carousel {
+    position: relative;
+    max-width: 100%;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 10px;
+}
+.carousel img {
+    width: 100%;
+    display: none;
+}
+.carousel img.active {
+    display: block;
+}
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+.prev { left: 10px; }
+.next { right: 10px; }
+.dots {
+    text-align: center;
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+}
+.dot {
+    height: 12px;
+    width: 12px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+}
+.dot.active {
+    background-color: #7ED957;
+}
+</style>
+
+    <script>
+        let slideIndex = 0;
+         const slides = document.querySelectorAll(".carousel img");
+         const dots = document.querySelectorAll(".dot");
+
+    function showSlide(n) {
+        slides.forEach((slide, i) => {
+        slide.classList.remove("active");
+        dots[i].classList.remove("active");
+    });
+        slides[n].classList.add("active");
+        dots[n].classList.add("active");
+        slideIndex = n;
+     }
+
+     function nextSlide() {
+        slideIndex = (slideIndex + 1) % slides.length;
+        showSlide(slideIndex);
+     }
+
+    function prevSlide() {
+        slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+        showSlide(slideIndex);
+     }
+
+        document.querySelector(".next").addEventListener("click", nextSlide);
+        document.querySelector(".prev").addEventListener("click", prevSlide);
+        dots.forEach((dot, index) => {
+        dot.addEventListener("click", () => showSlide(index));
+    });
+
+         setInterval(nextSlide, 4000); // troca automático a cada 4s
+    </script>
     <section>
         <h2>Ofertas da Semana</h2>
         <div class="promo">
