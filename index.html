@@ -302,6 +302,12 @@
 
          setInterval(nextSlide, 4000); // troca automático a cada 4s
     </script>
+    
+    <!-- Campo de Busca Rápida -->
+    <div style="max-width:1200px; margin:auto; padding:20px;">
+        <input type="text" id="searchInput" placeholder="🔎 Busque por produto..." 
+               style="width:100%; padding: 12px; font-size: 16px; border:1px solid #ccc; border-radius:6px;">
+    </div>
     <section>
         <h2>Ofertas da Semana</h2>
         <div class="promo">
@@ -373,6 +379,7 @@
     </a>
 
     <script>
+        // Carrossel
         let currentSlide = 0;
         const slides = document.querySelectorAll('.carousel img');
         setInterval(() => {
@@ -380,6 +387,18 @@
             currentSlide = (currentSlide + 1) % slides.length;
             slides[currentSlide].classList.add('active');
         }, 3000);
+        
+         // Busca rápida
+        const input = document.getElementById('searchInput');
+        const items = document.querySelectorAll('.promo-item');
+
+        input.addEventListener('input', () => {
+            const term = input.value.toLowerCase().trim();
+            items.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                item.style.display = text.includes(term) ? 'block' : 'none';
+            });
+        });
     </script>
 </body>
 </html>
