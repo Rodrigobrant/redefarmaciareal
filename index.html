@@ -389,17 +389,49 @@
             slides[currentSlide].classList.add('active');
         }, 3000);
         
-         // Busca rápida
-            const input = document.getElementById('searchInput');
-            const items = document.querySelectorAll('.promo-item');
+        // Busca rápida
+            document.addEventListener('DOMContentLoaded', () => {
+            const input  = document.getElementById('searchInput');
+            if (!input) return;
 
-            input.addEventListener('input', () => {
-            const term = input.value.toLowerCase().trim();
-            items.forEach(item => {
-            const text = item.innerText.toLowerCase();
-            item.style.display = text.includes(term) ? "" : "none";
-            });
-        });
+             const items  = Array.from(document.querySelectorAll('.promo-item'));
+
+         // normaliza para busca sem acento e case-insensitive
+             const norm = (s) => s
+             .toLowerCase()
+             .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+             .replace(/\s+/g, ' ').trim();
+
+        // mensagem "sem resultados"
+             const noMsg = document.createElement('p');
+             noMsg.id = 'noResults';
+             noMsg.textContent = 'Nenhum produto encontrado.';
+             noMsg.style.display = 'none';
+             noMsg.style.margin = '16px 0';
+             const ofertas = document.querySelector('h2'); // primeiro título próximo
+             ofertas?.parentNode?.insertBefore(noMsg, ofertas.nextSibling);
+
+             const applyFilter = () => {
+             const term = norm(input.value);
+             let shown = 0;
+             items.forEach(item => {
+             const ok = term === '' || norm(item.innerText).includes(term);
+             item.classList.toggle('hidden', !ok);
+             if (ok) shown++;
+      });
+             noMsg.style.display = shown ? 'none' : '';
+    };
+
+             input.addEventListener('input', applyFilter);
+             input.addEventListener('keydown', (e) => {
+             if (e.key === 'Enter') {
+                e.preventDefault();
+             document.querySelector('.promo')?.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+
+             applyFilter(); // estado inicial
+  });
     </script>
 </body>
 </html>
