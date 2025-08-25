@@ -390,14 +390,14 @@
         }, 3000);
         
          // Busca rápida
-        const input = document.getElementById('searchInput');
-        const items = document.querySelectorAll('.promo-item');
+            const input = document.getElementById('searchInput');
+            const items = document.querySelectorAll('.promo-item');
 
-        input.addEventListener('input', () => {
+            input.addEventListener('input', () => {
             const term = input.value.toLowerCase().trim();
             items.forEach(item => {
-                const text = item.innerText.toLowerCase();
-                item.style.display = text.includes(term) ? 'block' : 'none';
+            const text = item.innerText.toLowerCase();
+            item.style.display = text.includes(term) ? "" : "none";
             });
         });
     </script>
