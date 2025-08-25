@@ -130,3 +130,5 @@ body {
     width: 60px;
     height: 60px;
 }
+/* esconde itens filtrados */
+.promo-item.hidden { display: none; }
