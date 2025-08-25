@@ -382,11 +382,12 @@
     <script>
         // Carrossel
         let currentSlide = 0;
-        const slides = document.querySelectorAll('.carousel img');
-        setInterval(() => {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
+        const carouselSlides = document.querySelectorAll('.carousel img');
+        if (carouselSlides.length > 0) {
+          setInterval(() => {
+        carouselSlides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % carouselSlides.length;
+        carouselSlides[currentSlide].classList.add('active');
         }, 3000);
         
         // Busca rápida
