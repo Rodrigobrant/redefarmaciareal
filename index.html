@@ -380,58 +380,55 @@
     </a>
 
     <script>
-        // Carrossel
-        let currentSlide = 0;
-        const carouselSlides = document.querySelectorAll('.carousel img');
-        if (carouselSlides.length > 0) {
-          setInterval(() => {
-        carouselSlides[currentSlide].classList.remove('active');
-        currentSlide = (currentSlide + 1) % carouselSlides.length;
-        carouselSlides[currentSlide].classList.add('active');
-        }, 3000);
-        }
-        // Busca rápida
-            document.addEventListener('DOMContentLoaded', () => {
-            const input  = document.getElementById('searchInput');
-            if (!input) return;
+        document.getElementById("searchInput").addEventListener("keyup", function() {
+        let filter = this.value.toLowerCase();
+        let container = document.querySelector(".products-container");
+        let items = Array.from(container.querySelectorAll(".product-item"));
 
-             const items  = Array.from(document.querySelectorAll('.promo-item'));
+        // separa em produtos que batem com a pesquisa e os que não batem
+        let match = [];
+        let noMatch = [];
 
-         // normaliza para busca sem acento e case-insensitive
-             const norm = (s) => s
-             .toLowerCase()
-             .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-             .replace(/\s+/g, ' ').trim();
-
-        // mensagem "sem resultados"
-             const noMsg = document.createElement('p');
-             noMsg.id = 'noResults';
-             noMsg.textContent = 'Nenhum produto encontrado.';
-             noMsg.style.display = 'none';
-             noMsg.style.margin = '16px 0';
-             const ofertas = document.querySelector('h2'); // primeiro título próximo
-             ofertas?.parentNode?.insertBefore(noMsg, ofertas.nextSibling);
-
-             const applyFilter = () => {
-             const term = norm(input.value);
-             let shown = 0;
-             items.forEach(item => {
-             const ok = term === '' || norm(item.innerText).includes(term);
-             item.classList.toggle('hidden', !ok);
-             if (ok) shown++;
-      });
-             noMsg.style.display = shown ? 'none' : '';
-    };
-
-             input.addEventListener('input', applyFilter);
-             input.addEventListener('keydown', (e) => {
-             if (e.key === 'Enter') {
-                e.preventDefault();
-             document.querySelector('.promo')?.scrollIntoView({ behavior: 'smooth' });
+        items.forEach(function(item) {
+        let text = item.textContent.toLowerCase();
+        if (text.includes(filter) && filter.length > 0) {
+          match.push(item);
+        } else {
+        noMatch.push(item);
       }
     });
 
-             applyFilter(); // estado inicial
+       // ordena os resultados encontrados em ordem alfabética
+       match.sort((a, b) => {
+          let textA = a.textContent.trim().toLowerCase();
+          let textB = b.textContent.trim().toLowerCase();
+          return textA.localeCompare(textB);
+    });
+
+       // limpa o container
+           container.innerHTML = "";
+
+    // se a busca estiver vazia, mostra todos na ordem original
+    if (filter.length === 0) {
+      items.forEach(item => container.appendChild(item));
+    } else {
+      // adiciona os que batem (ordenados)
+      match.forEach(item => container.appendChild(item));
+      // depois os que não batem (sem mexer na ordem)
+      noMatch.forEach(item => container.appendChild(item));
+    }
+
+    // Mensagem de "não encontrado"
+    let msg = document.getElementById("noResultMsg");
+    if (!msg) {
+      msg = document.createElement("p");
+      msg.id = "noResultMsg";
+      msg.style.textAlign = "center";
+      msg.style.color = "red";
+      msg.style.fontWeight = "bold";
+      container.appendChild(msg);
+    }
+    msg.textContent = (match.length === 0 && filter.length > 0) ? "Produto não encontrado" : "";
   });
     </script>
 </body>
