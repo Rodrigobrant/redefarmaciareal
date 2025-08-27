@@ -380,56 +380,98 @@
     </a>
 
     <script>
-        document.getElementById("searchInput").addEventListener("keyup", function() {
-        let filter = this.value.toLowerCase();
-        let container = document.querySelector(".products-container");
-        let items = Array.from(container.querySelectorAll(".product-item"));
+document.addEventListener('DOMContentLoaded', () => {
+  const input = document.getElementById('searchInput');
+  if (!input) return; // não há campo de busca nesta página
 
-        // separa em produtos que batem com a pesquisa e os que não batem
-        let match = [];
-        let noMatch = [];
+  // seletores existentes no seu HTML
+  const container = document.querySelector('.promo');         // container dos cards
+  if (!container) {
+    console.warn('Busca: container ".promo" não encontrado.');
+    return;
+  }
 
-        items.forEach(function(item) {
-        let text = item.textContent.toLowerCase();
-        if (text.includes(filter) && filter.length > 0) {
-          match.push(item);
-        } else {
-        noMatch.push(item);
-      }
-    });
+  const originalItems = Array.from(container.querySelectorAll('.promo-item'));
+  if (originalItems.length === 0) {
+    console.warn('Busca: nenhum item com ".promo-item" encontrado.');
+    return;
+  }
 
-       // ordena os resultados encontrados em ordem alfabética
-       match.sort((a, b) => {
-          let textA = a.textContent.trim().toLowerCase();
-          let textB = b.textContent.trim().toLowerCase();
-          return textA.localeCompare(textB);
-    });
+  // helper: normaliza (remove acentos, espaços extras, deixa lowercase)
+  const normalize = s => s
+    .toString()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/\s+/g,' ')
+    .trim()
+    .toLowerCase();
 
-       // limpa o container
-           container.innerHTML = "";
+  // cria (ou encontra) elemento de mensagem "não encontrado" (fica abaixo do container)
+  let noMsg = document.getElementById('noResultMsg');
+  if (!noMsg) {
+    noMsg = document.createElement('p');
+    noMsg.id = 'noResultMsg';
+    noMsg.style.textAlign = 'center';
+    noMsg.style.color = '#d32f2f';
+    noMsg.style.fontWeight = '600';
+    noMsg.style.margin = '12px 0';
+    // insere depois do container
+    container.parentNode.insertBefore(noMsg, container.nextSibling);
+  }
+  noMsg.textContent = '';
 
-    // se a busca estiver vazia, mostra todos na ordem original
-    if (filter.length === 0) {
-      items.forEach(item => container.appendChild(item));
-    } else {
-      // adiciona os que batem (ordenados)
-      match.forEach(item => container.appendChild(item));
-      // depois os que não batem (sem mexer na ordem)
-      noMatch.forEach(item => container.appendChild(item));
+  // Função que aplica o filtro e rearranja
+  const applyFilter = () => {
+    const q = normalize(input.value);
+    // se campo vazio: restaura visibilidade e (opcional) ordem original
+    if (!q) {
+      noMsg.textContent = '';
+      // restaura visibilidade e ordem original
+      originalItems.forEach(it => {
+        it.style.display = '';
+        container.appendChild(it);
+      });
+      return;
     }
 
-    // Mensagem de "não encontrado"
-    let msg = document.getElementById("noResultMsg");
-    if (!msg) {
-      msg = document.createElement("p");
-      msg.id = "noResultMsg";
-      msg.style.textAlign = "center";
-      msg.style.color = "red";
-      msg.style.fontWeight = "bold";
-      container.appendChild(msg);
+    const match = [];
+    const rest  = [];
+
+    originalItems.forEach(it => {
+      const txt = normalize(it.textContent || it.innerText || '');
+      if (txt.includes(q)) match.push(it);
+      else rest.push(it);
+    });
+
+    // ordenar alfabeticamente os matches (pt-BR)
+    match.sort((a,b) => {
+      const ta = normalize(a.textContent);
+      const tb = normalize(b.textContent);
+      return ta.localeCompare(tb, 'pt-BR');
+    });
+
+    // re-render: matches primeiro, depois os demais
+    container.innerHTML = '';
+    [...match, ...rest].forEach(it => {
+      it.style.display = '';
+      container.appendChild(it);
+    });
+
+    noMsg.textContent = (match.length === 0) ? 'Produto não encontrado' : '';
+  };
+
+  // eventos
+  input.addEventListener('input', applyFilter);
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      // rola até a seção de ofertas
+      container.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-    msg.textContent = (match.length === 0 && filter.length > 0) ? "Produto não encontrado" : "";
   });
-    </script>
+
+  // estado inicial (opcional)
+  applyFilter();
+});
+</script>
 </body>
 </html>
