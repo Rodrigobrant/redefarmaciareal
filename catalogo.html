@@ -1,120 +1,305 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo - Farmácias Real</title>
-    <style>
-        body { margin: 0; font-family: Arial, sans-serif; background: #f8f8f8; color: #333; }
-        header { background-color: #7ED957; padding: 20px; text-align: center; color: white; }
-        header img { width: 150px; }
-        nav { background-color: #66b849; display: flex; justify-content: center; padding: 10px; }
-        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
-        section { padding: 40px 20px; max-width: 1200px; margin: auto; }
-        h2 { text-align: center; margin-bottom: 20px; }
-        .search-box { text-align: center; margin-bottom: 20px; }
-        .search-box input { padding: 10px; width: 50%; border: 1px solid #ccc; border-radius: 5px; }
-        .product-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-        .product-item { background: white; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .product-item img { width: 100px; margin-bottom: 10px; }
-        .whatsapp-btn { background-color: #25D366; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; display: inline-block; margin-top: 10px; }
-        footer { background-color: #fff; color: #333; text-align: left; padding: 20px; font-size: 14px; margin-top: 40px; }
-        footer img { width: 120px; margin-bottom: 10px; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo - Farmácias Real</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f8f9fa; }
+    header, footer { background: #28a745; color: white; text-align: center; padding: 15px; }
+    nav { background: #218838; padding: 10px; text-align: center; }
+    nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
+    h2 { text-align: center; margin: 20px 0; }
+    .search-container { text-align: center; margin: 20px; }
+    input[type="text"] { padding: 10px; width: 50%; border-radius: 5px; border: 1px solid #ccc; }
+    .catalogo { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px; }
+    .produto { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); width: 220px; text-align: center; }
+    .produto img { width: 200px; height: 150px; object-fit: cover; border-radius: 6px; margin-bottom: 10px; }
+    .produto h3 { margin: 10px 0; font-size: 16px; color: #333; }
+    .produto p { font-size: 14px; color: #666; }
+    .produto .preco { font-size: 18px; font-weight: bold; margin: 10px 0; color: #28a745; }
+    .produto button { background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+    .produto button:hover { background: #218838; }
+  </style>
 </head>
 <body>
-
-<header>
-    <img src="imagem/logo.png" alt="Farmácias Real">
+  <header>
     <h1>Farmácias Real</h1>
-</header>
+  </header>
 
-<nav>
+  <nav>
     <a href="index.html">Início</a>
     <a href="catalogo.html">Catálogo</a>
     <a href="#">Promoções</a>
     <a href="#">Informativos</a>
-    <a href="https://wa.me/5575998623295" target="_blank">Atendimento</a>
-</nav>
+    <a href="cadastro.html">Cadastro de Clientes</a>
+    <a href="#">Atendimento</a>
+  </nav>
 
-<section>
-    <h2>Catálogo de Produtos</h2>
-    <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Buscar produto...">
+  <h2>Catálogo de Produtos</h2>
+
+  <div class="search-container">
+    <input type="text" id="search" placeholder="Buscar produto..." onkeyup="filtrarProdutos()">
+  </div>
+
+  <div class="catalogo" id="catalogo">
+
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Álcool+Gel" alt="Álcool em Gel 70%">
+      <h3>Álcool em Gel 70%</h3>
+      <p>500ml</p>
+      <div class="preco">R$ 9,90</div>
+      <button>Comprar</button>
     </div>
-    <div class="product-list" id="productList">
-        <div class="product-item">
-            <img src="imagem/produto1.png" alt="Produto A">
-            <h3>Centrum AD</h3>
-            <p>R$ 39,00</p>
-            <a href="https://wa.me/5575998623295" class="whatsapp-btn">Comprar</a>
-        </div>
-        <div class="product-item">
-            <img src="imagem/produto2.png" alt="Produto B">
-            <h3>Paracetamol 750mg</h3>
-            <p>R$ 5,99</p>
-            <a href="https://wa.me/5575998623295" class="whatsapp-btn">Comprar</a>
-        </div>
-        <div class="product-item">
-            <img src="imagem/produto3.png" alt="Produto C">
-            <h3>Protetor Solar 50FPS</h3>
-            <p>R$ 69,90</p>
-            <a href="https://wa.me/5575998623295" class="whatsapp-btn">Comprar</a>
-        </div>
-        <div class="product-item">
-            <img src="imagem/produto4.png" alt="Produto D">
-            <h3>Shampoo Anticaspa</h3>
-            <p>R$ 24,90</p>
-            <a href="https://wa.me/5575998623295" class="whatsapp-btn">Comprar</a>
-        </div>
-        <div class="product-item">
-            <img src="imagem/produto5.png" alt="Produto E">
-            <h3>Vitamina C</h3>
-            <p>R$ 19,99</p>
-            <a href="https://wa.me/5575998623295" class="whatsapp-btn">Comprar</a>
-        </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Antisséptico" alt="Antisséptico Bucal">
+      <h3>Antisséptico Bucal</h3>
+      <p>250ml</p>
+      <div class="preco">R$ 12,90</div>
+      <button>Comprar</button>
     </div>
-</section>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Aspirina" alt="Aspirina 500mg">
+      <h3>Aspirina 500mg</h3>
+      <p>20 comprimidos</p>
+      <div class="preco">R$ 8,99</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Band-Aid" alt="Band-Aid">
+      <h3>Band-Aid</h3>
+      <p>20 unidades</p>
+      <div class="preco">R$ 5,99</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Colírio" alt="Colírio Lubrificante">
+      <h3>Colírio Lubrificante</h3>
+      <p>15ml</p>
+      <div class="preco">R$ 19,90</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Centrum" alt="Centrum AD">
+      <h3>Centrum AD</h3>
+      <p>30 cápsulas</p>
+      <div class="preco">R$ 39,90</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Dipirona" alt="Dipirona Sódica">
+      <h3>Dipirona Sódica</h3>
+      <p>20 comprimidos</p>
+      <div class="preco">R$ 6,50</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Desodorante" alt="Desodorante Aerosol">
+      <h3>Desodorante Aerosol</h3>
+      <p>150ml</p>
+      <div class="preco">R$ 11,90</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Escova" alt="Escova Dental">
+      <h3>Escova Dental</h3>
+      <p>Maciez extra</p>
+      <div class="preco">R$ 4,50</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Filtro+Solar" alt="Filtro Solar FPS 50">
+      <h3>Filtro Solar FPS 50</h3>
+      <p>200ml</p>
+      <div class="preco">R$ 49,90</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Ibuprofeno" alt="Ibuprofeno 400mg">
+      <h3>Ibuprofeno 400mg</h3>
+      <p>20 comprimidos</p>
+      <div class="preco">R$ 14,90</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Loção" alt="Loção Hidratante">
+      <h3>Loção Hidratante</h3>
+      <p>400ml</p>
+      <div class="preco">R$ 22,90</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Máscara" alt="Máscara Cirúrgica">
+      <h3>Máscara Cirúrgica</h3>
+      <p>50 unidades</p>
+      <div class="preco">R$ 15,00</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Vitaminas" alt="Multivitamínico">
+      <h3>Multivitamínico</h3>
+      <p>60 cápsulas</p>
+      <div class="preco">R$ 32,00</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Nebulizador" alt="Nebulizador">
+      <h3>Nebulizador</h3>
+      <p>Modelo portátil</p>
+      <div class="preco">R$ 199,00</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Óleo+Coco" alt="Óleo de Coco">
+      <h3>Óleo de Coco</h3>
+      <p>200ml</p>
+      <div class="preco">R$ 18,90</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Paracetamol" alt="Paracetamol 750mg">
+      <h3>Paracetamol 750mg</h3>
+      <p>20 comprimidos</p>
+      <div class="preco">R$ 7,50</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Protetor+Infantil" alt="Protetor Solar Infantil">
+      <h3>Protetor Solar Infantil</h3>
+      <p>120ml</p>
+      <div class="preco">R$ 39,90</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Sabonete" alt="Sabonete Antibacteriano">
+      <h3>Sabonete Antibacteriano</h3>
+      <p>90g</p>
+      <div class="preco">R$ 3,50</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Shampoo" alt="Shampoo Anticaspa">
+      <h3>Shampoo Anticaspa</h3>
+      <p>200ml</p>
+      <div class="preco">R$ 24,90</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Soro" alt="Soro Fisiológico">
+      <h3>Soro Fisiológico</h3>
+      <p>500ml</p>
+      <div class="preco">R$ 5,99</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Whey" alt="Suplemento Whey">
+      <h3>Suplemento Whey</h3>
+      <p>900g</p>
+      <div class="preco">R$ 89,90</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Termômetro" alt="Termômetro Digital">
+      <h3>Termômetro Digital</h3>
+      <p>Infravermelho</p>
+      <div class="preco">R$ 59,00</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Toalhas" alt="Toalhas Umedecidas">
+      <h3>Toalhas Umedecidas</h3>
+      <p>100 unidades</p>
+      <div class="preco">R$ 12,90</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Vitamina+C" alt="Vitamina C">
+      <h3>Vitamina C</h3>
+      <p>30 comprimidos</p>
+      <div class="preco">R$ 19,99</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Zinco" alt="Zinco Quelato">
+      <h3>Zinco Quelato</h3>
+      <p>60 cápsulas</p>
+      <div class="preco">R$ 29,90</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Creme+Dental" alt="Creme Dental">
+      <h3>Creme Dental</h3>
+      <p>90g</p>
+      <div class="preco">R$ 4,99</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Fralda" alt="Fralda Geriátrica">
+      <h3>Fralda Geriátrica</h3>
+      <p>Pacote com 20</p>
+      <div class="preco">R$ 49,90</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Lenço" alt="Lenço de Papel">
+      <h3>Lenço de Papel</h3>
+      <p>Caixa 50 folhas</p>
+      <div class="preco">R$ 6,90</div>
+      <button>Comprar</button>
+    </div>
+    
+    <div class="produto">
+      <img src="https://via.placeholder.com/200x150?text=Pomada" alt="Pomada para Assaduras">
+      <h3>Pomada para Assaduras</h3>
+      <p>120g</p>
+      <div class="preco">R$ 14,50</div>
+      <button>Comprar</button>
+    </div>
+    
+  </div>
 
-<footer>
-    <img src="imagem/anvisa.png" alt="Anvisa">
-    <p>A FARMÁCIA REAL segue as determinações da Anvisa. As informações contidas neste site não devem ser usadas para automedicação e não substituem, em hipótese alguma, as orientações dadas pelo profissional da área médica.</p>
-    <p>Razão Social: BRANT E FIRMO LTDA | Nome Fantasia: REDE FARMÁCIA REAL - DROGARIA E PERFUMARIA | CNPJ: 11.767.169/0001-98</p>
-    <p>Endereço: Praça Ladislau Cavalcante, 165 - Centro - Esplanada/BA, CEP: 48370-000 | Horário de Atendimento: Das 08:00 às 21:00</p>
-    <p>Farmacêutico Responsável: Danielle Santana Cruz | CRF/BA: 19535 | AFE: 0.99.396-2 | SAC: Tel.: (75) 9-9862-3295</p>
-    <p>Os preços e promoções são válidos apenas para compras via internet. As fotos contidas em nosso site são meramente ilustrativas. *Preços e disponibilidade sujeitos a alterações.</p>
-</footer>
+  <footer>
+    <p>&copy; 2025 Farmácias Real - Todos os direitos reservados.</p>
+  </footer>
 
-<script>
-    const searchInput = document.getElementById("searchInput");
-    const productList = document.getElementById("productList");
-    const products = Array.from(productList.getElementsByClassName("product-item"));
+  <script>
+    function filtrarProdutos() {
+      let input = document.getElementById("search").value.toLowerCase();
+      let produtos = document.getElementById("catalogo").getElementsByClassName("produto");
 
-    function sortProducts() {
-        products.sort((a, b) => {
-            let nameA = a.querySelector("h3").innerText.toLowerCase();
-            let nameB = b.querySelector("h3").innerText.toLowerCase();
-            return nameA.localeCompare(nameB);
-        });
-        productList.innerHTML = "";
-        products.forEach(p => productList.appendChild(p));
+      Array.from(produtos).forEach(produto => {
+        let nome = produto.getElementsByTagName("h3")[0].innerText.toLowerCase();
+        produto.style.display = nome.includes(input) ? "" : "none";
+      });
     }
-
-    searchInput.addEventListener("input", function() {
-        let filter = searchInput.value.toLowerCase();
-        products.forEach(product => {
-            let name = product.querySelector("h3").innerText.toLowerCase();
-            if (name.includes(filter)) {
-                product.style.display = "";
-            } else {
-                product.style.display = "none";
-            }
-        });
-    });
-
-    sortProducts();
-</script>
-
+  </script>
 </body>
 </html>
