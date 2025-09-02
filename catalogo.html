@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - Farmácias Real</title>
+    <style>
+        body { margin: 0; font-family: Arial, sans-serif; background: #f8f8f8; color: #333; }
+        header { background-color: #7ED957; padding: 20px; text-align: center; color: white; }
+        header img { width: 150px; }
+        nav { background-color: #66b849; display: flex; justify-content: center; padding: 10px; }
+        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
+        section { padding: 40px 20px; max-width: 1200px; margin: auto; }
+        h2 { text-align: center; margin-bottom: 20px; }
+        .search-box { text-align: center; margin-bottom: 20px; }
+        .search-box input { padding: 10px; width: 50%; border: 1px solid #ccc; border-radius: 5px; }
+        .product-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+        .product-item { background: white; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .product-item img { width: 100px; margin-bottom: 10px; }
+        .whatsapp-btn { background-color: #25D366; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; display: inline-block; margin-top: 10px; }
+        footer { background-color: #fff; color: #333; text-align: left; padding: 20px; font-size: 14px; margin-top: 40px; }
+        footer img { width: 120px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="imagem/logo.png" alt="Farmácias Real">
+    <h1>Farmácias Real</h1>
+</header>
+
+<nav>
+    <a href="index.html">Início</a>
+    <a href="catalogo.html">Catálogo</a>
+    <a href="#">Promoções</a>
+    <a href="#">Informativos</a>
+    <a href="https://wa.me/5575998623295" target="_blank">Atendimento</a>
+</nav>
+
+<section>
+    <h2>Catálogo de Produtos</h2>
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Buscar produto...">
+    </div>
+    <div class="product-list" id="productList">
+        <div class="product-item">
+            <img src="imagem/produto1.png" alt="Produto A">
+            <h3>Centrum AD</h3>
+            <p>R$ 39,00</p>
+            <a href="https://wa.me/5575998623295" class="whatsapp-btn">Comprar</a>
+        </div>
+        <div class="product-item">
+            <img src="imagem/produto2.png" alt="Produto B">
+            <h3>Paracetamol 750mg</h3>
+            <p>R$ 5,99</p>
+            <a href="https://wa.me/5575998623295" class="whatsapp-btn">Comprar</a>
+        </div>
+        <div class="product-item">
+            <img src="imagem/produto3.png" alt="Produto C">
+            <h3>Protetor Solar 50FPS</h3>
+            <p>R$ 69,90</p>
+            <a href="https://wa.me/5575998623295" class="whatsapp-btn">Comprar</a>
+        </div>
+        <div class="product-item">
+            <img src="imagem/produto4.png" alt="Produto D">
+            <h3>Shampoo Anticaspa</h3>
+            <p>R$ 24,90</p>
+            <a href="https://wa.me/5575998623295" class="whatsapp-btn">Comprar</a>
+        </div>
+        <div class="product-item">
+            <img src="imagem/produto5.png" alt="Produto E">
+            <h3>Vitamina C</h3>
+            <p>R$ 19,99</p>
+            <a href="https://wa.me/5575998623295" class="whatsapp-btn">Comprar</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <img src="imagem/anvisa.png" alt="Anvisa">
+    <p>A FARMÁCIA REAL segue as determinações da Anvisa. As informações contidas neste site não devem ser usadas para automedicação e não substituem, em hipótese alguma, as orientações dadas pelo profissional da área médica.</p>
+    <p>Razão Social: BRANT E FIRMO LTDA | Nome Fantasia: REDE FARMÁCIA REAL - DROGARIA E PERFUMARIA | CNPJ: 11.767.169/0001-98</p>
+    <p>Endereço: Praça Ladislau Cavalcante, 165 - Centro - Esplanada/BA, CEP: 48370-000 | Horário de Atendimento: Das 08:00 às 21:00</p>
+    <p>Farmacêutico Responsável: Danielle Santana Cruz | CRF/BA: 19535 | AFE: 0.99.396-2 | SAC: Tel.: (75) 9-9862-3295</p>
+    <p>Os preços e promoções são válidos apenas para compras via internet. As fotos contidas em nosso site são meramente ilustrativas. *Preços e disponibilidade sujeitos a alterações.</p>
+</footer>
+
+<script>
+    const searchInput = document.getElementById("searchInput");
+    const productList = document.getElementById("productList");
+    const products = Array.from(productList.getElementsByClassName("product-item"));
+
+    function sortProducts() {
+        products.sort((a, b) => {
+            let nameA = a.querySelector("h3").innerText.toLowerCase();
+            let nameB = b.querySelector("h3").innerText.toLowerCase();
+            return nameA.localeCompare(nameB);
+        });
+        productList.innerHTML = "";
+        products.forEach(p => productList.appendChild(p));
+    }
+
+    searchInput.addEventListener("input", function() {
+        let filter = searchInput.value.toLowerCase();
+        products.forEach(product => {
+            let name = product.querySelector("h3").innerText.toLowerCase();
+            if (name.includes(filter)) {
+                product.style.display = "";
+            } else {
+                product.style.display = "none";
+            }
+        });
+    });
+
+    sortProducts();
+</script>
+
+</body>
+</html>
