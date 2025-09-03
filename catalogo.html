@@ -5,60 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Catálogo - Farmácias Real</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f8f9fa; }
-    header, footer { background: #28a745; color: white; text-align: center; padding: 15px; }
-    nav { background: #218838; padding: 10px; text-align: center; }
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f9f9f9; }
+    header { background: #2e7d32; color: white; padding: 15px; text-align: center; font-size: 22px; font-weight: bold; }
+    nav { background: #43a047; padding: 10px; text-align: center; }
     nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
-    h2 { text-align: center; margin: 20px 0; }
-    .search-container { text-align: center; margin: 20px; }
-    input[type="text"] { padding: 10px; width: 50%; border-radius: 5px; border: 1px solid #ccc; }
-    .catalogo { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px; }
-    .produto { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); width: 220px; text-align: center; }
-    .produto img { width: 200px; height: 150px; object-fit: cover; border-radius: 6px; margin-bottom: 10px; }
-    .produto h3 { margin: 10px 0; font-size: 16px; color: #333; }
-    .produto p { font-size: 14px; color: #666; }
-    .produto .preco { font-size: 18px; font-weight: bold; margin: 10px 0; color: #28a745; }
-    .produto button { background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-    .produto button:hover { background: #218838; }
+    section { padding: 20px; text-align: center; }
+    h2 { margin-bottom: 20px; }
+    #search { width: 60%; padding: 10px; margin-bottom: 20px; border-radius: 5px; border: 1px solid #ccc; }
+    .produtos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 20px; }
+    .produto-card { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .produto-card img { width: 120px; height: 120px; object-fit: cover; margin-bottom: 10px; }
+    .produto-card h3 { font-size: 18px; margin: 10px 0 5px; }
+    .produto-card p { margin: 5px 0; }
+    .preco { font-size: 18px; color: #2e7d32; font-weight: bold; }
+    .btn { display: inline-block; margin-top: 10px; padding: 10px 15px; background: #43a047; color: white; border-radius: 5px; text-decoration: none; font-weight: bold; }
+    .btn:hover { background: #2e7d32; }
+    footer { margin-top: 40px; background: #2e7d32; color: white; text-align: center; padding: 15px; }
   </style>
-  <style>
-  /* Força links do WhatsApp dentro dos cards a virarem BOTÃO */
-  .product-card a[href*="wa.me"],
-  .product-card a[href*="api.whatsapp.com"] {
-    display: inline-block;
-    background: #25d366;
-    color: #fff !important;
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-weight: 700;
-    text-decoration: none !important;
-    box-shadow: 0 2px 6px rgba(0,0,0,.15);
-    transition: transform .15s ease, background .15s ease;
-  }
-  .product-card a[href*="wa.me"]:hover,
-  .product-card a[href*="api.whatsapp.com"]:hover {
-    background: #1ebe5b;
-    transform: translateY(-1px);
-  }
-  .product-card a[href*="wa.me"]:visited,
-  .product-card a[href*="api.whatsapp.com"]:visited {
-    color: #fff !important;
-  }
-</style>
-
 </head>
 <body>
-<script>
-  function wpp(msg){
-    const fone = "5575998623295";
-    const url = "https://wa.me/" + fone + "?text=" + encodeURIComponent(msg);
-    window.open(url, "_blank");
-  }
-</script>
-  <header>
-    <h1>Farmácias Real</h1>
-  </header>
-
+  <header>Farmácias Real</header>
   <nav>
     <a href="index.html">Início</a>
     <a href="catalogo.html">Catálogo</a>
@@ -68,297 +34,65 @@
     <a href="#">Atendimento</a>
   </nav>
 
-  <h2>Catálogo de Produtos</h2>
-
-  <div class="search-container">
-    <input type="text" id="search" placeholder="Buscar produto..." onkeyup="filtrarProdutos()">
-  </div>
-
-  <div class="catalogo" id="catalogo">
-
-    <div class="produto">
-      <img src="https://placehold.co/150x150?text=Produto" alt="Álcool em Gel 70%">
-      <h3>Álcool em Gel 70%</h3>
-      <p>500ml</p>
-      <div class="preco">R$ 9,90</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Álcool em Gel 70% - R$ 9,90')"> Comprar no WhatsApp </button>
-   </div>
-    
-    <div class="produto">
-      <img src="https://placehold.co/150x150?text=Produto" alt="Antisséptico Bucal">
-      <h3>Antisséptico Bucal</h3>
-      <p>250ml</p>
-      <div class="preco">R$ 12,90</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Antisséptico Bucal 250ml - R$ 12,90')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-      <img src="https://placehold.co/150x150?text=Produto" alt="Aspirina 500mg">
-      <h3>Aspirina 500mg</h3>
-      <p>20 comprimidos</p>
-      <div class="preco">R$ 8,99</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Aspirina 500mg - R$ 8,99')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-      <img src="https://placehold.co/150x150?text=Produto" alt="Band-Aid">
-      <h3>Band-Aid</h3>
-      <p>20 unidades</p>
-      <div class="preco">R$ 5,99</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Band-Aid 20 unidades - R$ 5,99')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-      <img src="https://placehold.co/150x150?text=Produto" alt="Colírio Lubrificante">
-      <h3>Colírio Lubrificante</h3>
-      <p>15ml</p>
-      <div class="preco">R$ 19,90</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Colírio Lubrificante 15ml - R$ 19,90')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-      <img src="https://placehold.co/150x150?text=Produto" alt="Centrum AD">
-      <h3>Centrum AD</h3>
-      <p>30 cápsulas</p>
-      <div class="preco">R$ 39,90</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Centrum AD 30 cápsulas - R$ 39,90')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-      <img src="https://placehold.co/150x150?text=Produto" alt="Dipirona Sódica">
-      <h3>Dipirona Sódica</h3>
-      <p>20 comprimidos</p>
-      <div class="preco">R$ 6,50</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Dipirona Sódica - R$ 6,50')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-     <img src="https://placehold.co/150x150?text=Produto" alt="Desodorante Aerosol">
-      <h3>Desodorante Aerosol</h3>
-      <p>150ml</p>
-      <div class="preco">R$ 11,90</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Desodorante Aerosol 150ml - R$ 11,90')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-     <img src="https://placehold.co/150x150?text=Produto" alt="Escova Dental">
-      <h3>Escova Dental</h3>
-      <p>Maciez extra</p>
-      <div class="preco">R$ 4,50</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Escova Dental Maciez Extra - R$ 4,50')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-     <img src="https://placehold.co/150x150?text=Produto" alt="Filtro Solar FPS 50">
-      <h3>Filtro Solar FPS 50</h3>
-      <p>200ml</p>
-      <div class="preco">R$ 49,90</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Filtro Solar FPS 50 200ml - R$ 49,90')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-      <img src="https://placehold.co/150x150?text=Produto" alt="Ibuprofeno 400mg">
-      <h3>Ibuprofeno 400mg</h3>
-      <p>20 comprimidos</p>
-      <div class="preco">R$ 14,90</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Ibuprofeno 400mg 20 comprimidos - R$ 14,90')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-      <img src="https://placehold.co/150x150?text=Produto" alt="Loção Hidratante">
-      <h3>Loção Hidratante</h3>
-      <p>400ml</p>
-      <div class="preco">R$ 22,90</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Loção Hidratante 400ml - R$ 22,90')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-      <img src="https://placehold.co/150x150?text=Produto" alt="Máscara Cirúrgica">
-      <h3>Máscara Cirúrgica</h3>
-      <p>50 unidades</p>
-      <div class="preco">R$ 15,00</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Máscara cirúrgica 50 unidades - R$ 15,00')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-     <img src="https://placehold.co/150x150?text=Produto" alt="Multivitamínico">
-      <h3>Multivitamínico</h3>
-      <p>60 cápsulas</p>
-      <div class="preco">R$ 32,00</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Multivitaminico 60 capsulas - R$ 32,00')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-      <img src="https://placehold.co/150x150?text=Produto" alt="Nebulizador">
-      <h3>Nebulizador</h3>
-      <p>Modelo portátil</p>
-      <div class="preco">R$ 199,00</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Nebulizador Portatil - R$ 199,00')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-     <img src="https://placehold.co/150x150?text=Produto" alt="Óleo de Coco">
-      <h3>Óleo de Coco</h3>
-      <p>200ml</p>
-      <div class="preco">R$ 18,90</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Oleo de coco 200ml - R$ 18,90')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-     <img src="https://placehold.co/150x150?text=Produto" alt="Paracetamol 750mg">
-      <h3>Paracetamol 750mg</h3>
-      <p>20 comprimidos</p>
-      <div class="preco">R$ 7,50</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Paracetamol 750mg 20 comprimidos - R$ 7,50')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-     <img src="https://placehold.co/150x150?text=Produto" alt="Protetor Solar Infantil">
-      <h3>Protetor Solar Infantil</h3>
-      <p>120ml</p>
-      <div class="preco">R$ 39,90</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Protetor Solar Infantil 120ml - R$ 39,90')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-     <img src="https://placehold.co/150x150?text=Produto" alt="Sabonete Antibacteriano">
-      <h3>Sabonete Antibacteriano</h3>
-      <p>90g</p>
-      <div class="preco">R$ 3,50</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Sabonete Antibacteriano 90g - R$ 3,50')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-      <img src="https://placehold.co/150x150?text=Produto" alt="Shampoo Anticaspa">
-      <h3>Shampoo Anticaspa</h3>
-      <p>200ml</p>
-      <div class="preco">R$ 24,90</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Shampoo Anticaspa 200ml - R$ 24,90')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-      <img src="https://placehold.co/150x150?text=Produto" alt="Soro Fisiológico">
-      <h3>Soro Fisiológico</h3>
-      <p>500ml</p>
-      <div class="preco">R$ 5,99</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Soro Fisiologico 500ml - R$ 5,99')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-      <img src="https://placehold.co/150x150?text=Produto" alt="Suplemento Whey">
-      <h3>Suplemento Whey</h3>
-      <p>900g</p>
-      <div class="preco">R$ 89,90</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Suplemento Whey 900g - R$ 89,90')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-      <img src="https://placehold.co/150x150?text=Produto" alt="Termômetro Digital">
-      <h3>Termômetro Digital</h3>
-      <p>Infravermelho</p>
-      <div class="preco">R$ 59,00</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Termometro Digital Infravermelho - R$ 59,90')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-      <img src="https://placehold.co/150x150?text=Produto" alt="Toalhas Umedecidas">
-      <h3>Toalhas Umedecidas</h3>
-      <p>100 unidades</p>
-      <div class="preco">R$ 12,90</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Toalha Umedecida 100 unidades - R$ 12,90')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-      <img src="https://placehold.co/150x150?text=Produto" alt="Vitamina C">
-      <h3>Vitamina C</h3>
-      <p>30 comprimidos</p>
-      <div class="preco">R$ 19,99</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Vitamina C 30 comprimidos - R$ 19,99')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-     <img src="https://placehold.co/150x150?text=Produto" alt="Zinco Quelato">
-      <h3>Zinco Quelato</h3>
-      <p>60 cápsulas</p>
-      <div class="preco">R$ 29,90</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Zinco Quelato 60 capsulas - R$ 29,90')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-      <img src="https://placehold.co/150x150?text=Produto" alt="Creme Dental">
-      <h3>Creme Dental</h3>
-      <p>90g</p>
-      <div class="preco">R$ 4,99</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Creme Dental 90g - R$ 4,99')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-      <img src="https://placehold.co/150x150?text=Produto" alt="Fralda Geriátrica">
-      <h3>Fralda Geriátrica</h3>
-      <p>Pacote com 20</p>
-      <div class="preco">R$ 49,90</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Fralda Geriatrica pacote com 20 - R$ 49,90')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-      <img src="https://placehold.co/150x150?text=Produto" alt="Lenço de Papel">
-      <h3>Lenço de Papel</h3>
-      <p>Caixa 50 folhas</p>
-      <div class="preco">R$ 6,90</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Lenco de papel caixa 50 folhas - R$ 6,90')"> Comprar no WhatsApp </button> 
-    </div>
-    
-    <div class="produto">
-      <img src="https://placehold.co/150x150?text=Produto" alt="Pomada para Assaduras">
-      <h3>Pomada para Assaduras</h3>
-      <p>120g</p>
-      <div class="preco">R$ 14,50</div>
-      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Pomada para Assadura 120g - R$ 14,50')"> Comprar no WhatsApp </button> 
-    </div>
-    
-  </div>
+  <section>
+    <h2>Catálogo de Produtos</h2>
+    <input type="text" id="search" placeholder="Buscar produto...">
+    <div id="produtos-grid" class="produtos-grid"></div>
+  </section>
 
   <footer>
     <p>&copy; 2025 Farmácias Real - Todos os direitos reservados.</p>
   </footer>
-<script>
-const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?gid=608567924&single=true&output=csv";
 
-async function carregarProdutos() {
-  const res = await fetch(sheetUrl);
-  const text = await res.text();
-  const linhas = text.trim().split("\n");
-  const grid = document.getElementById("productGrid");
-
-  linhas.slice(1).forEach(linha => {
-    const [nome, desc, preco, imagem, mensagem] = linha.split(",");
-
-    const card = document.createElement("div");
-    card.className = "product-card";
-    card.innerHTML = `
-      <img src="${imagem}" alt="${nome}">
-      <h3>${nome}</h3>
-      <p>${desc}</p>
-      <p class="price">${preco}</p>
-      <a href="https://wa.me/5575998623295?text=${encodeURIComponent(mensagem)}" target="_blank" class="btn-whatsapp">
-        Comprar no WhatsApp
-      </a>
-    `;
-    grid.appendChild(card);
-  });
-}
-     document.addEventListener("DOMContentLoaded", carregarProdutos);
-  </script>
   <script>
-    function filtrarProdutos() {
-      let input = document.getElementById("search").value.toLowerCase();
-      let produtos = document.getElementById("catalogo").getElementsByClassName("produto");
+    document.addEventListener("DOMContentLoaded", () => {
+      const grid = document.getElementById("produtos-grid");
+      const search = document.getElementById("search");
 
-      Array.from(produtos).forEach(produto => {
-        let nome = produto.getElementsByTagName("h3")[0].innerText.toLowerCase();
-        produto.style.display = nome.includes(input) ? "" : "none";
-      });
-    }
+      async function carregarProdutos() {
+        try {
+          const response = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?gid=608567924&single=true&output=csv");
+          const data = await response.text();
+          const linhas = data.split("\n").slice(1);
+          
+          let produtos = linhas.map(linha => {
+            const [nome, descricao, preco, imagem] = linha.split(",");
+            return { nome, descricao, preco, imagem };
+          }).filter(p => p.nome);
+
+          produtos.sort((a, b) => a.nome.localeCompare(b.nome));
+
+          function exibirProdutos(lista) {
+            grid.innerHTML = "";
+            lista.forEach(p => {
+              const card = document.createElement("div");
+              card.className = "produto-card";
+              card.innerHTML = `
+                <img src="${p.imagem || 'https://via.placeholder.com/120'}" alt="${p.nome}">
+                <h3>${p.nome}</h3>
+                <p>${p.descricao}</p>
+                <p class="preco">R$ ${p.preco}</p>
+                <a href="https://wa.me/5575998623295?text=Tenho%20interesse%20no%20produto%20${encodeURIComponent(p.nome)}" target="_blank" class="btn">Comprar no WhatsApp</a>
+              `;
+              grid.appendChild(card);
+            });
+          }
+
+          exibirProdutos(produtos);
+
+          search.addEventListener("input", () => {
+            const termo = search.value.toLowerCase();
+            const filtrados = produtos.filter(p => p.nome.toLowerCase().includes(termo));
+            exibirProdutos(filtrados);
+          });
+
+        } catch (e) {
+          console.error("Erro ao carregar produtos:", e);
+        }
+      }
+
+      carregarProdutos();
+    });
   </script>
 </body>
 </html>
