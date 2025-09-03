@@ -321,7 +321,34 @@
   <footer>
     <p>&copy; 2025 Farmácias Real - Todos os direitos reservados.</p>
   </footer>
+<script>
+const sheetUrl = https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?gid=608567924&single=true&output=csv;
 
+async function carregarProdutos() {
+  const res = await fetch(sheetUrl);
+  const text = await res.text();
+  const linhas = text.trim().split("\n");
+  const grid = document.getElementById("productGrid");
+
+  linhas.slice(1).forEach(linha => {
+    const [nome, desc, preco, imagem, mensagem] = linha.split(",");
+
+    const card = document.createElement("div");
+    card.className = "product-card";
+    card.innerHTML = `
+      <img src="${imagem}" alt="${nome}">
+      <h3>${nome}</h3>
+      <p>${desc}</p>
+      <p class="price">${preco}</p>
+      <a href="https://wa.me/5575998623295?text=${encodeURIComponent(mensagem)}" target="_blank" class="btn-whatsapp">
+        Comprar no WhatsApp
+      </a>
+    `;
+    grid.appendChild(card);
+  });
+}
+     document.addEventListener("DOMContentLoaded", carregarProdutos);
+  </script>
   <script>
     function filtrarProdutos() {
       let input = document.getElementById("search").value.toLowerCase();
