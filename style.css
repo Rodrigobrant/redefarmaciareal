@@ -126,6 +126,23 @@ body {
     background-color: transparent;
 }
 
+.btn-whatsapp {
+    display: inline-block;
+    background-color: #25d366; /* Verde WhatsApp */
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-whatsapp:hover {
+    background-color: #1ebe5b; /* Tom mais escuro no hover */
+}
+
+
 .whatsapp-fixo img {
     width: 60px;
     height: 60px;
