@@ -48,6 +48,13 @@
 
 </head>
 <body>
+<script>
+  function wpp(msg){
+    const fone = "5575998623295";
+    const url = "https://wa.me/" + fone + "?text=" + encodeURIComponent(msg);
+    window.open(url, "_blank");
+  }
+</script>
   <header>
     <h1>Farmácias Real</h1>
   </header>
@@ -74,7 +81,7 @@
       <h3>Álcool em Gel 70%</h3>
       <p>500ml</p>
       <div class="preco">R$ 9,90</div>
-      <a href="https://wa.me/5575998623295?text=Olá! Gostaria de encomendar Álcool em Gel 70% - R$ 9,90" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">Comprar</a> 
+      <button class="btn-whatsapp" onclick="wpp('Olá! Gostaria de encomendar Álcool em Gel 70% - R$ 9,90')"> Comprar no WhatsApp </button>
    </div>
     
     <div class="produto">
