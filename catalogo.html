@@ -45,78 +45,47 @@
   </footer>
 
   <script>
-  const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?gid=608567924&single=true&output=csv";
+async function carregarProdutos() {
+    const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?gid=608567924&single=true&output=csv";
 
-  async function carregarProdutos() {
-    const resposta = await fetch(url);
-    const dados = await resposta.text();
+    const response = await fetch(url);
+    const data = await response.text();
 
-    const linhas = dados.split("\n").map(l => l.split(","));
-    const cabecalho = linhas[0].map(h => h.trim().toLowerCase());
-    const produtos = linhas.slice(1).map(linha => {
-      let obj = {};
-      cabecalho.forEach((col, i) => obj[col] = linha[i] ? linha[i].trim() : "");
-      return obj;
-    });
-
-    const grid = document.getElementById("produtos");
+    const linhas = data.split("\n").slice(1); // pula o cabeçalho
+    const grid = document.getElementById("product-grid");
     grid.innerHTML = "";
 
-    produtos.forEach(produto => {
-      const card = document.createElement("div");
-      card.className = "card";
+    linhas.forEach(linha => {
+        const colunas = linha.split(",");
 
-      // Imagem
-      const img = document.createElement("img");
-      img.src = produto.imagem || "https://via.placeholder.com/150?text=Produto";
-      img.alt = produto.nome;
-      card.appendChild(img);
+        if (colunas.length >= 4) {
+            const nome = colunas[0].trim();
+            const descricao = colunas[1].trim();
+            const preco = parseFloat(colunas[2].trim()); // valor puro da planilha
+            const imagem = colunas[3].trim();
 
-      // Nome
-      const nome = document.createElement("h3");
-      nome.textContent = produto.nome;
-      card.appendChild(nome);
+            // Formata o preço no padrão brasileiro
+            const precoFmt = new Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL"
+            }).format(preco);
 
-      // Descrição
-      const desc = document.createElement("p");
-      desc.textContent = produto.descricao;
-      card.appendChild(desc);
-
-      // Preço corrigido
-      const preco = document.createElement("p");
-      preco.className = "preco";
-      if (produto.preco) {
-        let valor = produto.preco.replace("R$", "").replace(",", ".").trim();
-        if (!isNaN(valor)) {
-          preco.textContent = `R$ ${parseFloat(valor).toFixed(2).replace(".", ",")}`;
-        } else {
-          preco.textContent = produto.preco; // já está formatado na planilha
+            // Cria o card do produto
+            const card = document.createElement("div");
+            card.className = "card";
+            card.innerHTML = `
+                <img src="${imagem || 'https://via.placeholder.com/150'}" alt="${nome}">
+                <h3>${nome}</h3>
+                <p>${descricao}</p>
+                <p class="preco">${precoFmt}</p>
+                <a class="btn" href="https://wa.me/5575998623295?text=Olá! Tenho interesse no produto ${nome} - ${precoFmt}" target="_blank">Comprar no WhatsApp</a>
+            `;
+            grid.appendChild(card);
         }
-      }
-      card.appendChild(preco);
-
-      // Botão WhatsApp
-      const link = document.createElement("a");
-      link.className = "btn";
-      link.href = `https://wa.me/5575998623295?text=Olá! Tenho interesse no produto: ${produto.nome} - ${preco.textContent}`;
-      link.target = "_blank";
-      link.textContent = "Comprar no WhatsApp";
-      card.appendChild(link);
-
-      grid.appendChild(card);
     });
-  }
+}
 
-  // Filtro de busca
-  document.getElementById("busca").addEventListener("input", function () {
-    const termo = this.value.toLowerCase();
-    document.querySelectorAll(".card").forEach(card => {
-      const nome = card.querySelector("h3").textContent.toLowerCase();
-      card.style.display = nome.includes(termo) ? "" : "none";
-    });
-  });
-
-  carregarProdutos();
+carregarProdutos();
 </script>
 </body>
 </html>
