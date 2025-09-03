@@ -21,6 +21,31 @@
     .produto button { background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
     .produto button:hover { background: #218838; }
   </style>
+  <style>
+  /* Força links do WhatsApp dentro dos cards a virarem BOTÃO */
+  .product-card a[href*="wa.me"],
+  .product-card a[href*="api.whatsapp.com"] {
+    display: inline-block;
+    background: #25d366;
+    color: #fff !important;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,.15);
+    transition: transform .15s ease, background .15s ease;
+  }
+  .product-card a[href*="wa.me"]:hover,
+  .product-card a[href*="api.whatsapp.com"]:hover {
+    background: #1ebe5b;
+    transform: translateY(-1px);
+  }
+  .product-card a[href*="wa.me"]:visited,
+  .product-card a[href*="api.whatsapp.com"]:visited {
+    color: #fff !important;
+  }
+</style>
+
 </head>
 <body>
   <header>
