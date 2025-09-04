@@ -1,136 +1,96 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catálogo - Farmácias Real</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f5f5f5; }
-    header { background: #2e7d32; padding: 15px; text-align: center; color: white; font-size: 24px; font-weight: bold; }
-    nav { background: #1b5e20; padding: 10px; text-align: center; }
-    nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
-    h2 { text-align: center; margin: 20px 0; }
-    #search { display: block; margin: 0 auto 20px auto; padding: 10px; width: 50%; border: 1px solid #ccc; border-radius: 5px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 20px; }
-    .card { background: white; border-radius: 10px; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-    .card img { width: 100px; height: 100px; object-fit: contain; margin-bottom: 10px; }
-    .price { font-size: 18px; font-weight: bold; color: green; margin: 10px 0; }
-    .whatsapp-btn { display: inline-block; background: #25d366; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px; font-weight: bold; }
-    footer { background: #2e7d32; text-align: center; padding: 15px; color: white; margin-top: 20px; }
-  </style>
-</head>
-<body>
-  <header>Farmácias Real</header>
-  <nav>
-    <a href="index.html">Início</a>
-    <a href="catalogo.html">Catálogo</a>
-    <a href="promocoes.html">Promoções</a>
-    <a href="informativos.html">Informativos</a>
-    <a href="cadastro.html">Cadastro de Clientes</a>
-    <a href="atendimento.html">Atendimento</a>
-  </nav>
+<script>
+  const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?gid=608567924&single=true&output=csv";
+  const whatsappNumero = "5575998623295"; // Número da farmácia no formato internacional
 
-  <h2>Catálogo de Produtos</h2>
-  <input type="text" id="search" placeholder="Buscar produto...">
-
-  <div class="grid" id="produtos"></div>
-
-  <footer>© 2025 Farmácias Real - Todos os direitos reservados.</footer>
-
-  <script>
-    const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?gid=608567924&single=true&output=csv";
-
-    // Função para parsear CSV respeitando aspas e vírgulas nos campos
-    function parseCSV(text) {
-      const linhas = text.split('\n');
-      return linhas.map(linha => {
-        const resultado = [];
-        let campo = '';
-        let dentroAspas = false;
-        for (let i = 0; i < linha.length; i++) {
-          const char = linha[i];
-          if (char === '"' && linha[i+1] !== '"') {
-            dentroAspas = !dentroAspas;
-          } else if (char === ',' && !dentroAspas) {
-            resultado.push(campo);
-            campo = '';
-          } else {
-            campo += char;
-          }
+  // Função para parsear CSV respeitando aspas e vírgulas nos campos
+  function parseCSV(text) {
+    const linhas = text.split('\n');
+    return linhas.map(linha => {
+      const resultado = [];
+      let campo = '';
+      let dentroAspas = false;
+      for (let i = 0; i < linha.length; i++) {
+        const char = linha[i];
+        if (char === '"' && linha[i+1] !== '"') {
+          dentroAspas = !dentroAspas;
+        } else if (char === ',' && !dentroAspas) {
+          resultado.push(campo);
+          campo = '';
+        } else {
+          campo += char;
         }
-        resultado.push(campo);
-        return resultado;
-      });
-    }
-
-    function formatarPreco(precoStr) {
-      precoStr = precoStr.replace(/"/g, '').replace(/\s/g, '').replace('R$', '');
-      let valor = precoStr.replace(',', '.');
-      valor = parseFloat(valor);
-      if (isNaN(valor)) return "Preço indisponível";
-      return 'R$ ' + valor.toFixed(2).replace('.', ',');
-    }
-
-    async function carregarProdutos() {
-      const response = await fetch(url);
-      const data = await response.text();
-      const linhas = parseCSV(data).slice(1); // Ignora cabeçalho
-      const grid = document.getElementById("produtos");
-
-      linhas.forEach(colunas => {
-        if (colunas.length < 5) return;
-
-        const produto = {
-          nome: colunas[0].trim(),
-          descricao: colunas[1].trim(),
-          preco: colunas[2].trim(),
-          imagem: colunas[3] ? colunas[3].trim() : "imagens/placeholder.png",
-          link: colunas[4] ? colunas[4].trim() : "#"
-        };
-
-        const card = document.createElement("div");
-        card.className = "card";
-
-        const img = document.createElement("img");
-        img.src = produto.imagem && produto.imagem !== "" ? produto.imagem : "imagens/placeholder.png";
-        img.alt = produto.nome;
-
-        const nome = document.createElement("h3");
-        nome.textContent = produto.nome;
-
-        const descricao = document.createElement("p");
-        descricao.textContent = produto.descricao;
-
-        const price = document.createElement("p");
-        price.className = "price";
-        price.textContent = formatarPreco(produto.preco);
-
-        const botao = document.createElement("a");
-        botao.className = "whatsapp-btn";
-        botao.href = produto.link;
-        botao.target = "_blank";
-        botao.textContent = "Comprar no WhatsApp";
-
-        card.appendChild(img);
-        card.appendChild(nome);
-        card.appendChild(descricao);
-        card.appendChild(price);
-        card.appendChild(botao);
-
-        grid.appendChild(card);
-      });
-    }
-
-    carregarProdutos();
-
-    document.getElementById("search").addEventListener("input", function () {
-      const termo = this.value.toLowerCase();
-      const cards = document.querySelectorAll(".card");
-      cards.forEach(card => {
-        const nome = card.querySelector("h3").textContent.toLowerCase();
-        card.style.display = nome.includes(termo) ? "block" : "none";
-      });
+      }
+      resultado.push(campo);
+      return resultado;
     });
-  </script>
-</body>
-</html>
+  }
+
+  function formatarPreco(precoStr) {
+    precoStr = precoStr.replace(/"/g, '').replace(/\s/g, '').replace('R$', '');
+    let valor = precoStr.replace(',', '.');
+    valor = parseFloat(valor);
+    if (isNaN(valor)) return "Preço indisponível";
+    return 'R$ ' + valor.toFixed(2).replace('.', ',');
+  }
+
+  async function carregarProdutos() {
+    const response = await fetch(url);
+    const data = await response.text();
+    const linhas = parseCSV(data).slice(1); // Ignora cabeçalho
+    const grid = document.getElementById("produtos");
+
+    linhas.forEach(colunas => {
+      if (colunas.length < 5) return;
+
+      const produto = {
+        nome: colunas[0].trim(),
+        descricao: colunas[1].trim(),
+        preco: colunas[2].trim(),
+        imagem: colunas[3] ? colunas[3].trim() : "imagens/placeholder.png"
+      };
+
+      const card = document.createElement("div");
+      card.className = "card";
+
+      const img = document.createElement("img");
+      img.src = produto.imagem && produto.imagem !== "" ? produto.imagem : "imagens/placeholder.png";
+      img.alt = produto.nome;
+
+      const nome = document.createElement("h3");
+      nome.textContent = produto.nome;
+
+      const descricao = document.createElement("p");
+      descricao.textContent = produto.descricao;
+
+      const price = document.createElement("p");
+      price.className = "price";
+      price.textContent = formatarPreco(produto.preco);
+
+      const botao = document.createElement("a");
+      botao.className = "whatsapp-btn";
+      const mensagem = encodeURIComponent(`Olá! Gostaria de comprar ${produto.nome} - ${price.textContent}`);
+      botao.href = `https://wa.me/${whatsappNumero}?text=${mensagem}`;
+      botao.target = "_blank";
+      botao.textContent = "Comprar no WhatsApp";
+
+      card.appendChild(img);
+      card.appendChild(nome);
+      card.appendChild(descricao);
+      card.appendChild(price);
+      card.appendChild(botao);
+
+      grid.appendChild(card);
+    });
+  }
+
+  carregarProdutos();
+
+  document.getElementById("search").addEventListener("input", function () {
+    const termo = this.value.toLowerCase();
+    const cards = document.querySelectorAll(".card");
+    cards.forEach(card => {
+      const nome = card.querySelector("h3").textContent.toLowerCase();
+      card.style.display = nome.includes(termo) ? "block" : "none";
+    });
+  });
+</script>
