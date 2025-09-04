@@ -9,27 +9,29 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background: #f8f9fa;
+      background-color: #f8f9fa;
     }
-    header, footer {
-      background: #2e7d32;
-      color: white;
-      text-align: center;
+    header {
+      background-color: #28a745;
       padding: 15px;
+      text-align: center;
+      color: #fff;
+      font-size: 24px;
+      font-weight: bold;
     }
     nav {
-      background: #388e3c;
+      background-color: #218838;
       display: flex;
       justify-content: center;
-      gap: 20px;
       padding: 10px;
     }
     nav a {
-      color: white;
+      color: #fff;
+      margin: 0 15px;
       text-decoration: none;
       font-weight: bold;
     }
-    h2 {
+    h1 {
       text-align: center;
       margin: 20px 0;
     }
@@ -38,137 +40,136 @@
       margin: 0 auto 20px auto;
       padding: 10px;
       width: 50%;
-      max-width: 400px;
       border: 1px solid #ccc;
       border-radius: 5px;
     }
     .grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 20px;
       padding: 20px;
     }
     .card {
-      background: white;
+      background: #fff;
+      padding: 15px;
       border: 1px solid #ddd;
       border-radius: 10px;
-      padding: 15px;
-      width: 200px;
       text-align: center;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
     .card img {
-      width: 100%;
-      height: 120px;
-      object-fit: cover;
+      max-width: 100px;
       margin-bottom: 10px;
     }
     .card h3 {
-      font-size: 16px;
       margin: 10px 0 5px;
+      font-size: 18px;
     }
     .card p {
       margin: 5px 0;
+      color: #555;
     }
-    .preco {
+    .price {
+      font-size: 18px;
       color: green;
       font-weight: bold;
-      margin: 8px 0;
+      margin: 10px 0;
     }
-    .btn-whatsapp {
-      display: inline-block;
-      background: #25d366;
-      color: white;
+    .whatsapp-btn {
+      background: #28a745;
+      color: #fff;
       padding: 10px;
+      border: none;
       border-radius: 5px;
+      cursor: pointer;
       text-decoration: none;
-      font-weight: bold;
+      display: inline-block;
+      margin-top: 10px;
     }
     footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #28a745;
+      color: #fff;
       margin-top: 20px;
-      font-size: 14px;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Farmácias Real</h1>
-  </header>
+  <header>Farmácias Real</header>
+
   <nav>
     <a href="index.html">Início</a>
     <a href="catalogo.html">Catálogo</a>
-    <a href="#">Promoções</a>
-    <a href="#">Informativos</a>
+    <a href="promocoes.html">Promoções</a>
+    <a href="informativos.html">Informativos</a>
     <a href="cadastro.html">Cadastro de Clientes</a>
-    <a href="#">Atendimento</a>
+    <a href="atendimento.html">Atendimento</a>
   </nav>
 
-  <h2>Catálogo de Produtos</h2>
+  <h1>Catálogo de Produtos</h1>
   <input type="text" id="search" placeholder="Buscar produto...">
-  
-  <div class="grid" id="produtosGrid"></div>
 
-  <footer>
-    © 2025 Farmácias Real - Todos os direitos reservados.
-  </footer>
+  <div class="grid" id="produtos"></div>
+
+  <footer>© 2025 Farmácias Real - Todos os direitos reservados.</footer>
 
   <script>
-    // Função para limpar e formatar preços
-    function formatarPreco(valor) {
-      if (valor == null) return "";
-      let s = String(valor).trim();
-      // remove aspas no início/fim
-      s = s.replace(/^[“”"']+|[“”"']+$/g, "").trim();
-      // já tem R$? normaliza
-      if (/R\$\s*/i.test(s)) {
-        return s.replace(/R\$\s*/i, "R$ ").replace(/\s+/g, " ").trim();
-      }
-      // se for número, formata como moeda BRL
-      const num = Number(s.replace(/\./g, "").replace(",", "."));
-      if (!isNaN(num)) {
-        return num.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-      }
-      return s;
-    }
+    const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?gid=608567924&single=true&output=csv";
 
-    // Carregar produtos do Google Sheets
     async function carregarProdutos() {
-      const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?gid=608567924&single=true&output=csv";
-      const resposta = await fetch(url);
-      const csv = await resposta.text();
-      const linhas = csv.split("\n").map(l => l.split(","));
-      const cabecalho = linhas[0].map(h => h.trim());
-      const dados = linhas.slice(1).map(l => {
-        let obj = {};
-        cabecalho.forEach((h, i) => obj[h] = l[i] ? l[i].trim() : "");
-        return obj;
-      });
+      const response = await fetch(url);
+      const data = await response.text();
+      const linhas = data.split("\n").slice(1);
+      const grid = document.getElementById("produtos");
 
-      const grid = document.getElementById("produtosGrid");
-      grid.innerHTML = "";
+      linhas.forEach(linha => {
+        const colunas = linha.split(",");
+        if (colunas.length < 4) return;
 
-      dados.forEach(item => {
-        if (!item.Nome) return;
+        const produto = {
+          nome: colunas[0],
+          descricao: colunas[1],
+          preco: colunas[2],
+          link: colunas[3]
+        };
+
         const card = document.createElement("div");
         card.className = "card";
-        const precoFormatado = formatarPreco(item.Preço || item.preco || item.Valor || item.price);
 
-        card.innerHTML = `
-          <img src="imagens/placeholder.png" alt="${item.Nome}">
-          <h3>${item.Nome}</h3>
-          <p>${item.Descrição || ""}</p>
-          <p class="preco">${precoFormatado}</p>
-          <a class="btn-whatsapp" target="_blank"
-            href="https://wa.me/5575998623295?text=Olá! Gostaria de comprar o produto ${item.Nome} - ${precoFormatado}">
-            Comprar no WhatsApp
-          </a>
-        `;
+        const img = document.createElement("img");
+        img.src = "imagens/placeholder.png";
+        img.alt = produto.nome;
+
+        const nome = document.createElement("h3");
+        nome.textContent = produto.nome;
+
+        const descricao = document.createElement("p");
+        descricao.textContent = produto.descricao;
+
+        const price = document.createElement("p");
+        price.className = "price";
+        // Força exibir duas casas decimais no formato brasileiro
+        price.textContent = "R$ " + parseFloat(produto.preco).toFixed(2).replace(".", ",");
+
+        const botao = document.createElement("a");
+        botao.className = "whatsapp-btn";
+        botao.href = produto.link;
+        botao.target = "_blank";
+        botao.textContent = "Comprar no WhatsApp";
+
+        card.appendChild(img);
+        card.appendChild(nome);
+        card.appendChild(descricao);
+        card.appendChild(price);
+        card.appendChild(botao);
+
         grid.appendChild(card);
       });
     }
 
-    // Filtro de busca
+    carregarProdutos();
+
     document.getElementById("search").addEventListener("input", function () {
       const termo = this.value.toLowerCase();
       const cards = document.querySelectorAll(".card");
@@ -177,8 +178,6 @@
         card.style.display = nome.includes(termo) ? "block" : "none";
       });
     });
-
-    carregarProdutos();
   </script>
 </body>
 </html>
