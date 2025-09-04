@@ -40,28 +40,62 @@
   <script>
     const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?gid=608567924&single=true&output=csv";
 
+    // Função para parsear CSV respeitando aspas e vírgulas nos campos
+    function parseCSV(text) {
+      const linhas = text.split('\n');
+      return linhas.map(linha => {
+        const resultado = [];
+        let campo = '';
+        let dentroAspas = false;
+        for (let i = 0; i < linha.length; i++) {
+          const char = linha[i];
+          if (char === '"' && linha[i+1] !== '"') {
+            dentroAspas = !dentroAspas;
+          } else if (char === ',' && !dentroAspas) {
+            resultado.push(campo);
+            campo = '';
+          } else {
+            campo += char;
+          }
+        }
+        resultado.push(campo);
+        return resultado;
+      });
+    }
+
+    function formatarPreco(precoStr) {
+      // Remove aspas, espaços e "R$"
+      precoStr = precoStr.replace(/"/g, '').replace(/\s/g, '').replace('R$', '');
+
+      // Garante sempre duas casas decimais
+      let valor = precoStr.replace(',', '.');
+      valor = parseFloat(valor);
+      if (isNaN(valor)) return "Preço indisponível";
+      return 'R$ ' + valor.toFixed(2).replace('.', ',');
+    }
+
     async function carregarProdutos() {
       const response = await fetch(url);
       const data = await response.text();
-      const linhas = data.split("\n").slice(1);
+      const linhas = parseCSV(data).slice(1); // Ignora cabeçalho
       const grid = document.getElementById("produtos");
 
-      linhas.forEach(linha => {
-        const colunas = linha.split(",");
-        if (colunas.length < 4) return;
+      linhas.forEach(colunas => {
+        if (colunas.length < 5) return;
 
         const produto = {
-          nome: colunas[0],
-          descricao: colunas[1],
-          preco: colunas[2].replace(/[^0-9.,]/g, "").replace(",", "."),
-          link: colunas[3]
+          nome: colunas[0].trim(),
+          descricao: colunas[1].trim(),
+          preco: colunas[2].trim(),
+          imagem: colunas[3] ? colunas[3].trim() : "imagens/placeholder.png",
+          link: colunas[4] ? colunas[4].trim() : "#"
         };
 
         const card = document.createElement("div");
         card.className = "card";
 
         const img = document.createElement("img");
-        img.src = "imagens/placeholder.png";
+        img.src = produto.imagem;
         img.alt = produto.nome;
 
         const nome = document.createElement("h3");
@@ -72,13 +106,7 @@
 
         const price = document.createElement("p");
         price.className = "price";
-
-        let valor = parseFloat(produto.preco);
-        if (isNaN(valor)) {
-          price.textContent = "Preço indisponível";
-        } else {
-          price.textContent = "R$ " + valor.toFixed(2).replace(".", ",");
-        }
+        price.textContent = formatarPreco(produto.preco);
 
         const botao = document.createElement("a");
         botao.className = "whatsapp-btn";
