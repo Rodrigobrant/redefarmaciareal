@@ -64,10 +64,7 @@
     }
 
     function formatarPreco(precoStr) {
-      // Remove aspas, espaços e "R$"
       precoStr = precoStr.replace(/"/g, '').replace(/\s/g, '').replace('R$', '');
-
-      // Garante sempre duas casas decimais
       let valor = precoStr.replace(',', '.');
       valor = parseFloat(valor);
       if (isNaN(valor)) return "Preço indisponível";
@@ -95,7 +92,7 @@
         card.className = "card";
 
         const img = document.createElement("img");
-        img.src = produto.imagem;
+        img.src = produto.imagem && produto.imagem !== "" ? produto.imagem : "imagens/placeholder.png";
         img.alt = produto.nome;
 
         const nome = document.createElement("h3");
