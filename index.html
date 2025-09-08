@@ -383,186 +383,74 @@
     </a>
 
    <script>
-        fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?gid=608567924&single=true&output=csv')
-        .then(resp => resp.text())
-        .then(csv => {
-        const linhas = csv.trim().split('\n');
-        const header = linhas[0].split(',');
-       // Indices das colunas
-        const idxNome = header.indexOf("Nome");
-        const idxDescricao = header.indexOf("Descrição");
-        const idxPreco = header.indexOf("Preço");
-        const idxImagem = header.indexOf("Imagem");
-        const idxWhats = header.indexOf("WhatsApp");
-        const idxPromo = header.indexOf("Promoção");
-         // Filtra só produtos com Promoção = Sim
-         const produtos = linhas.slice(1)
-           .map(l => l.split(','))
-           .filter(cols => cols[idxPromo] && cols[idxPromo].trim().toLowerCase() === 'sim');
-         const html = produtos.map(cols => `
-         <div class="promo-item">
-            <img src="${cols[idxImagem]}" alt="${cols[idxNome]}" loading="lazy" />
-            <h3>${cols[idxNome]}</h3>
-            <p>${cols[idxDescricao]}</p>
-            <p>R$ ${cols[idxPreco]}</p>
-            <a href="https://wa.me/5575998623295?text=${encodeURIComponent(cols[idxWhats])}" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">Comprar</a>
-         </div>
-        `).join('');
-          document.getElementById('ofertas-catalogo').innerHTML = html || '<p>Nenhuma oferta no momento.</p>';
-          });
-   </script>     
-
-    <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const input = document.getElementById('searchInput');
-  if (!input) return; // não há campo de busca nesta página
-
-  // seletores existentes no seu HTML
-  const container = document.querySelector('.promo');         // container dos cards
-  if (!container) {
-    console.warn('Busca: container ".promo" não encontrado.');
-    return;
-  }
-
-  const originalItems = Array.from(container.querySelectorAll('.promo-item'));
-  if (originalItems.length === 0) {
-    console.warn('Busca: nenhum item com ".promo-item" encontrado.');
-    return;
-  }
-
-  // helper: normaliza (remove acentos, espaços extras, deixa lowercase)
-  const normalize = s => s
-    .toString()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-    .replace(/\s+/g,' ')
-    .trim()
-    .toLowerCase();
-
-  // cria (ou encontra) elemento de mensagem "não encontrado" (fica abaixo do container)
-  let noMsg = document.getElementById('noResultMsg');
-  if (!noMsg) {
-    noMsg = document.createElement('p');
-    noMsg.id = 'noResultMsg';
-    noMsg.style.textAlign = 'center';
-    noMsg.style.color = '#d32f2f';
-    noMsg.style.fontWeight = '600';
-    noMsg.style.margin = '12px 0';
-    // insere depois do container
-    container.parentNode.insertBefore(noMsg, container.nextSibling);
-  }
-  noMsg.textContent = '';
-
-  // Função que aplica o filtro e rearranja
-  const applyFilter = () => {
-    const q = normalize(input.value);
-    // se campo vazio: restaura visibilidade e (opcional) ordem original
-    if (!q) {
-      noMsg.textContent = '';
-      // restaura visibilidade e ordem original
-      originalItems.forEach(it => {
-        it.style.display = '';
-        container.appendChild(it);
-      });
-      return;
-    }
-
-    const match = [];
-    const rest  = [];
-
-    originalItems.forEach(it => {
-      const txt = normalize(it.textContent || it.innerText || '');
-      if (txt.includes(q)) match.push(it);
-      else rest.push(it);
-    });
-
-    // ordenar alfabeticamente os matches (pt-BR)
-    match.sort((a,b) => {
-      const ta = normalize(a.textContent);
-      const tb = normalize(b.textContent);
-      return ta.localeCompare(tb, 'pt-BR');
-    });
-
-    // re-render: matches primeiro, depois os demais
-    container.innerHTML = '';
-    [...match, ...rest].forEach(it => {
-      it.style.display = '';
-      container.appendChild(it);
-    });
-
-    noMsg.textContent = (match.length === 0) ? 'Produto não encontrado' : '';
-  };
-
-  // eventos
-  input.addEventListener('input', applyFilter);
-  input.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      // rola até a seção de ofertas
-      container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+// 🔥 Função para parsear CSV corretamente
+function parseCSV(str) {
+  const linhas = str.trim().split('\n');
+  return linhas.map(linha => {
+    const regex = /(".*?"|[^",]+)(?=\s*,|\s*$)/g;
+    return [...linha.matchAll(regex)].map(m => m[0].replace(/^"|"$/g, ''));
   });
+}
 
-  // estado inicial (opcional)
-  applyFilter();
-});
-</script>
-<script>
-fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?output=csv')
-  .then(resp => resp.text())
-  .then(csv => {
-    const linhas = csv.split('\n');
-    // Pular o cabeçalho e pegar linhas válidas
-    const avisos = linhas.slice(1).filter(l => l.trim() && l.split(',')[0]);
-    if (avisos.length > 0) {
-      // Para vários avisos, pode iterar aqui; este exemplo mostra só o primeiro
-      const [mensagem, cor_fundo, cor_texto] = avisos[0].split(',');
-      document.getElementById('aviso-topo').innerHTML = `
-        <div style="
-          background: ${cor_fundo || '#d32f2f'};
-          color: ${cor_texto || '#fff'};
-          text-align: center;
-          font-weight: 700;
-          font-size: 1.08rem;
-          padding: 12px 8px 8px 8px;
-          border-bottom: 3px solid #ffe082;
-          letter-spacing: 0.02em;
-          z-index: 2000;
-          position: relative;
-        ">
-          ${mensagem}
+function carregarOfertas() {
+  return fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?gid=608567924&single=true&output=csv')
+    .then(resp => resp.text())
+    .then(csv => {
+      const linhas = parseCSV(csv);
+      const header = linhas[0];
+
+      // Índices das colunas
+      const idxNome = header.indexOf("Nome");
+      const idxDescricao = header.indexOf("Descrição");
+      const idxPreco = header.indexOf("Preço");
+      const idxImagem = header.indexOf("Imagem");
+      const idxWhats = header.indexOf("WhatsApp");
+      const idxPromo = header.indexOf("Promoção");
+
+      // Filtra só produtos com Promoção = Sim
+      const produtos = linhas.slice(1)
+        .filter(cols => cols[idxPromo] && cols[idxPromo].trim().toLowerCase() === 'sim');
+
+      // Monta o HTML
+      const html = produtos.map(cols => `
+        <div class="promo-item">
+          <img src="${cols[idxImagem]}" alt="${cols[idxNome]}" loading="lazy" />
+          <h3>${cols[idxNome]}</h3>
+          <p>${cols[idxDescricao]}</p>
+          <p><strong>R$ ${cols[idxPreco]}</strong></p>
+          <a href="https://wa.me/5575998623295?text=${encodeURIComponent(cols[idxWhats])}" 
+             class="whatsapp-btn" target="_blank" rel="noopener noreferrer">Comprar</a>
         </div>
-      `;
-    }
-  });      
-</script>
-<script>
-        fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?gid=608567924&single=true&output=csv')
-        .then(resp => resp.text())
-        .then(csv => {
-        const linhas = csv.trim().split('\n');
-        const header = linhas[0].split(',');
-       // Indices das colunas
-        const idxNome = header.indexOf("Nome");
-        const idxDescricao = header.indexOf("Descrição");
-        const idxPreco = header.indexOf("Preço");
-        const idxImagem = header.indexOf("Imagem");
-        const idxWhats = header.indexOf("WhatsApp");
-        const idxPromo = header.indexOf("Promoção");
-         // Filtra só produtos com Promoção = Sim
-         const produtos = linhas.slice(1)
-           .map(l => l.split(','))
-           .filter(cols => cols[idxPromo] && cols[idxPromo].trim().toLowerCase() === 'sim');
-         const html = produtos.map(cols => `
-         <div class="promo-item">
-            <img src="${cols[idxImagem]}" alt="${cols[idxNome]}" loading="lazy" />
-            <h3>${cols[idxNome]}</h3>
-            <p>${cols[idxDescricao]}</p>
-            <p>R$ ${cols[idxPreco]}</p>
-            <a href="https://wa.me/5575998623295?text=${encodeURIComponent(cols[idxWhats])}" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">Comprar</a>
-         </div>
-        `).join('');
-          document.getElementById('ofertas-catalogo').innerHTML = html || '<p>Nenhuma oferta no momento.</p>';
-          });
-   </script>     
+      `).join('');
+
+      document.getElementById('ofertas-catalogo').innerHTML = html || '<p>Nenhuma oferta no momento.</p>';
+    })
+    .catch(err => {
+      console.error("Erro ao carregar ofertas:", err);
+      document.getElementById('ofertas-catalogo').innerHTML = '<p>Erro ao carregar ofertas.</p>';
+    });
+}
+
+// 🔍 Função de busca
+function ativarBusca() {
+  const searchInput = document.getElementById("searchInput");
+  if (!searchInput) return;
+
+  searchInput.addEventListener("keyup", function() {
+    const filter = this.value.toLowerCase();
+    const items = document.querySelectorAll(".promo-item");
+    
+    items.forEach(item => {
+      const nome = item.querySelector("h3").textContent.toLowerCase();
+      item.style.display = nome.includes(filter) ? "" : "none";
+    });
+  });
+}
+
+// Primeiro carrega as ofertas, depois ativa a busca
+carregarOfertas().then(() => {
+  ativarBusca();
+});
+</script>    
 </body>
 </html>
