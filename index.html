@@ -503,8 +503,9 @@ fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4U
         </div>
       `;
     }
-  });
-   <script>
+  });      
+</script>
+<script>
         fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?gid=608567924&single=true&output=csv')
         .then(resp => resp.text())
         .then(csv => {
@@ -532,7 +533,6 @@ fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4U
         `).join('');
           document.getElementById('ofertas-catalogo').innerHTML = html || '<p>Nenhuma oferta no momento.</p>';
           });
-   </script>    
-</script>    
+   </script>     
 </body>
 </html>
