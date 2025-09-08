@@ -323,59 +323,12 @@
                style="width:100%; padding: 12px; font-size: 16px; border:1px solid #ccc; border-radius:6px;">
     </div>
     <section>
-        <h2>Ofertas da Semana</h2>
-        <div class="promo">
-            <div class="promo-item">
-                <img src="imagem/vitamina-c.png" alt="Vitaxon C" loading="lazy" />
-                <h3>Vitaxon C</h3>
-                <p>R$ 11,99</p>
-                <a href="https://wa.me/5575998623295?text=Ol%C3%A1%2C+gostaria+de+fazer+um+pedido+na+Farm%C3%A1cias+Real!" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">Comprar</a>
-            </div>
-            <div class="promo-item">
-                <img src="imagem/shampooseda.png" alt="Shampoo Seda Pretos Luminosos" loading="lazy" />
-                <h3>Shampoo Seda Pretos Luminosos</h3>
-                <p>R$ 12,99</p>
-                <a href="https://wa.me/5575998623295?text=Ol%C3%A1%2C+gostaria+de+fazer+um+pedido+na+Farm%C3%A1cias+Real!" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">Comprar</a>
-            </div>
-            <div class="promo-item">
-                <img src="imagem/Paracetamol.png" alt="Paracetamol 750mg" loading="lazy" />
-                <h3>Paracetamol 750mg</h3>
-                <p>R$ 5,99</p>
-                <a href="https://wa.me/5575998623295?text=Ol%C3%A1%2C+gostaria+de+fazer+um+pedido+na+Farm%C3%A1cias+Real!" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">Comprar</a>
-            </div>
-            <div class="promo-item">
-                <img src="imagem/sorodipa.png" alt="Soro Fisiologico MaxiDipa 500ml" loading="lazy" />
-                <h3>Soro Fisiologico MaxiDipa 500ml</h3>
-                <p>R$ 6,75</p>
-                <a href="https://wa.me/5575998623295?text=Ol%C3%A1%2C+gostaria+de+fazer+um+pedido+na+Farm%C3%A1cias+Real!" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">Comprar</a>
-            </div>
-            <div class="promo-item">
-                <img src="imagem/sunday30.png" alt="Protetor Solar SunDay 30FPS" loading="lazy" />
-                <h3>Protetor Solar SunDay 30FPS</h3>
-                <p>R$ 26,99</p>
-                <a href="https://wa.me/5575998623295?text=Ol%C3%A1%2C+gostaria+de+fazer+um+pedido+na+Farm%C3%A1cias+Real!" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">Comprar</a>
-            </div>
-            <div class="promo-item">
-                <img src="imagem/StudioHair.png" alt="Studio Hair Kit Shampoo+Condicionador" loading="lazy" />
-                <h3>Studio Hair Kit Shampoo+Condicionador </h3>
-                <p>R$ 15,99</p>
-                <a href="https://wa.me/5575998623295?text=Ol%C3%A1%2C+gostaria+de+fazer+um+pedido+na+Farm%C3%A1cias+Real!" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">Comprar</a>
-            </div>
-            <div class="promo-item">
-                <img src="imagem/biolent.png" alt="Bio Lent solução para lente" loading="lazy" />
-                <h3>Bio Lent solução para lente </h3>
-                <p>R$ 46,99</p>
-                <a href="https://wa.me/5575998623295?text=Ol%C3%A1%2C+gostaria+de+fazer+um+pedido+na+Farm%C3%A1cias+Real!" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">Comprar</a>
-            </div>
-            <div class="promo-item">
-                <img src="imagem/superbonita.png" alt="Tintura Super Bonita" loading="lazy" />
-                <h3>Tintura Super Bonita </h3>
-                <p>R$ 11,99</p>
-                <a href="https://wa.me/5575998623295?text=Ol%C3%A1%2C+gostaria+de+fazer+um+pedido+na+Farm%C3%A1cias+Real!" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">Comprar</a>
-            </div>
-        </div>
-    </section>
-     <!-- Seção de Chama Catálogo -->
+    <h2>Ofertas da Semana</h2>
+    <div id="ofertas-catalogo" class="promo">
+        <p>Carregando ofertas...</p>
+    </div>
+    </section> 
+    <!-- Seção de Chama Catálogo -->
     <section style="text-align: center; margin: 40px 0;">
     <h2 style="color: #28a745; font-size: 28px; font-weight: bold;">
         Bem-vindo à Farmácias Real
@@ -551,6 +504,35 @@ fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4U
       `;
     }
   });
+   <script>
+        fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?gid=608567924&single=true&output=csv')
+        .then(resp => resp.text())
+        .then(csv => {
+        const linhas = csv.trim().split('\n');
+        const header = linhas[0].split(',');
+       // Indices das colunas
+        const idxNome = header.indexOf("Nome");
+        const idxDescricao = header.indexOf("Descrição");
+        const idxPreco = header.indexOf("Preço");
+        const idxImagem = header.indexOf("Imagem");
+        const idxWhats = header.indexOf("WhatsApp");
+        const idxPromo = header.indexOf("Promoção");
+         // Filtra só produtos com Promoção = Sim
+         const produtos = linhas.slice(1)
+           .map(l => l.split(','))
+           .filter(cols => cols[idxPromo] && cols[idxPromo].trim().toLowerCase() === 'sim');
+         const html = produtos.map(cols => `
+         <div class="promo-item">
+            <img src="${cols[idxImagem]}" alt="${cols[idxNome]}" loading="lazy" />
+            <h3>${cols[idxNome]}</h3>
+            <p>${cols[idxDescricao]}</p>
+            <p>R$ ${cols[idxPreco]}</p>
+            <a href="https://wa.me/5575998623295?text=${encodeURIComponent(cols[idxWhats])}" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">Comprar</a>
+         </div>
+        `).join('');
+          document.getElementById('ofertas-catalogo').innerHTML = html || '<p>Nenhuma oferta no momento.</p>';
+          });
+   </script>    
 </script>    
 </body>
 </html>
