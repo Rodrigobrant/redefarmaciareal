@@ -382,75 +382,57 @@
         <img src="imagem/whatsapp.png" alt="WhatsApp" loading="lazy" />
     </a>
 
-   <script>
-// 🔥 Função para parsear CSV corretamente
-function parseCSV(str) {
-  const linhas = str.trim().split('\n');
-  return linhas.map(linha => {
-    const regex = /(".*?"|[^",]+)(?=\s*,|\s*$)/g;
-    return [...linha.matchAll(regex)].map(m => m[0].replace(/^"|"$/g, ''));
-  });
-}
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR.../pub?output=csv"; // substitua pelo SEU link CSV publicado
 
-function carregarOfertas() {
-  return fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?output=csv')
-    .then(resp => resp.text())
-    .then(csv => {
-      const linhas = parseCSV(csv);
-      const header = linhas[0];
+    fetch(sheetUrl)
+        .then(response => response.text())
+        .then(csvData => {
+            Papa.parse(csvData, {
+                header: true,
+                complete: function(results) {
+                    const data = results.data;
+                    console.log("Dados recebidos:", data); // Debug
+                    const promoContainer = document.getElementById("promocoes");
+                    promoContainer.innerHTML = "";
 
-      // Índices das colunas
-      const idxNome = header.indexOf("Nome");
-      const idxDescricao = header.indexOf("Descrição");
-      const idxPreco = header.indexOf("Preço");
-      const idxImagem = header.indexOf("Imagem");
-      const idxWhats = header.indexOf("WhatsApp");
-      const idxPromo = header.indexOf("Promoção");
+                    // Filtra só produtos em promoção
+                    const promos = data.filter(item => item['Promoção'] && item['Promoção'].trim() === "Sim");
 
-      // Filtra só produtos com Promoção = Sim
-      const produtos = linhas.slice(1)
-        .filter(cols => cols[idxPromo] && cols[idxPromo].trim().toLowerCase() === 'sim');
+                    if (promos.length === 0) {
+                        promoContainer.innerHTML = "<p>Nenhuma oferta no momento.</p>";
+                        return;
+                    }
 
-      // Monta o HTML
-      const html = produtos.map(cols => `
-        <div class="promo-item">
-          <img src="${cols[idxImagem]}" alt="${cols[idxNome]}" loading="lazy" />
-          <h3>${cols[idxNome]}</h3>
-          <p>${cols[idxDescricao]}</p>
-          <p><strong>R$ ${cols[idxPreco]}</strong></p>
-          <a href="https://wa.me/5575998623295?text=${encodeURIComponent(cols[idxWhats])}" 
-             class="whatsapp-btn" target="_blank" rel="noopener noreferrer">Comprar</a>
-        </div>
-      `).join('');
+                    promos.forEach(item => {
+                        const div = document.createElement("div");
+                        div.className = "promo-item";
+                        div.style.border = "1px solid #ddd";
+                        div.style.padding = "10px";
+                        div.style.margin = "10px";
+                        div.style.borderRadius = "8px";
+                        div.style.textAlign = "center";
+                        div.style.backgroundColor = "#fff";
 
-      document.getElementById('ofertas-catalogo').innerHTML = html || '<p>Nenhuma oferta no momento.</p>';
-    })
-    .catch(err => {
-      console.error("Erro ao carregar ofertas:", err);
-      document.getElementById('ofertas-catalogo').innerHTML = '<p>Erro ao carregar ofertas.</p>';
-    });
-}
-
-// 🔍 Função de busca
-function ativarBusca() {
-  const searchInput = document.getElementById("searchInput");
-  if (!searchInput) return;
-
-  searchInput.addEventListener("keyup", function() {
-    const filter = this.value.toLowerCase();
-    const items = document.querySelectorAll(".promo-item");
-    
-    items.forEach(item => {
-      const nome = item.querySelector("h3").textContent.toLowerCase();
-      item.style.display = nome.includes(filter) ? "" : "none";
-    });
-  });
-}
-
-// Primeiro carrega as ofertas, depois ativa a busca
-carregarOfertas().then(() => {
-  ativarBusca();
+                        div.innerHTML = `
+                            <img src="${item.Imagem}" alt="${item.Nome}" style="max-width:100px; margin-bottom:10px;">
+                            <h3>${item.Nome}</h3>
+                            <p>${item.Descrição}</p>
+                            <p><strong>${item.Preço}</strong></p>
+                            <a href="https://wa.me/557598623295?text=${encodeURIComponent(item.WhatsApp)}" 
+                               target="_blank" 
+                               style="display:inline-block; padding:8px 12px; background:#25D366; color:#fff; text-decoration:none; border-radius:5px;">
+                               Comprar no WhatsApp
+                            </a>
+                        `;
+                        promoContainer.appendChild(div);
+                    });
+                }
+            });
+        });
 });
-</script>    
+</script>
 </body>
 </html>
