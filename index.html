@@ -191,7 +191,7 @@
     </style>
 </head>
 <body>
-
+    <div id="aviso-topo"></div>
     <header>
         <img src="imagem/logo.png" alt="Farmácias Real" loading="lazy" />
         <p>A sua saúde é o nosso compromisso!</p>
@@ -523,5 +523,34 @@ document.addEventListener('DOMContentLoaded', () => {
   applyFilter();
 });
 </script>
+<script>
+fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?output=csv')
+  .then(resp => resp.text())
+  .then(csv => {
+    const linhas = csv.split('\n');
+    // Pular o cabeçalho e pegar linhas válidas
+    const avisos = linhas.slice(1).filter(l => l.trim() && l.split(',')[0]);
+    if (avisos.length > 0) {
+      // Para vários avisos, pode iterar aqui; este exemplo mostra só o primeiro
+      const [mensagem, cor_fundo, cor_texto] = avisos[0].split(',');
+      document.getElementById('aviso-topo').innerHTML = `
+        <div style="
+          background: ${cor_fundo || '#d32f2f'};
+          color: ${cor_texto || '#fff'};
+          text-align: center;
+          font-weight: 700;
+          font-size: 1.08rem;
+          padding: 12px 8px 8px 8px;
+          border-bottom: 3px solid #ffe082;
+          letter-spacing: 0.02em;
+          z-index: 2000;
+          position: relative;
+        ">
+          ${mensagem}
+        </div>
+      `;
+    }
+  });
+</script>    
 </body>
 </html>
