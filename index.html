@@ -49,41 +49,28 @@
 </head>
 <body>
     <div id="aviso-topo"></div>
-<!-- Header fixo com logomarca à esquerda, busca central e menu à direita -->
-<header class="fixed-top bg-success shadow-sm">
-  <div class="container-fluid d-flex align-items-center justify-content-between py-2">
-    
-    <!-- Logomarca -->
-    <a href="index.html" class="d-flex align-items-center text-white text-decoration-none ms-3">
-      <img src="imagens/logo.png" alt="Farmácias Real" height="50" class="me-2">
-    </a>
+<!-- HEADER -->
+<header class="topo">
+  <div class="header-container">
+    <!-- Logo -->
+    <div class="logo">
+      <img src="sua-logo.png" alt="Farmácias Real">
+    </div>
 
-    <!-- Campo de busca central -->
-    <form class="d-none d-md-flex mx-auto w-50">
-      <input class="form-control rounded-pill px-3" type="search" placeholder="O que você procura hoje?" aria-label="Buscar">
-    </form>
+    <!-- Campo de busca centralizado -->
+    <div class="search-container">
+      <input type="text" placeholder="O que você procura hoje?">
+    </div>
 
-    <!-- Menu de navegação -->
-    <nav class="navbar navbar-expand-lg navbar-dark p-0 me-3">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Menu">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="menuPrincipal">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bold">
-          <li class="nav-item"><a class="nav-link text-white" href="index.html">Início</a></li>
-          <li class="nav-item"><a class="nav-link text-white" href="catalogo.html">Catálogo</a></li>
-          <li class="nav-item"><a class="nav-link text-white" href="promocoes.html">Promoções</a></li>
-          <li class="nav-item"><a class="nav-link text-white" href="informativos.html">Informativos</a></li>
-          <li class="nav-item"><a class="nav-link text-white" href="cadastro.html">Cadastro de Clientes</a></li>
-          <li class="nav-item"><a class="nav-link text-white" href="atendimento.html">Atendimento</a></li>
-        </ul>
-      </div>
-    </nav>
-
+    <!-- Menu/conta carrinho à direita -->
+    <div class="menu">
+      <a href="#">Minha Conta</a>
+      <a href="#">Meus Pedidos</a>
+      <a href="#">🛒</a>
+    </div>
   </div>
-  </header>  
-!-- Espaço para não sobrepor o conteúdo -->
+</header>
+<!-- Espaço para não sobrepor o conteúdo -->
 <div style="height: 90px;"></div>
    <!-- 🚩 Carrossel de Banners -->
 <div class="carousel">
