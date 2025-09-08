@@ -382,6 +382,36 @@
         <img src="imagem/whatsapp.png" alt="WhatsApp" loading="lazy" />
     </a>
 
+   <script>
+        fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?gid=608567924&single=true&output=csv')
+        .then(resp => resp.text())
+        .then(csv => {
+        const linhas = csv.trim().split('\n');
+        const header = linhas[0].split(',');
+       // Indices das colunas
+        const idxNome = header.indexOf("Nome");
+        const idxDescricao = header.indexOf("Descrição");
+        const idxPreco = header.indexOf("Preço");
+        const idxImagem = header.indexOf("Imagem");
+        const idxWhats = header.indexOf("WhatsApp");
+        const idxPromo = header.indexOf("Promoção");
+         // Filtra só produtos com Promoção = Sim
+         const produtos = linhas.slice(1)
+           .map(l => l.split(','))
+           .filter(cols => cols[idxPromo] && cols[idxPromo].trim().toLowerCase() === 'sim');
+         const html = produtos.map(cols => `
+         <div class="promo-item">
+            <img src="${cols[idxImagem]}" alt="${cols[idxNome]}" loading="lazy" />
+            <h3>${cols[idxNome]}</h3>
+            <p>${cols[idxDescricao]}</p>
+            <p>R$ ${cols[idxPreco]}</p>
+            <a href="https://wa.me/5575998623295?text=${encodeURIComponent(cols[idxWhats])}" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">Comprar</a>
+         </div>
+        `).join('');
+          document.getElementById('ofertas-catalogo').innerHTML = html || '<p>Nenhuma oferta no momento.</p>';
+          });
+   </script>     
+
     <script>
 document.addEventListener('DOMContentLoaded', () => {
   const input = document.getElementById('searchInput');
