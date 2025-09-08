@@ -19,176 +19,33 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="imagem/favicon.png">
     <style>
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background: #f4f7f6;
-            color: #333;
-        }
-        header {
-            background-color: #66bb6a;
-            padding: 12px 8px;
-            text-align: center;
-            color: white;
-        }
-        header img {
-            width: 180px;
-            margin-bottom: 6px;
-        }
-        header h1 {
-            display: none;
-        }
-        header p {
-            font-weight: 400;
-            font-size: 1rem;
-            margin-top: 3px;
-            opacity: 0.85;
-        }
-        nav {
-            background-color: #4caf50;
-            display: flex;
-            justify-content: center;
-            padding: 12px 10px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        nav a {
-            color: white;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: color 0.3s ease;
-        }
-        nav a:hover {
-            color: #c8f7c5;
-        }
-        .carousel-container {
-            display: flex;
-            justify-content: center;
-        }
-       .carousel {
-            position: relative;
-            width: 100%;
-            max-width: 1200px; /* largura máxima do banner */
-            height: 280px;     /* altura fixa */
-            margin: auto;
-            overflow: hidden;
-            border-radius: 10px; /* opcional, deixa cantos arredondados */
-        }
-        .carousel img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* garante que o banner se ajuste sem distorcer */
-            display: none;
-        }
-        .carousel img.active {
-            display: block;
-        }
-        section {
-            padding: 60px 20px;
-            max-width: 1200px;
-            margin: auto;
-        }
-        section h2 {
-            font-weight: 700;
-            font-size: 2rem;
-            margin-bottom: 30px;
-            color: #4caf50;
-            text-align: center;
-        }
-        .promo {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 25px;
-        }
-        .promo-item {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 25px 20px;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .promo-item:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
-        }
-        .promo-item img {
-            width: 110px;
-            margin-bottom: 15px;
-        }
-        .promo-item h3 {
-            margin: 0 0 10px 0;
-            font-weight: 600;
-            font-size: 1.3rem;
-            color: #2e7d32;
-        }
-        .promo-item p {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: #388e3c;
-        }
-        .whatsapp-btn {
-            background-color: #25D366;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            display: inline-block;
-            transition: background-color 0.3s ease;
-        }
-        .whatsapp-btn:hover {
-            background-color: #1ebe57;
-        }
-        footer {
-            background-color: #ffffff;
-            color: #555;
-            text-align: center;
-            padding: 35px 20px;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            max-width: 1100px;
-            margin: 40px auto 20px auto;
-            border-top: 1px solid #e0e0e0;
-        }
-        footer .anvisa-logo {
-            width: 130px;
-            margin-bottom: 20px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .whatsapp-fixed {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #25D366;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-            z-index: 1000;
-            transition: background-color 0.3s ease;
-        }
-        .whatsapp-fixed:hover {
-            background-color: #1ebe57;
-        }
-        .whatsapp-fixed img {
-            width: 35px;
-            height: 35px;
-        }
-    </style>
+  .search-container {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+  }
+
+  .search-container input[type="text"] {
+    width: 50%;              /* largura maior */
+    max-width: 500px;        /* limite para não ficar exagerado */
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 25px;     /* deixa arredondado */
+    outline: none;
+    text-align: center;      /* centraliza o texto dentro */
+    transition: 0.3s;
+  }
+
+  .search-container input[type="text"]:focus {
+    border-color: #28a745;   /* muda a cor ao clicar */
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.5);
+  }
+</style>
+
+<div class="search-container">
+  <input type="text" placeholder="🔎 O que você procura hoje?">
+</div>
 </head>
 <body>
     <div id="aviso-topo"></div>
