@@ -12,36 +12,75 @@
     <!-- SEO Local -->
     <meta property="og:title" content="Farmácias Real – Drogaria e Perfumaria em Esplanada-BA">
     <meta property="og:description" content="Medicamentos, perfumaria e delivery até 00h em Esplanada. A sua saúde é o nosso compromisso.">
-    <meta property="og:image" content="https://seudominio.com/imagem/logo.png"> <!-- substitua pela URL real da sua logo -->
+    <meta property="og:image" content="https://redefarmaciareal.com.br/imagem/logo.png"> <!-- substitua pela URL real da sua logo -->
     <meta property="og:url" content="https://redefarmaciareal.com.br/">
     <meta property="og:type" content="website">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="imagem/favicon.png">
     <style>
-  .search-container {
-    display: flex;
-    justify-content: center;
-    margin: 15px 0;
-  }
+ /* Barra de aviso superior */
+    .top-bar {
+      background: #d32f2f;
+      color: #fff;
+      text-align: center;
+      padding: 6px 10px;
+      font-size: 14px;
+      font-weight: bold;
+    }
 
-  .search-container input[type="text"] {
-    width: 50%;              /* largura maior */
-    max-width: 500px;        /* limite para não ficar exagerado */
-    padding: 10px 15px;
-    font-size: 16px;
-    border: 2px solid #ccc;
-    border-radius: 25px;     /* deixa arredondado */
-    outline: none;
-    text-align: center;      /* centraliza o texto dentro */
-    transition: 0.3s;
-  }
+    /* Header principal */
+    header {
+      background: #fff;
+      border-bottom: 2px solid #e0e0e0;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-  .search-container input[type="text"]:focus {
-    border-color: #28a745;   /* muda a cor ao clicar */
-    box-shadow: 0 0 8px rgba(40, 167, 69, 0.5);
-  }
-</style>
+    /* Logo ajustada */
+    .logo img {
+      height: 40px;       /* controla altura */
+      max-width: 140px;   /* evita largura excessiva */
+      object-fit: contain;
+    }
+
+    /* Barra de busca */
+    .search-bar {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      margin: 0 20px;
+    }
+
+    .search-bar input {
+      width: 100%;
+      max-width: 500px;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+
+    /* Ações (Minha Conta, Pedidos, Carrinho) */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-size: 14px;
+    }
+
+    .header-actions a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .header-actions a:hover {
+      color: #2e7d32;
+    }
+  </style>
 </head>
 <body>
     <div id="aviso-topo"></div>
