@@ -81,3 +81,40 @@ header {
 .header-actions a:hover {
   color: #00a859;
 }
+/* 🔹 Menu principal */
+.main-menu {
+  background: #00a859;   /* verde principal */
+  padding: 12px 0;
+  position: sticky;
+  top: 120px;   /* fica abaixo do header */
+  z-index: 900;
+  border-bottom: 2px solid #008f4c;
+}
+
+/* 🔹 Lista do menu */
+.main-menu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 40px;   /* espaço entre os itens */
+}
+
+/* 🔹 Links do menu */
+.main-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  padding: 8px 14px;
+  border-radius: 6px;
+}
+
+/* Hover elegante */
+.main-menu a:hover {
+  background: #fff;
+  color: #00a859;
+}
+
