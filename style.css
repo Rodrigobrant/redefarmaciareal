@@ -289,4 +289,56 @@ body {
   font-weight: bold;
   text-decoration: none;
 }
+/* Header principal */
+header {
+  background: #fff;
+  border-bottom: 2px solid #e0e0e0;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+.logo img {
+  height: 40px;       /* controla altura */
+  max-width: 140px;   /* evita largura exagerada */
+  object-fit: contain;
+}
+
+/* Barra de busca */
+.search-bar {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  margin: 0 20px;
+}
+
+.search-bar input {
+  width: 100%;
+  max-width: 500px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+/* Links à direita */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 14px;
+}
+
+.header-actions a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.header-actions a:hover {
+  color: #2e7d32;
+}
+
 
