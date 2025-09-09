@@ -1,340 +1,25 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #fff;
-}
+/* 🔹 Barra superior de aviso */
 .top-bar-warning {
-    width: 100%;
-    background: #d32f2f;
-    color: #fff;
-    text-align: center;
-    font-weight: 600;
-    font-size: 1.08rem;
-    padding: 12px 8px 8px 8px;
-    border-bottom: 3px solid #ffe082;
-    letter-spacing: 0.02em;
-    z-index: 2000;
-    position: relative;
-}
-.top-bar-warning strong {
-    color: #ffe082;
-    font-weight: 700;
-    letter-spacing: 0.01em;
-}
-/* Cabeçalho */
-.header {
-    background-color: #6EC34D;
-    padding: 12px 8px; /* MENOR padding */
-    color: white;
-}
-
-.header-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-}
-/* Logo maior */
-.logo img {
-  height: 100px;   /* aumenta o tamanho vertical */
-  max-height: 120px;
-  width: auto;
-  object-fit: contain;
-}
-header {
-  display: flex;
-  align-items: center;   /* alinha verticalmente */
-  justify-content: space-between;
-  padding: 10px 40px;
-  background: #fff;
-  border-bottom: 1px solid #ddd;
-}
-/* Busca */
-.search-bar input {
-  width: 400px;
-  padding: 8px 12px;
-  border-radius: 20px;
-  border: 1px solid #ccc;
-}
-
-/* Ações */
-.header-actions a {
-  margin-left: 15px;
-  font-size: 14px;
-  text-decoration: none;
-  color: #333;
-}
-
-/* Menu principal sticky */
-.main-menu {
-  background: #2e7d32; /* verde padrão */
-  padding: 12px 0;
-  text-align: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.main-menu ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-}
-
-.main-menu a {
+  width: 100%;
+  background: #d32f2f;
   color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 15px;
-  transition: color 0.3s;
-}
-
-.main-menu a:hover {
-  color: #ffeb3b;
-}
-
-
-.header-text h1 {
-    margin: 0;
-    font-size: 1.6rem;   /* MENOR fonte */
-}
-
-.header-text p {
-    margin: 0;
-    font-size: 1rem;
-}
-/* Banner/Carrossel */
-.carousel {
-    position: relative;
-    max-width: 100%; /* ocupa a largura da tela */
-    margin: auto;
-    overflow: hidden;
-    border-radius: 10px;
-}
-.carousel img {
-    width: 100%;
-    display: none;
-    max-height: 280px;   /* MENOR altura do banner */
-    object-fit: cover;
-    border-radius: 8px;
-}
-.carousel img.active {
-    display: block;
-}
-
-/* Produtos */
-.produtos {
-    padding: 20px;
-}
-
-.produtos h2 {
-    margin-bottom: 15px;
-}
-
-.produtos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-}
-
-.produto {
-    background: #f9f9f9;
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
-}
-
-.produto img {
-    max-width: 100%;
-    height: auto;
-}
-
-.preco {
-    font-size: 18px;
-    margin: 10px 0;
-}
-
-.preco-antigo {
-    text-decoration: line-through;
-    color: #888;
-    margin-right: 5px;
-}
-
-.btn-whatsapp {
-    background-color: #25D366;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-}
-
-/* Rodapé */
-.footer {
-    background-color: white;
-    padding: 20px;
-    border-top: 1px solid #ddd;
-}
-
-.footer-container {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.logo-anvisa {
-    width: 120px;
-    height: auto;
-}
-
-/* Botão flutuante WhatsApp */
-.whatsapp-fixo {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: transparent;
-}
-
-.btn-whatsapp {
-    display: inline-block;
-    background-color: #25d366; /* Verde WhatsApp */
-    color: white;
-    padding: 10px 16px;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: bold;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-.btn-whatsapp:hover {
-    background-color: #1ebe5b; /* Tom mais escuro no hover */
-}
-
-
-.whatsapp-fixo img {
-    width: 60px;
-    height: 60px;
-}
-/* esconde itens filtrados */
-.promo-item.hidden { display: none; }
-
-/* Container do header */
-.topo {
-  background: #ffffff;
-  padding: 10px 20px;
-  border-bottom: 2px solid #00a859;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.header-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* Logo à esquerda */
-.logo img {
-  height: 60px;
-  max-width: 180px;
-}
-
-/* Campo de busca centralizado */
-.search-container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.search-container input {
-  width: 60%;
-  max-width: 500px;
-  padding: 10px 15px;
-  border: 2px solid #00a859;
-  border-radius: 25px;
-  font-size: 1rem;
-  outline: none;
   text-align: center;
+  font-weight: 600;
+  font-size: 1.08rem;
+  padding: 12px 8px 8px 8px;
+  border-bottom: 3px solid #ffe082;
+  letter-spacing: 0.02em;
+  z-index: 2000;
+  position: relative;
 }
 
-.search-container input:focus {
-  border-color: #008f4c;
-  box-shadow: 0 0 6px rgba(0, 143, 76, 0.4);
-}/* Header fixo */
-.topo {
-  background: #ffffff;
-  border-bottom: 2px solid #00a859;
-  padding: 10px 20px;
-  position: sticky;
-  top: 40px; /* deixa abaixo da barra vermelha */
-  z-index: 1000;
+.top-bar-warning strong {
+  color: #ffe082;
+  font-weight: 700;
+  letter-spacing: 0.01em;
 }
 
-.header-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* Logo */
-.logo img {
-  height: 55px;
-  max-width: 160px;
-}
-
-/* Centralizar busca */
-.search-container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.search-container input {
-  width: 60%;
-  max-width: 500px;
-  padding: 10px 15px;
-  border: 2px solid #00a859;
-  border-radius: 25px;
-  font-size: 1rem;
-  outline: none;
-  text-align: center;
-}
-
-/* Menu à direita */
-.menu {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-}
-
-.menu a {
-  color: #004d00;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.menu a:hover {
-  color: #00a859;
-}
-
-
-/* Menu à direita */
-.menu {
-  display: flex;
-  gap: 15px;
-}
-
-.menu a {
-  color: #004d00;
-  font-weight: bold;
-  text-decoration: none;
-}
-/* Header principal */
+/* 🔹 Header principal fixo */
 header {
   background: #fff;
   border-bottom: 2px solid #e0e0e0;
@@ -342,16 +27,19 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: sticky;
+  top: 40px; /* abaixo da barra vermelha */
+  z-index: 1000;
 }
 
-/* Logo */
+/* 🔹 Logo à esquerda */
 .logo img {
-  height: 40px;       /* controla altura */
-  max-width: 140px;   /* evita largura exagerada */
+  height: 80px;       /* aumenta a altura */
+  max-width: 220px;   /* evita ficar esticada */
   object-fit: contain;
 }
 
-/* Barra de busca */
+/* 🔹 Barra de busca centralizada */
 .search-bar {
   flex: 1;
   display: flex;
@@ -362,28 +50,34 @@ header {
 .search-bar input {
   width: 100%;
   max-width: 500px;
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  font-size: 14px;
+  padding: 10px 15px;
+  border: 2px solid #00a859;
+  border-radius: 25px;
+  font-size: 1rem;
+  outline: none;
+  text-align: center;
 }
 
-/* Links à direita */
+.search-bar input:focus {
+  border-color: #008f4c;
+  box-shadow: 0 0 6px rgba(0, 143, 76, 0.4);
+}
+
+/* 🔹 Ações à direita (Minha Conta / Meus Pedidos / Carrinho) */
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 15px;
-  font-size: 14px;
+  gap: 20px;
+  font-size: 15px;
 }
 
 .header-actions a {
   text-decoration: none;
   color: #333;
   font-weight: bold;
+  transition: color 0.3s;
 }
 
 .header-actions a:hover {
-  color: #2e7d32;
+  color: #00a859;
 }
-
-
