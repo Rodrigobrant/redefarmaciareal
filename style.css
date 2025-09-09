@@ -34,6 +34,68 @@ body {
     align-items: center;
     justify-content: flex-start;
 }
+/* Logo maior */
+.logo img {
+  height: 70px; /* ajuste conforme necessário */
+  width: auto;
+}
+
+/* Header */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 30px;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Busca */
+.search-bar input {
+  width: 400px;
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+}
+
+/* Ações */
+.header-actions a {
+  margin-left: 15px;
+  font-size: 14px;
+  text-decoration: none;
+  color: #333;
+}
+
+/* Menu principal sticky */
+.main-menu {
+  background: #2e7d32; /* verde padrão */
+  padding: 12px 0;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.main-menu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.main-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 15px;
+  transition: color 0.3s;
+}
+
+.main-menu a:hover {
+  color: #ffeb3b;
+}
 
 .logo {
     margin-right: 10px;
