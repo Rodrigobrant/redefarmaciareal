@@ -97,11 +97,6 @@ header {
   color: #ffeb3b;
 }
 
-.logo {
-    margin-right: 10px;
-    width: 100px;        /* MENOR logo */
-    height: auto;
-}
 
 .header-text h1 {
     margin: 0;
@@ -112,17 +107,6 @@ header {
     margin: 0;
     font-size: 1rem;
 }
-/* Logo */
-.logo img {
-  height: 40px;       /* altura reduzida */
-  max-width: 140px;   /* largura máxima */
-  object-fit: contain;
-}
-.logo {
-  display: flex;
-  align-items: center;
-}
-
 /* Banner/Carrossel */
 .carousel {
     position: relative;
