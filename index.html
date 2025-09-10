@@ -83,7 +83,91 @@
   </style>
 </head>
 <body>
-    <div id="aviso-topo"></div>
+<!-- PapaParse (parser CSV robusto) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js" integrity="" crossorigin="anonymous"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const container = document.getElementById('ofertas-catalogo') || document.getElementById('promocoes') || document.querySelector('.promo') ;
+  if (!container) {
+    console.error('Container de promoções não encontrado. IDs esperados: ofertas-catalogo, promocoes ou .promo');
+    return;
+  }
+
+  // === substitua pela sua URL de CSV publicada (Arquivo → Publicar na Web → CSV) ===
+  const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/SEU_ID/pub?gid=608567924&single=true&output=csv';
+
+  try {
+    const resp = await fetch(CSV_URL);
+    if (!resp.ok) {
+      console.error('Erro ao buscar CSV:', resp.status, resp.statusText);
+      container.innerHTML = `<p>Erro ao carregar ofertas (${resp.status}). Ver console.</p>`;
+      return;
+    }
+    const csvText = await resp.text();
+
+    // Parse seguro com PapaParse
+    const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
+    console.log('Dados da planilha:', parsed.data);
+
+    // Normaliza chaves (tenta várias variações de nomes)
+    const key = (obj, nameOptions) => {
+      for (const k of nameOptions) if (k in obj) return obj[k];
+      return '';
+    };
+
+    const promos = parsed.data.filter(row => {
+      const v = key(row, ['Promoção','Promocao','promocao','promoção','Promoçao','PromoÇão']);
+      return (v || '').toString().trim().toLowerCase() === 'sim';
+    });
+
+    if (!promos || promos.length === 0) {
+      container.innerHTML = '<p>Nenhuma oferta no momento.</p>';
+      return;
+    }
+
+    // Monta HTML seguro
+    const html = promos.map(p => {
+      const nome = key(p, ['Nome','nome','Produto','produto']) || 'Produto';
+      const desc = key(p, ['Descrição','Descricao','descricao']) || '';
+      const preco = key(p, ['Preço','Preco','preco']) || '';
+      const img = key(p, ['Imagem','imagem']) || 'imagem/placeholder.png';
+      const whats = key(p, ['WhatsApp','Whats','whatsapp','whats']) || '5575998623295';
+      const waText = encodeURIComponent(`Olá, quero este produto: ${nome}`);
+      const waLink = `https://wa.me/${whats.replace(/[^0-9]/g,'') || '5575998623295'}?text=${waText}`;
+
+      return `
+        <div class="promo-item">
+          <img src="${img}" alt="${nome}" loading="lazy" style="max-width:120px; height:auto; display:block; margin:0 auto 8px;" />
+          <h3 style="margin:6px 0">${nome}</h3>
+          <p style="color:#666; font-size:0.95rem; margin:6px 0">${desc}</p>
+          <p style="font-weight:800; color:#16713a; margin:6px 0">R$ ${preco}</p>
+          <a class="whatsapp-btn" href="${waLink}" target="_blank" rel="noopener noreferrer">Comprar</a>
+        </div>
+      `;
+    }).join('');
+
+    container.innerHTML = html;
+
+    // === ativa busca apenas após promo terem sido adicionadas ===
+    const searchInput = document.getElementById('searchInput') || document.querySelector('.search-bar input') || document.querySelector('.search-container input');
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        const q = searchInput.value.trim().toLowerCase();
+        document.querySelectorAll('.promo-item').forEach(it => {
+          const name = (it.querySelector('h3')?.textContent || '').toLowerCase();
+          it.style.display = (!q || name.includes(q)) ? '' : 'none';
+        });
+      });
+    }
+
+  } catch (err) {
+    console.error('Erro ao carregar/parsear CSV:', err);
+    container.innerHTML = '<p>Erro ao carregar ofertas. Ver console.</p>';
+  }
+});
+</script>
+<div id="aviso-topo"></div>
 <!-- Header principal -->
   <header>
     <!-- Logo -->
