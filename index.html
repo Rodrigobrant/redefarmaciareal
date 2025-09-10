@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 </script>
-<div id="aviso-topo"></div>
+<div id="aviso-topo" style="display:none;"></div>
 <!-- Header principal -->
   <header>
     <!-- Logo -->
@@ -415,5 +415,36 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const avisoContainer = document.getElementById("aviso-topo");
+
+  // 👉 troque pelo link de "Publicar na web" da sua planilha AvisosSite (CSV)
+  const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?output=csv";
+
+  try {
+    const resp = await fetch(CSV_URL);
+    if (!resp.ok) {
+      console.error("Erro ao buscar aviso:", resp.status);
+      return;
+    }
+    const csvText = await resp.text();
+    const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
+
+    console.log("Avisos recebidos:", parsed.data);
+
+    if (parsed.data.length > 0) {
+      const aviso = parsed.data[0]; // pega a primeira linha
+      avisoContainer.innerHTML = aviso.mensagem || "";
+      avisoContainer.style.background = aviso.cor_fundo || "#d32f2f";
+      avisoContainer.style.color = aviso.cor_texto || "#fff";
+      avisoContainer.style.display = "block";
+    }
+  } catch (err) {
+    console.error("Erro ao carregar aviso:", err);
+  }
+});
+</script>  
 </body>
 </html>
