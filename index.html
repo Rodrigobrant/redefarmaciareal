@@ -377,84 +377,43 @@ document.addEventListener('DOMContentLoaded', async () => {
         <img src="imagem/whatsapp.png" alt="WhatsApp" loading="lazy" />
     </a>
 
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+   <!-- ================= PROMOÇÕES AUTOMÁTICAS ================= -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?output=csv"; // substitua pelo SEU link CSV publicado
+  const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?output=csv";
 
-    fetch(sheetUrl)
-        .then(response => response.text())
-        .then(csvData => {
-            Papa.parse(csvData, {
-                header: true,
-                complete: function(results) {
-                    const data = results.data;
-                    console.log("Dados recebidos:", data); // Debug
-                    const promoContainer = document.getElementById("promocoes");
-                    promoContainer.innerHTML = "";
+  Papa.parse(CSV_URL, {
+    download: true,
+    header: true,
+    complete: function(results) {
+      console.log("Dados recebidos:", results.data);
 
-                    // Filtra só produtos em promoção
-                    const promos = data.filter(item => item['Promoção'] && item['Promoção'].trim() === "Sim");
+      const promoContainer = document.getElementById("ofertas-catalogo");
+      promoContainer.innerHTML = "";
 
-                    if (promos.length === 0) {
-                        promoContainer.innerHTML = "<p>Nenhuma oferta no momento.</p>";
-                        return;
-                    }
+      // Filtrar produtos com Promoção = "Sim"
+      const produtos = results.data.filter(p => p.Promoção && p.Promoção.toLowerCase() === "sim");
 
-                    promos.forEach(item => {
-                        const div = document.createElement("div");
-                        div.className = "promo-item";
-                        div.style.border = "1px solid #ddd";
-                        div.style.padding = "10px";
-                        div.style.margin = "10px";
-                        div.style.borderRadius = "8px";
-                        div.style.textAlign = "center";
-                        div.style.backgroundColor = "#fff";
+      if (produtos.length === 0) {
+        promoContainer.innerHTML = "<p>Nenhuma oferta no momento.</p>";
+        return;
+      }
 
-                        div.innerHTML = `
-                            <img src="${item.Imagem}" alt="${item.Nome}" style="max-width:100px; margin-bottom:10px;">
-                            <h3>${item.Nome}</h3>
-                            <p>${item.Descrição}</p>
-                            <p><strong>${item.Preço}</strong></p>
-                            <a href="https://wa.me/557598623295?text=${encodeURIComponent(item.WhatsApp)}" 
-                               target="_blank" 
-                               style="display:inline-block; padding:8px 12px; background:#25D366; color:#fff; text-decoration:none; border-radius:5px;">
-                               Comprar no WhatsApp
-                            </a>
-                        `;
-                        promoContainer.appendChild(div);
-                    });
-                }
-            });
-        });
-});
-</script>
-<script>
-fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?output=csv')
-  .then(resp => resp.text())
-  .then(csv => {
-    const linhas = csv.split('\n');
-    // Pular o cabeçalho e pegar linhas válidas
-    const avisos = linhas.slice(1).filter(l => l.trim() && l.split(',')[0]);
-    if (avisos.length > 0) {
-      // Para vários avisos, pode iterar aqui; este exemplo mostra só o primeiro
-      const [mensagem, cor_fundo, cor_texto] = avisos[0].split(',');
-      document.getElementById('aviso-topo').innerHTML = `
-        <div style="
-          background: ${cor_fundo || '#d32f2f'};
-          color: ${cor_texto || '#fff'};
-          text-align: center;
-          font-weight: 700;
-          font-size: 1.08rem;
-          padding: 12px 8px 8px 8px;
-          border-bottom: 3px solid #ffe082;
-          letter-spacing: 0.02em;
-          z-index: 2000;
-          position: relative;
-        ">
-          ${mensagem}
-        </div>
-      `;
+      produtos.forEach(produto => {
+        const item = document.createElement("div");
+        item.classList.add("promo-item");
+        item.innerHTML = `
+          <img src="${produto.Imagem}" alt="${produto.Nome}" loading="lazy" />
+          <h3>${produto.Nome}</h3>
+          <p>${produto.Descrição}</p>
+          <p><strong>R$ ${produto.Preço}</strong></p>
+          <a href="https://wa.me/5575998623295?text=${encodeURIComponent(produto.WhatsApp)}"
+             class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
+             Comprar
+          </a>
+        `;
+        promoContainer.appendChild(item);
+      });
     }
   });
 </script>
