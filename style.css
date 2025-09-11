@@ -37,9 +37,14 @@ header {
   top: 0;
   z-index: 1000;
 }
+.logo {
+  background: #2e7d32; /* verde */
+  padding: 6px 10px;
+  border-radius: 6px;
+}
 .logo img {
-  height: 60px;
-  max-width: 200px;
+  height: 70px;
+  max-width: 160px;
   object-fit: contain;
   display: block;
 }
