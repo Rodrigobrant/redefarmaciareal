@@ -13,17 +13,19 @@ body {
 
 /* AVISO TOPO */
 #aviso-topo {
+  position: sticky;
+  top: 0;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background: #d32f2f;   /* vermelho */
+  color: #fff;           /* texto branco */
   text-align: center;
-  font-weight: 600;
-  font-size: 0.95rem;
+  font-weight: bold;
+  font-size: 15px;
   padding: 8px;
-  border-bottom: 2px solid #ffe082;
-  z-index: 2000;
+  z-index: 3000;
+  display: none; /* começa oculto, só mostra quando tiver mensagem */
 }
+
 
 /* HEADER */
 header {
