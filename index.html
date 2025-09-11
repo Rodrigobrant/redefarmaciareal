@@ -379,7 +379,7 @@ document.addEventListener('DOMContentLoaded', async () => {
    <!-- ================= PROMOÇÕES AUTOMÁTICAS ================= -->
  <!-- PapaParse -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-
+<!-- Script Aviso -->
   <script>
   document.addEventListener('DOMContentLoaded', async () => {
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/SEU_LINK/pub?output=csv';
@@ -418,5 +418,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
   </script>
+  <script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const avisoTopo = document.getElementById("aviso-topo");
+  const CSV_URL = "https://docs.google.com/spreadsheets/d/e/SEU_LINK/pub?output=csv";
+
+  try {
+    const resp = await fetch(CSV_URL);
+    if (!resp.ok) throw new Error("Erro ao carregar aviso");
+
+    const text = await resp.text();
+    const rows = text.split("\n").map(r => r.split(","));
+    const aviso = rows[1] ? rows[1][0] : ""; // pega a mensagem da segunda linha
+    avisoTopo.textContent = aviso;
+
+  } catch (err) {
+    console.error("Erro ao carregar aviso topo:", err);
+  }
+});
+</script>  
 </body>
 </html>
