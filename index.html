@@ -8,7 +8,7 @@
     <meta name="description" content="Farmácias Real em Esplanada-BA. Loja física até 21h e delivery até 22h. Medicamentos, perfumaria, vitaminas e muito mais. Peça pelo WhatsApp!">
     <meta name="keywords" content="farmácia em Esplanada, drogaria Esplanada, Farmácias Real, remédios delivery Esplanada, perfumaria Esplanada, comprar medicamentos online BA">
     <meta name="author" content="Farmácias Real">
-
+    <link rel="stylesheet" href="style.css">
     <!-- SEO Local -->
     <meta property="og:title" content="Farmácias Real – Drogaria e Perfumaria em Esplanada-BA">
     <meta property="og:description" content="Medicamentos, perfumaria e delivery até 00h em Esplanada. A sua saúde é o nosso compromisso.">
@@ -170,23 +170,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 <div id="aviso-topo" style="display:none;"></div>
 <!-- Header principal -->
   <header>
-    <!-- Logo -->
     <div class="logo">
-      <img src="logo.png" alt="Farmácias Real">
+      <img src="imagem/logo.png" alt="Farmácias Real">
     </div>
-
-    <!-- Campo de busca -->
     <div class="search-bar">
       <input type="text" placeholder="🔍 O que você procura hoje?">
     </div>
-
-    <!-- Ações -->
     <div class="header-actions">
       <a href="#">Minha Conta</a>
       <a href="#">Meus Pedidos</a>
-      <a href="#">
-        <span style="font-size:18px;">🛒</span>
-      </a>
+      <a href="#"><img src="imagem/carrinho.png" alt="Carrinho" style="width:26px;height:26px;"></a>
     </div>
   </header>
   <!-- Menu hambúrguer -->
@@ -194,13 +187,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   <!-- Menu principal -->
   <nav class="main-menu">
     <ul>
-      <li><a href="#">Início</a></li>
-      <li><a href="#">Catálogo</a></li>
-      <li><a href="#">Promoções</a></li>
-      <li><a href="#">Ofertas da Semana</a></li>
-      <li><a href="#">Contato</a></li>
+      <li><a href="#"><img src="imagem/medicamentos.png"><div>Medicamentos</div></a></li>
+      <li><a href="#"><img src="imagem/higiene.png"><div>Higiene</div></a></li>
+      <li><a href="#"><img src="imagem/beleza.png"><div>Beleza</div></a></li>
+      <li><a href="#"><img src="imagem/promocoes.png"><div>Promoções</div></a></li>
     </ul>
-  </nav>   
+  </nav>
 </body>
 <!-- Espaço para não sobrepor o conteúdo -->
 <div style="height: 90px;"></div>
@@ -320,12 +312,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         <input type="text" id="searchInput" placeholder="🔎 O que você procura hoje?" 
                style="width:100%; padding: 12px; font-size: 16px; border:1px solid #ccc; border-radius:6px;">
     </div>
-    <section id="ofertas">
-       <h2>Ofertas da Semana</h2>
-       <div id="promocoes">Carregando ofertas...</div>
-    </section>
-    </section> 
-    <!-- Seção de Chama Catálogo -->
+    <!-- OFERTAS ESPECIAIS -->
+  <section>
+    <h2>OFERTAS ESPECIAIS</h2>
+    <div id="ofertas-grid" class="promo"></div>
+  </section>
+
+  <!-- DESTAQUES -->
+  <section>
+    <h2>DESTAQUES</h2>
+    <div id="destaques-grid" class="produtos-grid"></div>
+  </section>
+  <!-- Seção de Chama Catálogo -->
     <section style="text-align: center; margin: 40px 0;">
     <h2 style="color: #28a745; font-size: 28px; font-weight: bold;">
         Bem-vindo à Farmácias Real
@@ -372,106 +370,53 @@ document.addEventListener('DOMContentLoaded', async () => {
             <p>Os preços e as promoções são válidos apenas para compras via internet. As fotos contidas em nosso site são meramente ilustrativas. *Preços e disponibilidade sujeitos a alterações no decorrer do dia.</p>
         </footer>
 
-    <!-- Botão fixo WhatsApp -->
-    <div class="whatsapp-fixo">
-    <a href="https://wa.me/557598623295" class="whatsapp-fixo" target="_blank" aria-label="Atendimento WhatsApp">
-        <img src="imagem/whatsapp.png" alt="WhatsApp">
+    <!-- BOTÃO WHATSAPP FIXO -->
+  <div class="whatsapp-fixo">
+    <a href="https://wa.me/557598623295" target="_blank">
+      <img src="imagem/whatsapp.png" alt="WhatsApp">
     </a>
-    </div>
+  </div>
    <!-- ================= PROMOÇÕES AUTOMÁTICAS ================= -->
-<script>
-  const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?output=csv";
+ <!-- PapaParse -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 
-  Papa.parse(CSV_URL, {
-    download: true,
-    header: true,
-    complete: function(results) {
-      console.log("Dados recebidos:", results.data);
+  <script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/SEU_LINK/pub?output=csv';
 
-      const promoContainer = document.getElementById("promocoes"); // <-- usa o ID correto
-      promoContainer.innerHTML = "";
+    try {
+      const resp = await fetch(CSV_URL);
+      if (!resp.ok) throw new Error('Erro ao buscar CSV: ' + resp.status);
 
-      const produtos = results.data.filter(p => p.Promoção && p.Promoção.toLowerCase() === "sim");
+      const csvText = await resp.text();
+      const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
 
-      if (produtos.length === 0) {
-        promoContainer.innerHTML = "<p>Nenhuma oferta no momento.</p>";
-        return;
-      }
+      const ofertasGrid = document.getElementById("ofertas-grid");
+      const destaquesGrid = document.getElementById("destaques-grid");
 
-      produtos.forEach(produto => {
-        const item = document.createElement("div");
-        item.classList.add("promo-item");
-        item.innerHTML = `
-          <img src="${produto.Imagem}" alt="${produto.Nome}" loading="lazy" />
-          <h3>${produto.Nome}</h3>
-          <p>${produto.Descrição}</p>
-          <p><strong>R$ ${produto.Preço}</strong></p>
-          <a href="https://wa.me/5575998623295?text=${encodeURIComponent(produto.WhatsApp || 'Olá, quero comprar ' + produto.Nome)}"
-             class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
-             Comprar
-          </a>
+      parsed.data.forEach(produto => {
+        const card = document.createElement("div");
+        card.className = (produto.categoria === "oferta") ? "promo-item" : "produto";
+
+        card.innerHTML = `
+          <img src="${produto.imagem}" alt="${produto.nome}">
+          <h3>${produto.nome}</h3>
+          ${produto.preco_antigo ? `<p class="preco-antigo">R$${produto.preco_antigo}</p>` : ""}
+          <p class="price">R$${produto.preco} ${produto.tag ? `<span class="tag">${produto.tag}</span>` : ""}</p>
+          <a href="${produto.link}" class="btn-comprar">COMPRAR</a>
         `;
-        promoContainer.appendChild(item);
+
+        if (produto.categoria.toLowerCase() === "oferta") {
+          ofertasGrid.appendChild(card);
+        } else if (produto.categoria.toLowerCase() === "destaque") {
+          destaquesGrid.appendChild(card);
+        }
       });
+
+    } catch (err) {
+      console.error("Erro carregando produtos:", err);
     }
   });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", async () => {
-  const avisoContainer = document.getElementById("aviso-topo");
-
-  // 👉 troque pelo link de "Publicar na web" da sua planilha AvisosSite (CSV)
-  const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?output=csv";
-
-  try {
-    const resp = await fetch(CSV_URL);
-    if (!resp.ok) {
-      console.error("Erro ao buscar aviso:", resp.status);
-      return;
-    }
-    const csvText = await resp.text();
-    const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
-
-    console.log("Avisos recebidos:", parsed.data);
-
-    if (parsed.data.length > 0) {
-      const aviso = parsed.data[0]; // pega a primeira linha
-      avisoContainer.innerHTML = aviso.mensagem || "";
-      avisoContainer.style.background = aviso.cor_fundo || "#d32f2f";
-      avisoContainer.style.color = aviso.cor_texto || "#fff";
-      avisoContainer.style.display = "block";
-    }
-  } catch (err) {
-    console.error("Erro ao carregar aviso:", err);
-  }
-});
-</script>
-<script>
-  document.querySelector(".menu-toggle").addEventListener("click", () => {
-  document.querySelector(".main-menu ul").classList.toggle("show");
-});
-</script> 
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-  // aplica como fallback se CSS não surtir efeito
-  const wa = document.querySelector('.whatsapp-fixo img');
-  if (wa) {
-    wa.style.width = '56px';
-    wa.style.height = '56px';
-    wa.style.maxWidth = 'none';
-    wa.style.objectFit = 'contain';
-  }
-  const anvisa = document.querySelector('.logo-anvisa');
-  if (anvisa) {
-    anvisa.style.width = '80px';
-    anvisa.style.height = 'auto';
-  }
-  const footer = document.querySelector('.footer');
-  if (footer) {
-    footer.style.textAlign = 'center';
-  }
-});
-</script>
+  </script>
 </body>
 </html>
