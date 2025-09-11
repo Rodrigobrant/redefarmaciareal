@@ -189,7 +189,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       </a>
     </div>
   </header>
-<!-- Menu principal -->
+  <!-- Menu hambúrguer -->
+  <div class="menu-toggle">☰ Menu</div>
+  <!-- Menu principal -->
   <nav class="main-menu">
     <ul>
       <li><a href="#">Início</a></li>
@@ -445,6 +447,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Erro ao carregar aviso:", err);
   }
 });
-</script>  
+</script>
+<script>
+  document.querySelector(".menu-toggle").addEventListener("click", () => {
+  document.querySelector(".main-menu ul").classList.toggle("show");
+});
+</script> 
 </body>
 </html>
