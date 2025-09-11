@@ -197,87 +197,55 @@ section h2 {
 /* ============================
    RODAPÉ
 ============================ */
+/* Ajuste Rodapé */
 .footer {
   background: #fff;
-  padding: 22px;
+  padding: 18px 12px;
   border-top: 1px solid #eee;
   text-align: center;
-  font-size: 14px;
+  font-size: 13px;
   color: #444;
+  line-height: 1.5;
 }
+
+.footer p {
+  margin: 6px 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Logo Anvisa menor e responsivo */
 .logo-anvisa {
-  width: 80px;
+  width: 60px;   /* tamanho fixo desktop */
   max-width: 100%;
   height: auto;
-  margin: 10px auto;
+  margin: 12px auto;
   display: block;
 }
 
-/* ============================
-   BOTÃO WHATSAPP FIXO
-============================ */
-.whatsapp-fixo {
-  position: fixed;
-  right: 18px;
-  bottom: 18px;
-  z-index: 1200;
-}
+/* Botão WhatsApp fixo menor */
 .whatsapp-fixo img {
-  width: 44px;
-  height: 44px;
+  width: 40px;   /* menor que antes */
+  height: 40px;
   border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   transition: transform 0.2s;
 }
 .whatsapp-fixo img:hover {
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
 
-/* ============================
-   RESPONSIVIDADE
-============================ */
-@media (max-width: 1024px) {
-  .logo img { height: 50px; max-width: 150px; }
-  .search-bar input { max-width: 360px; }
-}
+/* Mobile refinado */
 @media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px;
-    gap: 10px;
+  .logo-anvisa {
+    width: 50px; /* ainda menor no celular */
   }
-  .search-bar {
-    width: 100%;
-    justify-content: flex-start;
+  .whatsapp-fixo img {
+    width: 36px;
+    height: 36px;
   }
-  .search-bar input {
-    width: 100%;
-    max-width: 100%;
-    border-radius: 12px;
-    text-align: left;
-    padding-left: 14px;
+  .footer {
+    font-size: 12px;
+    padding: 14px;
   }
-  .menu-toggle {
-    display: block;
-    background: #2e7d32;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-    font-weight: 700;
-    cursor: pointer;
-  }
-  .main-menu ul {
-    display: none;
-    flex-direction: column;
-    padding: 12px 18px;
-  }
-  .main-menu ul.show {
-    display: flex;
-  }
-  .produtos-grid, .promo {
-    grid-template-columns: 1fr;
-  }
-  .logo-anvisa { width: 65px; }
-  .whatsapp-fixo img { width: 40px; height: 40px; }
-}
