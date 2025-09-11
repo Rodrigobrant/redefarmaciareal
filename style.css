@@ -1,82 +1,283 @@
-/* Reset e base */
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial, sans-serif;background:#fff;color:#222;line-height:1.4}
-
-/* AVISO TOPO */
-#aviso-topo{
-  width:100%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  font-weight:700;
-  font-size:1rem;
-  padding:10px;
-  border-bottom:3px solid #ffe082;
-  z-index:2000;
+/* ============================
+   RESET E BASE
+============================ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: Arial, sans-serif;
+  background: #fff;
+  color: #222;
+  line-height: 1.4;
 }
 
-/* HEADER */
-header{
-  background:#fff;
-  border-bottom:1px solid #eee;
-  padding:12px 18px;
-  display:flex;
-  align-items:center;
-  gap:16px;
-  position:sticky;
-  top:40px; z-index:1000;
+/* ============================
+   AVISO TOPO
+============================ */
+#aviso-topo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-bottom: 3px solid #ffe082;
+  z-index: 2000;
+  background: #d32f2f; /* cor padrão se planilha não carregar */
+  color: #fff;
 }
-.logo img{height:72px;max-width:220px;object-fit:contain;display:block}
-.search-bar{flex:1;display:flex;justify-content:center}
-.search-bar input{width:100%;max-width:520px;padding:10px 14px;border-radius:24px;border:1px solid #ccc;text-align:center}
-.header-actions{display:flex;gap:14px;align-items:center}
-.header-actions a{color:#333;text-decoration:none;font-weight:700}
 
-/* MENU */
-.menu-toggle{display:none}
-.main-menu{background:#2e7d32;padding:10px 0;position:sticky;top:112px;z-index:950}
-.main-menu ul{display:flex;justify-content:center;gap:28px;list-style:none;margin:0;padding:0}
-.main-menu a{color:#fff;text-decoration:none;font-weight:700;padding:8px 12px;border-radius:6px}
-.main-menu a:hover{background:#fff;color:#2e7d32}
-
-/* CARROSSEL */
-.carousel{max-width:1200px;margin:18px auto;overflow:hidden;border-radius:10px}
-.carousel img{width:100%;display:none;max-height:320px;object-fit:cover}
-.carousel img.active{display:block}
-
-/* PRODUTOS / PROMO */
-section{max-width:1200px;margin:24px auto;padding:0 16px}
-section h2{text-align:center;color:#2e7d32;margin-bottom:18px;font-size:1.8rem}
-.produtos-grid, .promo{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-.promo-item, .produto{background:#fff;border-radius:10px;padding:16px;text-align:center;border:1px solid #eee;box-shadow:0 6px 18px rgba(16,24,16,0.04)}
-.promo-item img{max-width:140px;height:auto;margin:0 auto 10px;display:block}
-.promo-item h3{font-size:1.05rem;color:#145c2c;margin:6px 0}
-.promo-item p.desc{font-size:.95rem;color:#666;margin:6px 0}
-.promo-item .price{font-weight:800;color:#d32f2f;margin:8px 0}
-.whatsapp-btn{background:#25d366;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;display:inline-block}
-
-/* RODAPÉ */
-.footer{background:#fff;padding:22px;border-top:1px solid #eee;text-align:center;font-size:14px}
-.logo-anvisa{width:100px;height:auto;margin:8px auto;display:block}
-
-/* WHATSAPP FIXO */
-.whatsapp-fixo{position:fixed;right:18px;bottom:18px;z-index:1200}
-.whatsapp-fixo img{width:56px;height:56px;border-radius:50%;box-shadow:0 6px 18px rgba(0,0,0,0.12)}
-
-/* Responsividade */
-@media(max-width:1024px){
-  .logo img{height:60px}
-  .search-bar input{max-width:360px}
+/* ============================
+   HEADER
+============================ */
+header {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: sticky;
+  top: 40px; /* abaixo da barra de aviso */
+  z-index: 1000;
 }
-@media(max-width:768px){
-  header{flex-direction:column;align-items:flex-start;padding:10px}
-  .search-bar{width:100%;justify-content:flex-start}
-  .search-bar input{width:100%;max-width:100%;border-radius:12px;text-align:left;padding-left:14px}
-  .menu-toggle{display:block;background:#2e7d32;color:#fff;padding:10px;text-align:center;font-weight:700}
-  .main-menu ul{display:none;flex-direction:column;padding:12px 18px}
-  .main-menu ul.show{display:flex}
-  .produtos-grid, .promo{grid-template-columns:1fr}
-  .logo-anvisa{width:80px}
-  .whatsapp-fixo img{width:48px;height:48px}
+/* Logo */
+.logo img {
+  height: 55px;
+  max-width: 160px;
+  object-fit: contain;
+  display: block;
+}
+/* Barra de busca */
+.search-bar {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.search-bar input {
+  width: 100%;
+  max-width: 520px;
+  padding: 10px 14px;
+  border-radius: 24px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+/* Ações à direita */
+.header-actions {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+.header-actions a {
+  color: #333;
+  text-decoration: none;
+  font-weight: 700;
+}
+.header-actions a:hover {
+  color: #2e7d32;
+}
+
+/* ============================
+   MENU PRINCIPAL
+============================ */
+.menu-toggle {
+  display: none;
+}
+.main-menu {
+  background: #2e7d32;
+  padding: 10px 0;
+  position: sticky;
+  top: 95px; /* logo + aviso */
+  z-index: 950;
+}
+.main-menu ul {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  list-style: none;
+}
+.main-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+.main-menu a:hover {
+  background: #fff;
+  color: #2e7d32;
+}
+
+/* ============================
+   CARROSSEL
+============================ */
+.carousel {
+  max-width: 1200px;
+  margin: 18px auto;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.carousel img {
+  width: 100%;
+  display: none;
+  max-height: 320px;
+  object-fit: cover;
+}
+.carousel img.active {
+  display: block;
+}
+
+/* ============================
+   PRODUTOS / PROMOÇÕES
+============================ */
+section {
+  max-width: 1200px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+section h2 {
+  text-align: center;
+  color: #2e7d32;
+  margin-bottom: 18px;
+  font-size: 1.8rem;
+}
+.produtos-grid, .promo {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+.promo-item, .produto {
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+  border: 1px solid #eee;
+  box-shadow: 0 6px 18px rgba(16,24,16,0.04);
+}
+.promo-item img {
+  max-width: 140px;
+  height: auto;
+  margin: 0 auto 10px;
+  display: block;
+}
+.promo-item h3 {
+  font-size: 1.05rem;
+  color: #145c2c;
+  margin: 6px 0;
+}
+.promo-item p.desc {
+  font-size: .95rem;
+  color: #666;
+  margin: 6px 0;
+}
+.promo-item .price {
+  font-weight: 800;
+  color: #d32f2f;
+  margin: 8px 0;
+}
+.whatsapp-btn {
+  background: #25d366;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 700;
+  transition: background 0.2s;
+}
+.whatsapp-btn:hover {
+  background: #1ebe57;
+}
+
+/* ============================
+   RODAPÉ
+============================ */
+.footer {
+  background: #fff;
+  padding: 22px;
+  border-top: 1px solid #eee;
+  text-align: center;
+  font-size: 14px;
+  color: #444;
+}
+.logo-anvisa {
+  width: 80px;
+  max-width: 100%;
+  height: auto;
+  margin: 10px auto;
+  display: block;
+}
+
+/* ============================
+   BOTÃO WHATSAPP FIXO
+============================ */
+.whatsapp-fixo {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 1200;
+}
+.whatsapp-fixo img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: transform 0.2s;
+}
+.whatsapp-fixo img:hover {
+  transform: scale(1.1);
+}
+
+/* ============================
+   RESPONSIVIDADE
+============================ */
+@media (max-width: 1024px) {
+  .logo img { height: 50px; max-width: 150px; }
+  .search-bar input { max-width: 360px; }
+}
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    gap: 10px;
+  }
+  .search-bar {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .search-bar input {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 12px;
+    text-align: left;
+    padding-left: 14px;
+  }
+  .menu-toggle {
+    display: block;
+    background: #2e7d32;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .main-menu ul {
+    display: none;
+    flex-direction: column;
+    padding: 12px 18px;
+  }
+  .main-menu ul.show {
+    display: flex;
+  }
+  .produtos-grid, .promo {
+    grid-template-columns: 1fr;
+  }
+  .logo-anvisa { width: 65px; }
+  .whatsapp-fixo img { width: 40px; height: 40px; }
 }
