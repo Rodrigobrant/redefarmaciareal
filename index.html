@@ -375,13 +375,56 @@ document.addEventListener('DOMContentLoaded', async () => {
       <img src="imagem/whatsapp.png" alt="WhatsApp">
     </a>
   </div>
-   <!-- ================= PROMOÇÕES AUTOMÁTICAS ================= -->
- <!-- PapaParse -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+   
 <!-- Script Aviso -->
-  <script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>    
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const avisoTopo = document.getElementById("aviso-topo");
+
+  const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?output=csv";
+
+  try {
+    const resp = await fetch(CSV_URL);
+    if (!resp.ok) throw new Error("Erro ao buscar aviso: " + resp.status);
+
+    const csvText = await resp.text();
+    const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
+
+    console.log("Avisos lidos:", parsed.data);
+
+    let mensagem = "";
+
+    // 1º tenta encontrar coluna chamada "mensagem"
+    if (parsed.data.length > 0) {
+      if (parsed.data[0].mensagem) {
+        mensagem = parsed.data[0].mensagem.trim();
+      } else {
+        // 2º fallback: pega a primeira célula da primeira linha
+        const firstRow = Object.values(parsed.data[0]);
+        if (firstRow.length > 0) {
+          mensagem = firstRow[0].trim();
+        }
+      }
+    }
+
+    if (mensagem) {
+      avisoTopo.textContent = mensagem;
+      avisoTopo.style.display = "block";
+    } else {
+      avisoTopo.style.display = "none"; // não mostra nada
+    }
+  } catch (err) {
+    console.error("Erro ao carregar aviso topo:", err);
+    avisoTopo.style.display = "none";
+  }
+});
+</script>
+<!-- ================= PROMOÇÕES AUTOMÁTICAS ================= -->   
+<!-- PapaParse -->
+<script>
   document.addEventListener('DOMContentLoaded', async () => {
-    const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?output=csv";
+    const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?output=csv";
 
     try {
       const resp = await fetch(CSV_URL);
@@ -424,35 +467,5 @@ document.addEventListener('DOMContentLoaded', async () => {
       console.error("Erro carregando produtos:", err);
     }
   });
-  </script>
- <script>
- fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?output=csv')
-  .then(resp => resp.text())
-  .then(csv => {
-    const linhas = csv.split('\n');
-    // Pular o cabeçalho e pegar linhas válidas
-    const avisos = linhas.slice(1).filter(l => l.trim() && l.split(',')[0]);
-    if (avisos.length > 0) {
-      // Para vários avisos, pode iterar aqui; este exemplo mostra só o primeiro
-      const [mensagem, cor_fundo, cor_texto] = avisos[0].split(',');
-      document.getElementById('aviso-topo').innerHTML = `
-        <div style="
-          background: ${cor_fundo || '#d32f2f'};
-          color: ${cor_texto || '#fff'};
-          text-align: center;
-          font-weight: 700;
-          font-size: 1.08rem;
-          padding: 12px 8px 8px 8px;
-          border-bottom: 3px solid #ffe082;
-          letter-spacing: 0.02em;
-          z-index: 2000;
-          position: relative;
-        ">
-          ${mensagem}
-        </div>
-      `;
-    }
-  });
-</script>
 </body>
 </html>
