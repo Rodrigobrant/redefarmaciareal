@@ -232,4 +232,68 @@ section h2 {
   .whatsapp-fixo img { width:44px; height:44px; }
   .footer { font-size:12px; padding:16px; }
 }
+/* ===========================
+   OVERRIDES URGENTES (ADICIONE NO FINAL do style.css)
+   =========================== */
+
+/* força imagens responsivas por padrão */
+img {
+  max-width: 100% !important;
+  height: auto !important;
+  display: block !important;
+}
+
+/* whatsapp flutuante - força tamanho (override) */
+.whatsapp-fixo,
+.whatsapp-fixo a {
+  width: 56px !important;
+  height: 56px !important;
+  display: inline-block !important;
+  line-height: 1 !important;
+}
+.whatsapp-fixo img {
+  width: 56px !important;
+  height: 56px !important;
+  max-width: none !important;
+  object-fit: contain !important;
+  border-radius: 50% !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18) !important;
+}
+
+/* anvisa - limita tamanho e centraliza */
+.logo-anvisa {
+  width: 80px !important;
+  height: auto !important;
+  max-width: 100% !important;
+  margin: 12px auto !important;
+  display: block !important;
+}
+
+/* garante texto do rodapé legível e centralizado dentro de um max width */
+.footer {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  padding: 18px !important;
+  text-align: center !important;
+}
+.footer p {
+  max-width: 760px !important;
+  margin: 6px auto !important;
+  font-size: 13px !important;
+  line-height: 1.45 !important;
+}
+
+/* reduz para mobile */
+@media (max-width: 768px) {
+  .whatsapp-fixo,
+  .whatsapp-fixo img {
+    width: 44px !important;
+    height: 44px !important;
+  }
+  .logo-anvisa { width: 64px !important; }
+  .footer p { font-size: 12px !important; padding: 0 10px !important; }
+}
 
