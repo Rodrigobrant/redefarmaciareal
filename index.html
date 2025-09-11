@@ -452,5 +452,26 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.querySelector(".main-menu ul").classList.toggle("show");
 });
 </script> 
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  // aplica como fallback se CSS não surtir efeito
+  const wa = document.querySelector('.whatsapp-fixo img');
+  if (wa) {
+    wa.style.width = '56px';
+    wa.style.height = '56px';
+    wa.style.maxWidth = 'none';
+    wa.style.objectFit = 'contain';
+  }
+  const anvisa = document.querySelector('.logo-anvisa');
+  if (anvisa) {
+    anvisa.style.width = '80px';
+    anvisa.style.height = 'auto';
+  }
+  const footer = document.querySelector('.footer');
+  if (footer) {
+    footer.style.textAlign = 'center';
+  }
+});
+</script>
 </body>
 </html>
