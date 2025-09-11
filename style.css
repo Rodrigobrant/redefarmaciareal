@@ -197,55 +197,39 @@ section h2 {
 /* ============================
    RODAPÉ
 ============================ */
-/* Ajuste Rodapé */
+/* Rodapé */
 .footer {
-  background: #fff;
-  padding: 18px 12px;
-  border-top: 1px solid #eee;
-  text-align: center;
-  font-size: 13px;
-  color: #444;
-  line-height: 1.5;
+  background:#fff;
+  padding:20px;
+  border-top:1px solid #eee;
+  text-align:center;
+  font-size:13px;
+  line-height:1.5;
+  color:#333;
 }
 
 .footer p {
-  margin: 6px 0;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  margin:6px 0;
 }
 
-/* Logo Anvisa menor e responsivo */
+/* Logo Anvisa */
 .logo-anvisa {
-  width: 60px;   /* tamanho fixo desktop */
-  max-width: 100%;
-  height: auto;
-  margin: 12px auto;
-  display: block;
+  width:80px;       /* reduzindo */
+  height:auto;
+  margin:10px auto;
+  display:block;
 }
 
-/* Botão WhatsApp fixo menor */
+/* Botão WhatsApp fixo */
 .whatsapp-fixo img {
-  width: 40px;   /* menor que antes */
-  height: 40px;
-  border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  transition: transform 0.2s;
+  width:48px;       /* reduzindo */
+  height:48px;
+  border-radius:50%;
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);
 }
-.whatsapp-fixo img:hover {
-  transform: scale(1.08);
+@media(max-width:768px){
+  .logo-anvisa { width:70px; }
+  .whatsapp-fixo img { width:44px; height:44px; }
+  .footer { font-size:12px; padding:16px; }
 }
 
-/* Mobile refinado */
-@media (max-width: 768px) {
-  .logo-anvisa {
-    width: 50px; /* ainda menor no celular */
-  }
-  .whatsapp-fixo img {
-    width: 36px;
-    height: 36px;
-  }
-  .footer {
-    font-size: 12px;
-    padding: 14px;
-  }
