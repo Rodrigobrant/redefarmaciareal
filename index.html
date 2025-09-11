@@ -394,23 +394,31 @@ document.addEventListener('DOMContentLoaded', async () => {
       const destaquesGrid = document.getElementById("destaques-grid");
 
       parsed.data.forEach(produto => {
-        const card = document.createElement("div");
-        card.className = (produto.categoria === "oferta") ? "promo-item" : "produto";
+  const categoria = (produto["categoria"] || "").toLowerCase(); // garante que pega a coluna certa
+  const nome = produto["nome"] || "Produto";
+  const preco = produto["preco"] || "";
+  const preco_antigo = produto["preco_antigo"] || "";
+  const imagem = produto["imagem"] || "imagem/placeholder.png";
+  const tag = produto["tag"] || "";
+  const link = produto["link"] || "#";
 
-        card.innerHTML = `
-          <img src="${produto.imagem}" alt="${produto.nome}">
-          <h3>${produto.nome}</h3>
-          ${produto.preco_antigo ? `<p class="preco-antigo">R$${produto.preco_antigo}</p>` : ""}
-          <p class="price">R$${produto.preco} ${produto.tag ? `<span class="tag">${produto.tag}</span>` : ""}</p>
-          <a href="${produto.link}" class="btn-comprar">COMPRAR</a>
-        `;
+  const card = document.createElement("div");
+  card.className = (categoria === "oferta") ? "promo-item" : "produto";
 
-        if (produto.categoria.toLowerCase() === "oferta") {
-          ofertasGrid.appendChild(card);
-        } else if (produto.categoria.toLowerCase() === "destaque") {
-          destaquesGrid.appendChild(card);
-        }
-      });
+  card.innerHTML = `
+    <img src="${imagem}" alt="${nome}">
+    <h3>${nome}</h3>
+    ${preco_antigo ? `<p class="preco-antigo">R$${preco_antigo}</p>` : ""}
+    <p class="price">R$${preco} ${tag ? `<span class="tag">${tag}</span>` : ""}</p>
+    <a href="${link}" class="btn-comprar">COMPRAR</a>
+  `;
+
+  if (categoria === "oferta") {
+    ofertasGrid.appendChild(card);
+  } else if (categoria === "destaque") {
+    destaquesGrid.appendChild(card);
+  }
+});
 
     } catch (err) {
       console.error("Erro carregando produtos:", err);
