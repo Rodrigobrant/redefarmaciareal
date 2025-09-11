@@ -221,16 +221,24 @@ section h2 {
 }
 
 /* Botão WhatsApp fixo */
-.whatsapp-fixo img {
-  width:48px;       /* reduzindo */
-  height:48px;
-  border-radius:50%;
-  box-shadow:0 4px 12px rgba(0,0,0,0.2);
+.whatsapp-fixo {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 1200;
 }
-@media(max-width:768px){
-  .logo-anvisa { width:70px; }
-  .whatsapp-fixo img { width:44px; height:44px; }
-  .footer { font-size:12px; padding:16px; }
+
+.whatsapp-fixo img {
+  width: 64px;   /* tamanho padronizado */
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease;
+}
+
+.whatsapp-fixo img:hover {
+  transform: scale(1.1);
 }
 /* ===========================
    OVERRIDES URGENTES (ADICIONE NO FINAL do style.css)
