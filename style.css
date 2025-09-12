@@ -40,16 +40,19 @@ header {
   z-index: 1000;
 }
 .logo {
-  background: #2e7d32; /* verde */
-  padding: 10px 20px;
+  background: #2e7d32;   /* fundo verde */
+  padding: 12px 24px;    /* espaço em volta */
   border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 .logo img {
-  height: 160px;      /* aumenta bastante a altura */
-  max-width: 320px;   /* permite largura maior */
+  height: 160px;        /* aumenta bem no desktop */
+  max-width: 320px;
   object-fit: contain;
   display: block;
-  margin: 0 auto;     /* centraliza dentro do fundo verde */
 }
 /* Layout mobile */
 @media (max-width: 768px) {
@@ -60,17 +63,14 @@ header {
   }
 
   .logo {
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: center;
-    width: 100%;
+    width: 100%;          /* ocupa toda a largura */
+    padding: 10px;        /* reduz espaço */
   }
 
   .logo img {
-    height: 70px;    /* proporcional no mobile */
-    max-height: 80px;
+    height: 110px;        /* menor que desktop */
+    max-width: 240px;     /* largura proporcional */
   }
-
   .search-bar {
     width: 100%;
     margin: 8px 0;
