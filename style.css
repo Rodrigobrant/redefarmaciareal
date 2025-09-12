@@ -26,10 +26,9 @@ body {
   display: none; /* começa oculto, só mostra quando tiver mensagem */
 }
 
-
 /* HEADER */
 header {
-  background: #2e7d32;
+  background: #2e7d32; /* verde em todo o cabeçalho */
   border-bottom: 1px solid #eee;
   padding: 8px 20px;
   display: flex;
@@ -38,53 +37,12 @@ header {
   position: sticky;
   top: 0;
   z-index: 1000;
-}
-.logo {
-  background: #2e7d32; /* verde */
-  padding: 6px 10px;
-  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 .logo img {
-  height: 90px;
-  max-width: 100px;
+  height: 90px;   /* maior no desktop */
+  width: auto;    /* mantém proporção */
   object-fit: contain;
-}
-/* Layout mobile */
-@media (max-width: 768px) {
-  .site-header {
-    flex-direction: column;
-    align-items: center;   /* centraliza tudo */
-    text-align: center;
-  }
-
-  .logo {
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
-
-  .logo img {
-    height: 70px;    /* proporcional no mobile */
-    max-height: 80px;
-  }
-
-  .search-bar {
-    width: 100%;
-    margin: 8px 0;
-    display: flex;
-    justify-content: center;
-  }
-
-  .search-bar input {
-    max-width: 95%;
-    font-size: 14px;
-  }
-
-  .header-actions {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
 }
 .search-bar {
   flex: 1;
@@ -106,9 +64,12 @@ header {
   align-items: center;
 }
 .header-actions a {
-  color: #333;
+  color: #fff;
   text-decoration: none;
   font-weight: 600;
+}
+.header-actions a:hover {
+  color: #ffeb3b;
 }
 
 /* MENU CATEGORIAS */
@@ -240,17 +201,28 @@ section h2 {
 @media(max-width:768px){
   header {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center; /* centraliza logo */
+    text-align: center;
     gap: 10px;
+  }
+  .logo img {
+    height: 70px; /* proporcional no mobile */
+    max-height: 80px;
   }
   .search-bar {
     width: 100%;
-    margin: 0;
+    margin: 8px 0;
+    justify-content: center;
   }
   .search-bar input {
-    width: 100%;
+    max-width: 95%;
+    font-size: 14px;
     text-align: left;
     padding-left: 14px;
+  }
+  .header-actions {
+    justify-content: center;
+    flex-wrap: wrap;
   }
   .main-menu ul {
     flex-wrap: wrap;
