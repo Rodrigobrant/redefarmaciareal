@@ -40,14 +40,14 @@ header {
   z-index: 1000;
   height: 80px;        /* 🔹 altura fixa menor */
 }
-.logo {
+/*.logo {
   background: #2e7d32;   /* fundo verde */
   padding: 12px 24px;    /* espaço em volta */
   border-radius: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
-}
+}*/
 
 .logo img {
   height: 65px;        /* 🔹 logo proporcional */
