@@ -31,13 +31,14 @@ body {
 header {
   background: #2e7d32;
   border-bottom: 1px solid #eee;
-  padding: 8px 20px;
+  padding: 6px 16px;   /* 🔹 padding menor */
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: sticky;
   top: 0;
   z-index: 1000;
+  height: 80px;        /* 🔹 altura fixa menor */
 }
 .logo {
   background: #2e7d32;   /* fundo verde */
