@@ -77,24 +77,21 @@ header {
   color: #333;
   text-decoration: none;
   font-weight: 600;
-/* Carrossel */
-/* Carrossel */
+/* Carrossel/Banners */
 .carousel {
   position: relative;
-  max-width: 1200px;
-  margin: 20px auto;
+  max-width: 100%;
+  margin: auto;
   overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  height: 320px; /* 🔹 define altura fixa proporcional */
 }
 
-/* 🔹 Mantém proporção e limita altura */
 .carousel img {
   width: 100%;
-  height: 380px;       /* altura fixa proporcional */
-  object-fit: cover;   /* cobre o espaço sem distorcer */
+  height: 100%;
+  object-fit: cover; /* 🔹 corta a imagem mantendo proporção */
   display: none;
-  border-radius: 12px;
 }
 
 .carousel img.active {
