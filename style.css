@@ -78,6 +78,7 @@ header {
   text-decoration: none;
   font-weight: 600;
 /* Carrossel */
+/* Carrossel */
 .carousel {
   position: relative;
   max-width: 1200px;
@@ -87,9 +88,11 @@ header {
   box-shadow: 0 4px 14px rgba(0,0,0,0.1);
 }
 
+/* 🔹 Mantém proporção e limita altura */
 .carousel img {
   width: 100%;
-  height: auto;         /* mantém a proporção original */
+  height: 380px;       /* altura fixa proporcional */
+  object-fit: cover;   /* cobre o espaço sem distorcer */
   display: none;
   border-radius: 12px;
 }
