@@ -77,13 +77,25 @@ header {
   color: #333;
   text-decoration: none;
   font-weight: 600;
+/* Carrossel */
+.carousel {
+  position: relative;
+  max-width: 1200px;
+  margin: 20px auto;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
 }
+
 .carousel img {
   width: 100%;
+  height: auto;         /* mantém a proporção original */
   display: none;
-  max-height: 220px;   /* diminui a altura */
-  object-fit: cover;   /* corta mantendo proporção */
-  border-radius: 10px;
+  border-radius: 12px;
+}
+
+.carousel img.active {
+  display: block;
 }
 
 /* MENU CATEGORIAS */
