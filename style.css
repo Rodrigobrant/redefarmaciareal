@@ -50,10 +50,9 @@ header {
 }
 
 .logo img {
-  height: 160px;        /* aumenta bem no desktop */
-  max-width: 320px;
+  height: 65px;        /* 🔹 logo proporcional */
+  max-width: 140px;
   object-fit: contain;
-  display: block;
 }
 .search-bar {
   flex: 1;
