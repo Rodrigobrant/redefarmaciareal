@@ -113,7 +113,7 @@ header {
 
 /* CARROSSEL/BANNERS */
 .carousel {
-  margin-top: 156px; /* altura total aviso + header + menu */
+  margin-top: 200px; /* altura total aviso + header + menu */
   max-width: 100%;
   overflow: hidden;
   text-align: center;
@@ -167,7 +167,7 @@ header {
   }
 
   .carousel {
-    margin-top: 180px; /* aviso + header + menu no mobile */
+    margin-top: 220px; /* aviso + header + menu no mobile */
     max-height: 160px;
   }
 }
