@@ -9,6 +9,7 @@ body {
   background: #fff;
   color: #222;
   line-height: 1.5;
+  padding-top: 80px;   /* igual à altura do header */
 }
 
 /* AVISO TOPO */
@@ -29,16 +30,18 @@ body {
 
 /* HEADER */
 header {
-  background: #2e7d32;
-  border-bottom: 1px solid #eee;
-  padding: 6px 16px;   /* 🔹 padding menor */
+  position: fixed;      /* fixa no topo */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2000;        /* fica acima do restante */
+  background: #2e7d32;  /* mantém fundo verde */
+  padding: 6px 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  height: 80px;        /* 🔹 altura fixa menor */
+  height: 80px;
+  border-bottom: 1px solid #eee;
 }
 /*.logo {
   background: #2e7d32;   /* fundo verde */
