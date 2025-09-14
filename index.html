@@ -348,8 +348,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   <!-- OFERTAS ESPECIAIS -->
   <section>
     <h2>OFERTAS ESPECIAIS</h2>
-    <div id="ofertas-grid" class="promo"></div>
-  </section>
+    <div class="ofertas-carousel">
+        <div class="ofertas-slides">
+            </div>
+        <button class="ofertas-prev">❮</button>
+        <button class="ofertas-next">❯</button>
+        <div class="ofertas-dots"></div>
+    </div>
+</section>
 
   <!-- DESTAQUES -->
   <section>
@@ -487,34 +493,62 @@ function ajustarCarrossel() {
       const csvText = await resp.text();
       const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
 
-      const ofertasGrid = document.getElementById("ofertas-grid");
-      const destaquesGrid = document.getElementById("destaques-grid");
+      const ofertasSlides = document.querySelector(".ofertas-slides");
+const destaquesGrid = document.getElementById("destaques-grid"); // Mantemos o grid para destaques
 
-      parsed.data.forEach(produto => {
-  const categoria = (produto["categoria"] || "").toLowerCase(); // garante que pega a coluna certa
+parsed.data.forEach(produto => {
+  const categoria = (produto["categoria"] || "").toLowerCase();
   const nome = produto["nome"] || "Produto";
   const preco = produto["preco"] || "";
   const preco_antigo = produto["preco_antigo"] || "";
   const imagem = produto["imagem"] || "imagem/placeholder.png";
   const tag = produto["tag"] || "";
   const link = produto["link"] || "#";
+  
+  // Link para o WhatsApp
+  const whats = "5575998623295"; // Seu número fixo
+  const waText = encodeURIComponent(`Olá, quero este produto: ${nome}`);
+  const waLink = `https://wa.me/${whats}?text=${waText}`;
 
   const card = document.createElement("div");
-  card.className = (categoria === "oferta") ? "promo-item" : "produto";
+  card.className = "promo-item";
 
   card.innerHTML = `
     <img src="${imagem}" alt="${nome}">
     <h3>${nome}</h3>
     ${preco_antigo ? `<p class="preco-antigo">R$${preco_antigo}</p>` : ""}
     <p class="price">R$${preco} ${tag ? `<span class="tag">${tag}</span>` : ""}</p>
-    <a href="${link}" class="btn-comprar">COMPRAR</a>
+    <a href="${waLink}" class="btn-comprar" target="_blank" rel="noopener noreferrer">COMPRAR</a>
   `;
 
   if (categoria === "oferta") {
-    ofertasGrid.appendChild(card);
+    ofertasSlides.appendChild(card); // Adiciona ao carrossel
   } else if (categoria === "destaque") {
-    destaquesGrid.appendChild(card);
+    destaquesGrid.appendChild(card); // Mantém no grid de destaques
   }
+});
+
+// Adicionar a lógica de navegação do carrossel de ofertas
+const ofertasCarousel = document.querySelector('.ofertas-carousel');
+const ofertasSlidesContainer = document.querySelector('.ofertas-slides');
+const ofertasPrevBtn = document.querySelector('.ofertas-prev');
+const ofertasNextBtn = document.querySelector('.ofertas-next');
+
+if (ofertasPrevBtn && ofertasNextBtn) {
+    ofertasNextBtn.addEventListener('click', () => {
+        ofertasSlidesContainer.scrollBy({
+            left: ofertasSlidesContainer.offsetWidth,
+            behavior: 'smooth'
+        });
+    });
+
+    ofertasPrevBtn.addEventListener('click', () => {
+        ofertasSlidesContainer.scrollBy({
+            left: -ofertasSlidesContainer.offsetWidth,
+            behavior: 'smooth'
+        });
+    });
+}
 });
 
     } catch (err) {
