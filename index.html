@@ -358,11 +358,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 </section>
 
   <!-- DESTAQUES -->
-  <section>
-    <h2>DESTAQUES</h2>
-    <div id="destaques-grid" class="produtos-grid"></div>
-  </section>
-  <!-- Seção de Chama Catálogo -->
+ <section>
+  <h2>DESTAQUES</h2>
+  <div class="destaques-carousel">
+    <div class="destaques-slides">
+        </div>
+    <button class="destaques-prev">❮</button>
+    <button class="destaques-next">❯</button>
+  </div>
+</section>
+<!-- Seção de Chama Catálogo -->
     <section style="text-align: center; margin: 40px 0;">
     <h2 style="color: #28a745; font-size: 28px; font-weight: bold;">
         Bem-vindo à Farmácias Real
@@ -494,10 +499,9 @@ function ajustarCarrossel() {
             const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
 
             const ofertasSlides = document.querySelector(".ofertas-slides");
-            const destaquesGrid = document.getElementById("destaques-grid");
+            const destaquesSlides = document.querySelector(".destaques-slides");
             
-            // Adicionando um fallback para o caso de os containers não existirem
-            if (!ofertasSlides || !destaquesGrid) {
+            if (!ofertasSlides || !destaquesSlides) {
                 console.error('Um ou mais containers de produtos não foram encontrados.');
                 return;
             }
@@ -509,15 +513,13 @@ function ajustarCarrossel() {
                 const preco_antigo = produto["preco_antigo"] || "";
                 const imagem = produto["imagem"] || "imagem/placeholder.png";
                 const tag = produto["tag"] || "";
-                const link = produto["link"] || "#";
                 
-                // Link para o WhatsApp
                 const whats = "5575998623295";
                 const waText = encodeURIComponent(`Olá, quero este produto: ${nome}`);
                 const waLink = `https://wa.me/${whats}?text=${waText}`;
 
                 const card = document.createElement("div");
-                card.className = "promo-item";
+                card.className = "promo-item"; // A classe do card de produto
 
                 card.innerHTML = `
                     <img src="${imagem}" alt="${nome}">
@@ -530,37 +532,39 @@ function ajustarCarrossel() {
                 if (categoria === "oferta") {
                     ofertasSlides.appendChild(card);
                 } else if (categoria === "destaque") {
-                    destaquesGrid.appendChild(card);
+                    destaquesSlides.appendChild(card);
                 }
             });
 
-            // Adicionar a lógica de navegação do carrossel de ofertas
-            const ofertasCarousel = document.querySelector('.ofertas-carousel');
+            // Lógica de navegação para o carrossel de ofertas
             const ofertasSlidesContainer = document.querySelector('.ofertas-slides');
             const ofertasPrevBtn = document.querySelector('.ofertas-prev');
             const ofertasNextBtn = document.querySelector('.ofertas-next');
-
             if (ofertasPrevBtn && ofertasNextBtn && ofertasSlidesContainer) {
                 ofertasNextBtn.addEventListener('click', () => {
-                    ofertasSlidesContainer.scrollBy({
-                        left: ofertasSlidesContainer.offsetWidth,
-                        behavior: 'smooth'
-                    });
+                    ofertasSlidesContainer.scrollBy({ left: ofertasSlidesContainer.offsetWidth, behavior: 'smooth' });
                 });
-
                 ofertasPrevBtn.addEventListener('click', () => {
-                    ofertasSlidesContainer.scrollBy({
-                        left: -ofertasSlidesContainer.offsetWidth,
-                        behavior: 'smooth'
-                    });
+                    ofertasSlidesContainer.scrollBy({ left: -ofertasSlidesContainer.offsetWidth, behavior: 'smooth' });
                 });
             }
 
+            // Lógica de navegação para o carrossel de destaques
+            const destaquesSlidesContainer = document.querySelector('.destaques-slides');
+            const destaquesPrevBtn = document.querySelector('.destaques-prev');
+            const destaquesNextBtn = document.querySelector('.destaques-next');
+            if (destaquesPrevBtn && destaquesNextBtn && destaquesSlidesContainer) {
+                destaquesNextBtn.addEventListener('click', () => {
+                    destaquesSlidesContainer.scrollBy({ left: destaquesSlidesContainer.offsetWidth, behavior: 'smooth' });
+                });
+                destaquesPrevBtn.addEventListener('click', () => {
+                    destaquesSlidesContainer.scrollBy({ left: -destaquesSlidesContainer.offsetWidth, behavior: 'smooth' });
+                });
+            }
         } catch (err) {
             console.error("Erro carregando produtos:", err);
-            // Mensagem de erro apenas se os containers de produtos existirem
             const ofertasContainer = document.querySelector('.ofertas-carousel');
-            const destaquesContainer = document.getElementById('destaques-grid');
+            const destaquesContainer = document.querySelector('.destaques-carousel');
             if (ofertasContainer) ofertasContainer.innerHTML = '<p>Erro ao carregar ofertas. Ver console.</p>';
             if (destaquesContainer) destaquesContainer.innerHTML = '<p>Erro ao carregar destaques. Ver console.</p>';
         }
