@@ -483,78 +483,88 @@ function ajustarCarrossel() {
 <!-- ================= PROMOÇÕES AUTOMÁTICAS ================= -->   
 <!-- PapaParse -->
 <script>
-  document.addEventListener('DOMContentLoaded', async () => {
-    const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?output=csv";
+    document.addEventListener('DOMContentLoaded', async () => {
+        const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?output=csv";
 
-    try {
-      const resp = await fetch(CSV_URL);
-      if (!resp.ok) throw new Error('Erro ao buscar CSV: ' + resp.status);
+        try {
+            const resp = await fetch(CSV_URL);
+            if (!resp.ok) throw new Error('Erro ao buscar CSV: ' + resp.status);
 
-      const csvText = await resp.text();
-      const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
+            const csvText = await resp.text();
+            const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
 
-      const ofertasSlides = document.querySelector(".ofertas-slides");
-const destaquesGrid = document.getElementById("destaques-grid"); // Mantemos o grid para destaques
+            const ofertasSlides = document.querySelector(".ofertas-slides");
+            const destaquesGrid = document.getElementById("destaques-grid");
+            
+            // Adicionando um fallback para o caso de os containers não existirem
+            if (!ofertasSlides || !destaquesGrid) {
+                console.error('Um ou mais containers de produtos não foram encontrados.');
+                return;
+            }
 
-parsed.data.forEach(produto => {
-  const categoria = (produto["categoria"] || "").toLowerCase();
-  const nome = produto["nome"] || "Produto";
-  const preco = produto["preco"] || "";
-  const preco_antigo = produto["preco_antigo"] || "";
-  const imagem = produto["imagem"] || "imagem/placeholder.png";
-  const tag = produto["tag"] || "";
-  const link = produto["link"] || "#";
-  
-  // Link para o WhatsApp
-  const whats = "5575998623295"; // Seu número fixo
-  const waText = encodeURIComponent(`Olá, quero este produto: ${nome}`);
-  const waLink = `https://wa.me/${whats}?text=${waText}`;
+            parsed.data.forEach(produto => {
+                const categoria = (produto["categoria"] || "").toLowerCase();
+                const nome = produto["nome"] || "Produto";
+                const preco = produto["preco"] || "";
+                const preco_antigo = produto["preco_antigo"] || "";
+                const imagem = produto["imagem"] || "imagem/placeholder.png";
+                const tag = produto["tag"] || "";
+                const link = produto["link"] || "#";
+                
+                // Link para o WhatsApp
+                const whats = "5575998623295";
+                const waText = encodeURIComponent(`Olá, quero este produto: ${nome}`);
+                const waLink = `https://wa.me/${whats}?text=${waText}`;
 
-  const card = document.createElement("div");
-  card.className = "promo-item";
+                const card = document.createElement("div");
+                card.className = "promo-item";
 
-  card.innerHTML = `
-    <img src="${imagem}" alt="${nome}">
-    <h3>${nome}</h3>
-    ${preco_antigo ? `<p class="preco-antigo">R$${preco_antigo}</p>` : ""}
-    <p class="price">R$${preco} ${tag ? `<span class="tag">${tag}</span>` : ""}</p>
-    <a href="${waLink}" class="btn-comprar" target="_blank" rel="noopener noreferrer">COMPRAR</a>
-  `;
+                card.innerHTML = `
+                    <img src="${imagem}" alt="${nome}">
+                    <h3>${nome}</h3>
+                    ${preco_antigo ? `<p class="preco-antigo">R$${preco_antigo}</p>` : ""}
+                    <p class="price">R$${preco} ${tag ? `<span class="tag">${tag}</span>` : ""}</p>
+                    <a href="${waLink}" class="btn-comprar" target="_blank" rel="noopener noreferrer">COMPRAR</a>
+                `;
 
-  if (categoria === "oferta") {
-    ofertasSlides.appendChild(card); // Adiciona ao carrossel
-  } else if (categoria === "destaque") {
-    destaquesGrid.appendChild(card); // Mantém no grid de destaques
-  }
-});
+                if (categoria === "oferta") {
+                    ofertasSlides.appendChild(card);
+                } else if (categoria === "destaque") {
+                    destaquesGrid.appendChild(card);
+                }
+            });
 
-// Adicionar a lógica de navegação do carrossel de ofertas
-const ofertasCarousel = document.querySelector('.ofertas-carousel');
-const ofertasSlidesContainer = document.querySelector('.ofertas-slides');
-const ofertasPrevBtn = document.querySelector('.ofertas-prev');
-const ofertasNextBtn = document.querySelector('.ofertas-next');
+            // Adicionar a lógica de navegação do carrossel de ofertas
+            const ofertasCarousel = document.querySelector('.ofertas-carousel');
+            const ofertasSlidesContainer = document.querySelector('.ofertas-slides');
+            const ofertasPrevBtn = document.querySelector('.ofertas-prev');
+            const ofertasNextBtn = document.querySelector('.ofertas-next');
 
-if (ofertasPrevBtn && ofertasNextBtn) {
-    ofertasNextBtn.addEventListener('click', () => {
-        ofertasSlidesContainer.scrollBy({
-            left: ofertasSlidesContainer.offsetWidth,
-            behavior: 'smooth'
-        });
+            if (ofertasPrevBtn && ofertasNextBtn && ofertasSlidesContainer) {
+                ofertasNextBtn.addEventListener('click', () => {
+                    ofertasSlidesContainer.scrollBy({
+                        left: ofertasSlidesContainer.offsetWidth,
+                        behavior: 'smooth'
+                    });
+                });
+
+                ofertasPrevBtn.addEventListener('click', () => {
+                    ofertasSlidesContainer.scrollBy({
+                        left: -ofertasSlidesContainer.offsetWidth,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+
+        } catch (err) {
+            console.error("Erro carregando produtos:", err);
+            // Mensagem de erro apenas se os containers de produtos existirem
+            const ofertasContainer = document.querySelector('.ofertas-carousel');
+            const destaquesContainer = document.getElementById('destaques-grid');
+            if (ofertasContainer) ofertasContainer.innerHTML = '<p>Erro ao carregar ofertas. Ver console.</p>';
+            if (destaquesContainer) destaquesContainer.innerHTML = '<p>Erro ao carregar destaques. Ver console.</p>';
+        }
     });
-
-    ofertasPrevBtn.addEventListener('click', () => {
-        ofertasSlidesContainer.scrollBy({
-            left: -ofertasSlidesContainer.offsetWidth,
-            behavior: 'smooth'
-        });
-    });
-}
-});
-
-    } catch (err) {
-      console.error("Erro carregando produtos:", err);
-    }
-  });
 </script>
 </body>
 </html>
