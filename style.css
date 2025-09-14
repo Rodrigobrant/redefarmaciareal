@@ -113,15 +113,20 @@ header {
   display: block;
 }
 /* MENU CATEGORIAS */
+/* Remove espaço extra entre menu e carrossel */
 .main-menu {
   background: #f4f7f5;
-  padding: 16px 0;
+  padding: 10px 0;   /* diminui padding vertical */
+  margin-bottom: 0;  /* remove margem inferior */
 }
+
 .main-menu ul {
-  display: flex;
-  justify-content: center;
-  gap: 28px;
-  list-style: none;
+  margin: 0;         /* remove margens do ul */
+  padding: 0;        /* remove padding extra */
+}
+
+.carousel {
+  margin-top: 0;     /* garante que o carrossel suba */
 }
 .main-menu li {
   text-align: center;
