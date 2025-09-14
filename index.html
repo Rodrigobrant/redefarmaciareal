@@ -454,6 +454,26 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 </script>
+<script>
+window.addEventListener('load', ajustarCarrossel);
+window.addEventListener('resize', ajustarCarrossel);
+
+function ajustarCarrossel() {
+  const aviso = document.getElementById('aviso-topo');
+  const header = document.querySelector('header');
+  const menu = document.querySelector('.main-menu');
+  const carousel = document.querySelector('.carousel');
+
+  const alturaTotal = (aviso ? aviso.offsetHeight : 0)
+                    + (header ? header.offsetHeight : 0)
+                    + (menu ? menu.offsetHeight : 0);
+
+  if(carousel){
+    carousel.style.marginTop = alturaTotal + 'px';
+  }
+}
+</script>
+    
 <!-- ================= PROMOÇÕES AUTOMÁTICAS ================= -->   
 <!-- PapaParse -->
 <script>
@@ -501,5 +521,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.error("Erro carregando produtos:", err);
     }
   });
+</script>
 </body>
 </html>
