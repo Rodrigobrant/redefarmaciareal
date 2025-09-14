@@ -563,7 +563,9 @@ function ajustarCarrossel() {
             }
             }
             
-            // Adicionando a passagem automática dos carrosséis de produtos
+            
+        } 
+        // Adicionando a passagem automática dos carrosséis de produtos
             function autoSlide(slidesContainer) {
                 if (!slidesContainer) return;
                 const scrollLeft = slidesContainer.scrollLeft;
@@ -580,8 +582,8 @@ function ajustarCarrossel() {
             setInterval(() => autoSlide(ofertasSlidesContainer), 5000);
             setInterval(() => autoSlide(destaquesSlidesContainer), 5000);
 
-        }
-        } catch (err) {
+        }                      
+        catch (err) {
             console.error("Erro carregando produtos:", err);
             const ofertasContainer = document.querySelector('.ofertas-carousel');
             const destaquesContainer = document.querySelector('.destaques-carousel');
