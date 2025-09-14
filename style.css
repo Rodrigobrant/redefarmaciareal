@@ -257,6 +257,47 @@ header {
 .promo-item .btn-comprar:hover {
     background-color: #128c7e;
 }
+/* Carrossel de Destaques */
+.destaques-carousel {
+    position: relative;
+    max-width: 100%;
+    margin: 20px auto;
+    overflow: hidden;
+    padding: 0 40px; /* Adiciona espaço para os botões de navegação */
+}
+
+.destaques-slides {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 20px;
+}
+
+.destaques-slides::-webkit-scrollbar {
+    display: none; /* Esconde a barra de rolagem no Webkit browsers */
+}
+
+/* Estilos de botão de navegação */
+.destaques-prev, .destaques-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    font-size: 24px;
+    padding: 10px 14px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 100;
+}
+.destaques-prev { 
+  left: 5px;
+}
+.destaques-next { 
+  right: 5px;
+}
 /* RODAPÉ */ 
 .footer { 
   background: #fff;
