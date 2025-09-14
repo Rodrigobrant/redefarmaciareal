@@ -246,32 +246,25 @@ section h2 {
 /* RESPONSIVIDADE */
 @media(max-width:768px){
   header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-  .search-bar {
-    width: 100%;
-    margin: 0;
-  }
-  .site-header {
-    flex-direction: column;
-    align-items: center;   /* centraliza tudo */
+    flex-direction: column;    /* empilha os elementos */
+    align-items: center;       /* centraliza tudo */
+    height: auto;              /* altura automática */
+    gap: 10px;                 /* espaço entre os itens */
+    padding: 10px;
+  } 
+
+  .logo {
+    width: 100%;          
+    padding: 10px;        
     text-align: center;
   }
 
-  .logo {
-    width: 100%;          /* ocupa toda a largura */
-    padding: 10px;        /* reduz espaço */
+  .logo img {
+    height: 90px;        /* proporcional no mobile */
+    max-width: 200px;    
+    object-fit: contain;
   }
 
-  .logo img {
-    height: 110px;        /* menor que desktop */
-    max-width: 240px;     /* largura proporcional */
-  }
-  .carousel img {
-    max-height: 160px;  /* menor em celular */
-  }
   .search-bar {
     width: 100%;
     margin: 8px 0;
@@ -282,29 +275,40 @@ section h2 {
   .search-bar input {
     max-width: 95%;
     font-size: 14px;
+    width: 100%;
+    text-align: left;
+    padding-left: 14px;
   }
 
   .header-actions {
     justify-content: center;
     flex-wrap: wrap;
+    gap: 20px;
   }
-  .search-bar input {
-    width: 100%;
-    text-align: left;
-    padding-left: 14px;
+
+  .header-actions a {
+    font-size: 15px;
   }
+
   .main-menu ul {
     flex-wrap: wrap;
     gap: 20px;
   }
+
   .main-menu img {
     width: 44px;
     height: 44px;
   }
+
+  .carousel img {
+    max-height: 160px;  
+  }
+
   .whatsapp-fixo img {
     width: 48px;
     height: 48px;
   }
+
   .logo-anvisa {
     width: 100px;
   }
