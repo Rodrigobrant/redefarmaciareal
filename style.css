@@ -133,10 +133,37 @@ header {
   display: block;
 }
 
-/* PRODUTOS, SEÇÕES E RODAPÉ seguem como antes */
-/* ... */
+/* Estilos para a seção de ofertas/promoções */
+#ofertas-grid, .promo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    justify-items: center;
+}
 
-/* RESPONSIVIDADE */
+/* Estilos para cada card de oferta */
+.promo-item {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    /* ... e todos os outros estilos que sugeri ... */
+}
+
+/* RODAPÉ */ 
+.footer { 
+  background: #fff;
+  padding: 20px;
+  border-top: 1px solid #eee;
+  text-align: center;
+  font-size: 14px;
+        } 
+.logo-anvisa { 
+  width: 120px;
+  height: auto;
+  margin: 12px auto;
+  display: block;
+}
+* RESPONSIVIDADE */
 @media(max-width:768px){
   header {
     top: 48px; /* altura do aviso no mobile */
@@ -170,4 +197,12 @@ header {
     margin-top: 220px; /* aviso + header + menu no mobile */
     max-height: 160px;
   }
+/* Ajuste para mobile dos cards */
+  #ofertas-grid, .promo {
+    grid-template-columns: 1fr;
+    padding: 10px;
+  }
+  .promo-item {
+    max-width: 90%;
+  }  
 }
