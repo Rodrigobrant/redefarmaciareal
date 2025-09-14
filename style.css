@@ -80,33 +80,33 @@ header {
 }
 /* Carrossel/Banners */
 .carousel {
-  margin-top: 5px;         /* 🔹 encosta no menu categorias */
+  margin: 0;            /* 🔹 cola direto no menu */
+  padding: 0;
   max-width: 100%;
   overflow: hidden;
-  border-radius: 10px;
   text-align: center;
+  background: #fff;     /* fundo branco para imagens menores */
 }
 
 .carousel img {
-  max-width: 100%;
-  max-height: 280px;       /* 🔹 altura menor que 450px */
   width: auto;
   height: auto;
+  max-width: 100%;
+  max-height: 260px;    /* 🔹 altura controlada para não ficar gigante */
   margin: 0 auto;
   display: none;
-  object-fit: contain;     /* 🔹 garante que não corte as imagens */
-  background: #fff;        /* fundo branco se sobrar espaço */
+  object-fit: contain;  /* 🔹 mantém imagem inteira, sem cortes */
+  background: #fff;
 }
 
 .carousel img.active {
   display: block;
 }
-
 /* Menu categorias (menos espaço embaixo) */
 .main-menu {
   background: #f4f7f5;
   padding: 8px 0;          /* 🔹 menor altura */
-  margin-bottom: 5px;      /* 🔹 menos espaço antes do carrossel */
+  border-bottom: none;      /* 🔹 menos espaço antes do carrossel */
 }
 /* MENU CATEGORIAS */
 /* Remove espaço extra entre menu e carrossel */
