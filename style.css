@@ -9,33 +9,33 @@ body {
   background: #fff;
   color: #222;
   line-height: 1.5;
-  /*padding-top: 80px;   igual à altura do header */
+  /* padding-top será ajustado dinamicamente via JS se necessário */
 }
 
 /* AVISO TOPO */
 #aviso-topo {
-  position: sticky;
+  position: fixed;       /* FIXO no topo */
   top: 0;
+  left: 0;
   width: 100%;
-  background: #d32f2f;   /* vermelho */
-  color: #fff;           /* texto branco */
+  background: #d32f2f;
+  color: #fff;
   text-align: center;
   font-weight: bold;
   font-size: 15px;
   padding: 8px;
-  z-index: 3000;
-  display: none; /* começa oculto, só mostra quando tiver mensagem */
+  z-index: 3000;         /* acima do header */
+  display: none;         /* começa oculto */
 }
-
 
 /* HEADER */
 header {
-  position: fixed;      /* fixa no topo */
-  top: 0;
+  position: fixed;
+  top: 36px;             /* começa logo abaixo do aviso (ajuste conforme altura do aviso) */
   left: 0;
   width: 100%;
-  z-index: 2000;        /* fica acima do restante */
-  background: #2e7d32;  /* mantém fundo verde */
+  z-index: 2000;
+  background: #2e7d32;
   padding: 6px 16px;
   display: flex;
   align-items: center;
@@ -43,20 +43,13 @@ header {
   height: 80px;
   border-bottom: 1px solid #eee;
 }
-/*.logo {
-  background: #2e7d32;   /* fundo verde */
-  padding: 12px 24px;    /* espaço em volta */
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}*/
 
 .logo img {
-  height: 65px;        /* 🔹 logo proporcional */
+  height: 65px;
   max-width: 140px;
   object-fit: contain;
 }
+
 .search-bar {
   flex: 1;
   display: flex;
@@ -71,6 +64,7 @@ header {
   border: 1px solid #ccc;
   text-align: center;
 }
+
 .header-actions {
   display: flex;
   gap: 18px;
@@ -81,56 +75,42 @@ header {
   text-decoration: none;
   font-weight: 600;
 }
+
 /* Carrossel/Banners */
 .carousel {
-  margin: 0;            /* 🔹 cola direto no menu */
-  padding: 0;
+  margin-top: 116px; /* altura total do aviso + header para não sobrepor */
   max-width: 100%;
   overflow: hidden;
   text-align: center;
-  background: #fff;     /* fundo branco para imagens menores */
+  background: #fff;
 }
-
 .carousel img {
   width: auto;
   height: auto;
   max-width: 100%;
-  max-height: 260px;    /* 🔹 altura controlada para não ficar gigante */
+  max-height: 260px;
   margin: 0 auto;
   display: none;
-  object-fit: contain;  /* 🔹 mantém imagem inteira, sem cortes */
+  object-fit: contain;
   background: #fff;
 }
-
 .carousel img.active {
   display: block;
 }
-/* Menu categorias (menos espaço embaixo) */
-.main-menu {
-  background: #f4f7f5;
-  padding: 8px 0;          /* 🔹 menor altura */
-  border-bottom: none;      /* 🔹 menos espaço antes do carrossel */
-}
-/* MENU CATEGORIAS */
-/* Remove espaço extra entre menu e carrossel */
-.main-menu {
-  background: #f4f7f5;
-  padding: 10px 0;   /* diminui padding vertical */
-  margin-bottom: 0;  /* remove margem inferior */
-}
 
-/* MENU CATEGORIAS */
+/* Menu categorias */
+.main-menu {
+  background: #f4f7f5;
+  padding: 10px 0;
+  margin-bottom: 0;
+}
 .main-menu ul {
-  display: flex;           /* 🔹 volta a alinhar lado a lado */
-  justify-content: center; /* 🔹 centraliza no meio */
-  gap: 32px;               /* 🔹 espaço entre os itens */
-  list-style: none;        /* remove bolinhas */
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  list-style: none;
   margin: 0;
   padding: 0;
-}
-
-.carousel {
-  margin-top: 0;     /* garante que o carrossel suba */
 }
 .main-menu li {
   text-align: center;
@@ -191,7 +171,7 @@ section h2 {
   color: #145c2c;
   margin: 6px 0;
 }
-.promo-item p.desc {
+.promo-item p.desc, .produto p.desc {
   font-size: 0.9rem;
   color: #666;
   margin: 6px 0;
@@ -249,22 +229,23 @@ section h2 {
 /* RESPONSIVIDADE */
 @media(max-width:768px){
   header {
-    flex-direction: column;    /* empilha os elementos */
-    align-items: center;       /* centraliza tudo */
-    height: auto;              /* altura automática */
-    gap: 10px;                 /* espaço entre os itens */
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    gap: 10px;
     padding: 10px;
+    top: 48px; /* ajustar top conforme altura do aviso mobile */
   } 
 
   .logo {
-    width: 100%;          
-    padding: 10px;        
+    width: 100%;
+    padding: 10px;
     text-align: center;
   }
 
   .logo img {
-    height: 90px;        /* proporcional no mobile */
-    max-width: 200px;    
+    height: 90px;
+    max-width: 200px;
     object-fit: contain;
   }
 
@@ -303,8 +284,9 @@ section h2 {
     height: 44px;
   }
 
-  .carousel img {
-    max-height: 160px;  
+  .carousel {
+    margin-top: 138px; /* aviso + header no mobile */
+    max-height: 160px;
   }
 
   .whatsapp-fixo img {
