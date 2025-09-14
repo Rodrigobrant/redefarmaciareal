@@ -561,6 +561,26 @@ function ajustarCarrossel() {
                     destaquesSlidesContainer.scrollBy({ left: -destaquesSlidesContainer.offsetWidth, behavior: 'smooth' });
                 });
             }
+            }
+            
+            // Adicionando a passagem automática dos carrosséis de produtos
+            function autoSlide(slidesContainer) {
+                if (!slidesContainer) return;
+                const scrollLeft = slidesContainer.scrollLeft;
+                const maxScrollLeft = slidesContainer.scrollWidth - slidesContainer.clientWidth;
+                
+                if (scrollLeft < maxScrollLeft) {
+                    slidesContainer.scrollBy({ left: slidesContainer.offsetWidth, behavior: 'smooth' });
+                } else {
+                    slidesContainer.scrollTo({ left: 0, behavior: 'smooth' });
+                }
+            }
+
+            // Define o intervalo para os carrosséis de ofertas e destaques
+            setInterval(() => autoSlide(ofertasSlidesContainer), 5000);
+            setInterval(() => autoSlide(destaquesSlidesContainer), 5000);
+
+        }
         } catch (err) {
             console.error("Erro carregando produtos:", err);
             const ofertasContainer = document.querySelector('.ofertas-carousel');
