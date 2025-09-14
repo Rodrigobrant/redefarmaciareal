@@ -487,6 +487,7 @@ function ajustarCarrossel() {
     
 <!-- ================= PROMOÇÕES AUTOMÁTICAS ================= -->   
 <!-- PapaParse -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', async () => {
         const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?output=csv";
@@ -519,7 +520,7 @@ function ajustarCarrossel() {
                 const waLink = `https://wa.me/${whats}?text=${waText}`;
 
                 const card = document.createElement("div");
-                card.className = "promo-item"; // A classe do card de produto
+                card.className = "promo-item";
 
                 card.innerHTML = `
                     <img src="${imagem}" alt="${nome}">
@@ -561,11 +562,8 @@ function ajustarCarrossel() {
                     destaquesSlidesContainer.scrollBy({ left: -destaquesSlidesContainer.offsetWidth, behavior: 'smooth' });
                 });
             }
-            }
             
-            
-        } 
-        // Adicionando a passagem automática dos carrosséis de produtos
+            // Adicionando a passagem automática dos carrosséis de produtos
             function autoSlide(slidesContainer) {
                 if (!slidesContainer) return;
                 const scrollLeft = slidesContainer.scrollLeft;
@@ -582,8 +580,7 @@ function ajustarCarrossel() {
             setInterval(() => autoSlide(ofertasSlidesContainer), 5000);
             setInterval(() => autoSlide(destaquesSlidesContainer), 5000);
 
-        }                      
-        catch (err) {
+        } catch (err) {
             console.error("Erro carregando produtos:", err);
             const ofertasContainer = document.querySelector('.ofertas-carousel');
             const destaquesContainer = document.querySelector('.destaques-carousel');
