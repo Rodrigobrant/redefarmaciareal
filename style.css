@@ -120,9 +120,14 @@ header {
   margin-bottom: 0;  /* remove margem inferior */
 }
 
+/* MENU CATEGORIAS */
 .main-menu ul {
-  margin: 0;         /* remove margens do ul */
-  padding: 0;        /* remove padding extra */
+  display: flex;           /* 🔹 volta a alinhar lado a lado */
+  justify-content: center; /* 🔹 centraliza no meio */
+  gap: 32px;               /* 🔹 espaço entre os itens */
+  list-style: none;        /* remove bolinhas */
+  margin: 0;
+  padding: 0;
 }
 
 .carousel {
