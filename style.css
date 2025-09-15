@@ -298,6 +298,19 @@ header {
 .destaques-next { 
   right: 5px;
 }
+/* WHATSAPP FIXO */
+.whatsapp-fixo {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 1200;
+}
+.whatsapp-fixo img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
 /* RODAPÉ */ 
 .footer { 
   background: #fff;
@@ -353,5 +366,9 @@ header {
   }
   .promo-item {
     max-width: 90%;
-  }  
+  }
+  .whatsapp-fixo img {
+    width: 48px;
+    height: 48px;
+  }
 }
