@@ -225,6 +225,8 @@ header {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
+    /* 🚩 ADICIONE ISSO PARA FORÇAR A PROPORÇÃO QUADRADA */
+    aspect-ratio: 1 / 1; 
 }
 
 .mosaico-item:hover {
@@ -233,10 +235,10 @@ header {
 
 .mosaico-item img {
     width: 100%;
-    height: 100%; /* Ajusta a imagem para ocupar o espaço do contêiner */
+    height: 100%;
+    display: block;
     object-fit: cover; /* Garante que a imagem preencha a área sem distorção */
 }
-
 /* CLASSES DE TAMANHO */
 .mosaico-item.col-2 {
     grid-column: span 2;
