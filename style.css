@@ -254,7 +254,7 @@ header {
     display: block;
     
     /* 🚩 Ajusta a imagem para preencher o espaço sem distorcer, cortando o excesso */
-    object-fit: cover; 
+    object-fit: contain; 
 }
 /* CLASSES DE TAMANHO */
 .mosaico-item.col-2 {
