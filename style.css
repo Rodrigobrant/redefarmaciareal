@@ -206,6 +206,54 @@ header {
 .ofertas-dots .dot.active {
     background-color: #7ED957;
 }
+/* Seção Mosaico de Imagens */
+.mosaico-section {
+    padding: 20px;
+    text-align: center;
+}
+
+#mosaico-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.mosaico-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.mosaico-item:hover {
+    transform: translateY(-5px);
+}
+
+.mosaico-item img {
+    width: 100%;
+    height: 100%; /* Ajusta a imagem para ocupar o espaço do contêiner */
+    object-fit: cover; /* Garante que a imagem preencha a área sem distorção */
+}
+
+/* CLASSES DE TAMANHO */
+.mosaico-item.col-2 {
+    grid-column: span 2;
+}
+
+.mosaico-item.row-2 {
+    grid-row: span 2;
+}
+
+/* Você pode adicionar mais classes para tamanhos diferentes, se necessário */
+.mosaico-item.col-3 {
+    grid-column: span 3;
+}
+
+.mosaico-item.row-3 {
+    grid-row: span 3;
+}
 
 /* Estilos dos cards já existentes */
 .promo-item img {
