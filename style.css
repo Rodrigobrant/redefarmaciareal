@@ -213,10 +213,20 @@ header {
 }
 
 #mosaico-grid {
+    /* Define uma grade com 4 colunas de largura igual para manter a consistência */
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(4, 1fr); 
     gap: 15px;
     margin-top: 20px;
+}
+
+/* Garante que o item ocupe o número de colunas/linhas correto */
+.mosaico-item.col-2 {
+    grid-column: span 2;
+}
+
+.mosaico-item.row-2 {
+    grid-row: span 2;
 }
 
 .mosaico-item {
@@ -225,8 +235,12 @@ header {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
-    /* 🚩 ADICIONE ISSO PARA FORÇAR A PROPORÇÃO QUADRADA */
+    
+    /* 🚩 Garante uma proporção quadrada para todos os itens do mosaico */
     aspect-ratio: 1 / 1; 
+    
+    /* Faz com que o contêiner se ajuste à grade corretamente */
+    display: block;
 }
 
 .mosaico-item:hover {
@@ -234,10 +248,13 @@ header {
 }
 
 .mosaico-item img {
+    /* Faz a imagem preencher 100% da largura e altura do seu contêiner */
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: cover; /* Garante que a imagem preencha a área sem distorção */
+    
+    /* 🚩 Ajusta a imagem para preencher o espaço sem distorcer, cortando o excesso */
+    object-fit: cover; 
 }
 /* CLASSES DE TAMANHO */
 .mosaico-item.col-2 {
@@ -454,4 +471,8 @@ header {
     width: 48px;
     height: 48px;
   }
+  #mosaico-grid {
+        /* Em telas menores, mostra menos colunas para não ficar apertado */
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
 }
