@@ -25,7 +25,7 @@ body {
   font-size: 15px;
   padding: 8px;
   z-index: 3000;
-  display: none; /* começa oculto, só mostra quando tiver mensagem */
+  /*display: none;  começa oculto, só mostra quando tiver mensagem */
 }
 
 /* HEADER */
