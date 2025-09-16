@@ -340,28 +340,40 @@
 
             let todosProdutos = [];
 
-            async function carregarAviso() {
-    const avisoBar = document.getElementById('aviso-topo');
-    if (!avisoBar) return;
+           async function carregarAviso() {
+  const avisoBar = document.getElementById('aviso-topo');
+  if (!avisoBar) return;
 
-    try {
-        const resp = await fetch(AVISO_URL);
-        if (!resp.ok) throw new Error('Erro ao buscar CSV de Avisos: ' + resp.status);
-        const csvText = await resp.text();
-        const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
-        const avisoAtivo = parsed.data.find(row => (row.Ativo || '').toLowerCase() === 'sim');
+  const AVISO_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?output=csv';
 
-        if (avisoAtivo && avisoAtivo.Aviso) {
-            avisoBar.textContent = avisoAtivo.Aviso;
-            avisoBar.classList.add('top-bar');
-        } else {
-            avisoBar.classList.remove('top-bar');
-        }
-    } catch (err) {
-        console.error("Erro ao carregar aviso:", err);
-        avisoBar.classList.remove('top-bar');
+  try {
+    const resp = await fetch(AVISO_URL);
+    if (!resp.ok) throw new Error('Erro ao buscar CSV de Avisos: ' + resp.status);
+    const csvText = await resp.text();
+    const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
+    
+    // Procura por uma linha onde a coluna "Ativo" tenha o valor "sim", ignorando maiúsculas/minúsculas
+    const avisoAtivo = parsed.data.find(row => (row.Ativo || '').toLowerCase().trim() === 'sim');
+
+    if (avisoAtivo && avisoAtivo.Aviso) {
+      // Usa .trim() para remover espaços extras da mensagem
+      const mensagem = avisoAtivo.Aviso.trim();
+      avisoBar.textContent = mensagem;
+      avisoBar.classList.add('top-bar');
+    } else {
+      // Se não houver aviso ativo, remove a classe e esconde a barra
+      avisoBar.classList.remove('top-bar');
+      avisoBar.textContent = '';
     }
+  } catch (err) {
+    console.error("Erro ao carregar aviso:", err);
+    avisoBar.classList.remove('top-bar');
+    avisoBar.textContent = '';
+  }
 }
+
+// Chama a função para carregar o aviso quando a página é carregada
+document.addEventListener('DOMContentLoaded', carregarAviso);
 
             async function carregarDados() {
                 try {
