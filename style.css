@@ -141,6 +141,9 @@ header {
     margin: 20px auto;
     overflow: hidden;
     padding: 0 40px; /* Adiciona espaço para os botões de navegação */
+    transition: opacity 0.5s ease-in-out, visibility 0s 0.5s;
+    /* Isso garante que elas possam ser escondidas sem afetar o layout */
+    display: block; 
 }
 
 .ofertas-slides {
@@ -210,6 +213,9 @@ header {
 .mosaico-section {
     padding: 20px;
     text-align: center;
+    transition: opacity 0.5s ease-in-out, visibility 0s 0.5s;
+    /* Isso garante que elas possam ser escondidas sem afetar o layout */
+    display: block; 
 }
 /* Seção de Resultados do Filtro */
 #resultados-filtro {
@@ -383,6 +389,9 @@ header {
     margin: 20px auto;
     overflow: hidden;
     padding: 0 40px; /* Adiciona espaço para os botões de navegação */
+    transition: opacity 0.5s ease-in-out, visibility 0s 0.5s;
+    /* Isso garante que elas possam ser escondidas sem afetar o layout */
+    display: block; 
 }
 
 .destaques-slides {
