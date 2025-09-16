@@ -211,6 +211,25 @@ header {
     padding: 20px;
     text-align: center;
 }
+/* Seção de Resultados do Filtro */
+#resultados-filtro {
+    padding: 20px;
+    margin-top: 30px;
+}
+
+/* Container do grid de produtos */
+.produtos-grid {
+    display: grid;
+    /* Faz os itens se organizarem em colunas, com largura mínima de 250px */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-items: center; /* Centraliza os itens horizontalmente */
+}
+
+/* Garante que o promo-item tenha 100% da largura na grade */
+.produtos-grid .promo-item {
+    width: 100%;
+}
 
 #mosaico-grid {
     /* Define uma grade com 4 colunas de largura igual para manter a consistência */
@@ -474,5 +493,8 @@ header {
   #mosaico-grid {
         /* Em telas menores, mostra menos colunas para não ficar apertado */
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+  .produtos-grid {
+        grid-template-columns: 1fr; /* Em telas pequenas, mostra apenas 1 coluna */
     }
 }
