@@ -354,25 +354,24 @@
     const csvText = await resp.text();
     const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
     
-    // Procura por uma linha onde a coluna "Ativo" tenha o valor "sim", ignorando maiúsculas/minúsculas
+    // Procura por uma linha onde a coluna "Ativo" tenha o valor "sim"
     const avisoAtivo = parsed.data.find(row => (row.Ativo || '').toLowerCase().trim() === 'sim');
 
     if (avisoAtivo && avisoAtivo.Aviso) {
       const mensagem = avisoAtivo.Aviso.trim();
       avisoBar.textContent = mensagem;
-      // Adicione a classe para exibir a barra
       avisoBar.classList.add('top-bar');
     } else {
-      // Se não houver aviso ativo, remove a classe para esconder a barra
       avisoBar.classList.remove('top-bar');
     }
   } catch (err) {
     console.error("Erro ao carregar aviso:", err);
-    // Em caso de erro, remova a classe para esconder a barra
     avisoBar.classList.remove('top-bar');
     avisoBar.textContent = '';
   }
 }
+
+document.addEventListener('DOMContentLoaded', carregarAviso);
 
 // Chama a função para carregar o aviso quando a página é carregada
 document.addEventListener('DOMContentLoaded', carregarAviso);
