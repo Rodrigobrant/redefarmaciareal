@@ -360,9 +360,10 @@
     if (avisoAtivo && avisoAtivo.Aviso) {
       const mensagem = avisoAtivo.Aviso.trim();
       avisoBar.textContent = mensagem;
-      avisoBar.classList.add('top-bar');
+      avisoBar.classList.add('top-bar'); // Ou o estilo que você estiver usando
     } else {
-      avisoBar.classList.remove('top-bar');
+      avisoBar.classList.remove('top-bar'); // Esconde a barra
+      avisoBar.textContent = '';
     }
   } catch (err) {
     console.error("Erro ao carregar aviso:", err);
@@ -372,7 +373,7 @@
 }
 
 document.addEventListener('DOMContentLoaded', carregarAviso);
-
+            
 // Chama a função para carregar o aviso quando a página é carregada
 document.addEventListener('DOMContentLoaded', carregarAviso);
 
