@@ -366,21 +366,21 @@
 
             async function carregarDados() {
                 try {
-                    const produtosResp = await fetch(PRODUTOS_URL);
-                    if (!produtosResp.ok) throw new Error('Erro ao buscar CSV de Produtos: ' + produtosResp.status);
-                    const produtosCsvText = await produtosResp.text();
-                    const produtosParsed = Papa.parse(produtosCsvText, { header: true, skipEmptyLines: true });
-                    todosProdutos = produtosParsed.data;
+                    const produtosResp = await fetch(PRODUTOS_URL);
+                    if (!produtosResp.ok) throw new Error('Erro ao buscar CSV de Produtos: ' + produtosResp.status);
+                    const produtosCsvText = await produtosResp.text();
+                    const produtosParsed = Papa.parse(produtosCsvText, { header: true, skipEmptyLines: true });
+                    todosProdutos = produtosParsed.data;
 
-                    const mosaicoResp = await fetch(MOSAICO_URL);
-                    if (!mosaicoResp.ok) throw new Error('Erro ao buscar CSV do Mosaico: ' + mosaicoResp.status);
-                    const mosaicoCsvText = await mosaicoResp.text();
-                    const mosaicoParsed = Papa.parse(mosaicoCsvText, { header: true, skipEmptyLines: true });
-                    
-                    return { produtos: todosProdutos, mosaico: mosaicoParsed.data };
+                    const mosaicoResp = await fetch(MOSAICO_URL);
+                    if (!mosaicoResp.ok) throw new Error('Erro ao buscar CSV do Mosaico: ' + mosaicoResp.status);
+                    const mosaicoCsvText = await mosaicoResp.text();
+                    const mosaicoParsed = Papa.parse(mosaicoCsvText, { header: true, skipEmptyLines: true });
+    
+                    return { produtos: todosProdutos, mosaico: mosaicoParsed.data };
                 } catch (err) {
-                    console.error("Erro ao carregar dados:", err);
-                    return { produtos: [], mosaico: [] };
+                    console.error("Erro ao carregar dados:", err);
+                     return { produtos: [], mosaico: [] };
                 }
             }
 
