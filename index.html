@@ -203,7 +203,7 @@
     </style>
 </head>
 <body>
-        <div id="aviso-topo" class="top-bar"></div>
+        <div id="aviso-topo"></div>
         <header class="site-header">
         <div class="logo">
             <img src="imagem/logo.png" alt="Farmácias Real">
@@ -341,7 +341,7 @@
             let todosProdutos = [];
 
             async function carregarAviso() {
-                const avisoBar = document.querySelector('.top-bar');
+                const avisoBar = document.getElementById('aviso-topo');
                 if (!avisoBar) return;
 
                 try {
