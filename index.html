@@ -225,13 +225,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   <!-- Menu principal -->
   <nav class="main-menu">
-    <ul>
-      <li><a href="#"><img src="imagem/medicamentos.png"><div>Medicamentos</div></a></li>
-      <li><a href="#"><img src="imagem/higiene.png"><div>Higiene</div></a></li>
-      <li><a href="#"><img src="imagem/beleza.png"><div>Beleza</div></a></li>
-      <li><a href="#"><img src="imagem/promocoes.png"><div>Promoções</div></a></li>
-    </ul>
-  </nav>
+  <ul>
+    <li><a href="#" data-categoria="medicamentos"><img src="imagem/medicamentos.png"><div>Medicamentos</div></a></li>
+    <li><a href="#" data-categoria="higiene"><img src="imagem/higiene.png"><div>Higiene</div></a></li>
+    <li><a href="#" data-categoria="beleza"><img src="imagem/beleza.png"><div>Beleza</div></a></li>
+    <li><a href="#" data-categoria="promocoes"><img src="imagem/promocoes.png"><div>Promoções</div></a></li>
+  </ul>
+</nav>
 </body>
 <!-- Espaço para não sobrepor o conteúdo -->
 <div style="height: 90px;"></div>
@@ -346,34 +346,33 @@ document.addEventListener('DOMContentLoaded', async () => {
          setInterval(nextSlide, 4000); // troca automático a cada 4s
     </script>
   <!-- OFERTAS ESPECIAIS -->
-  <section>
+  <section class="ofertas-carousel">
     <h2>OFERTAS ESPECIAIS</h2>
-    <div class="ofertas-carousel">
+    <div class="carousel-container">
         <div class="ofertas-slides">
             </div>
-        <button class="ofertas-prev">❮</button>
-        <button class="ofertas-next">❯</button>
-        <div class="ofertas-dots"></div>
+        <button class="prev ofertas-prev">&lt;</button>
+        <button class="next ofertas-next">&gt;</button>
     </div>
 </section>
-</section>
+    
 <!-- MOMENTO SAÚDE E BELEZA -->
 <section class="mosaico-section">
     <h2>MOMENTO SAÚDE E BELEZA</h2>
     <div id="mosaico-grid">
         </div>
-</section>
-<section>
-  <!-- DESTAQUES -->
- <section>
-  <h2>DESTAQUES</h2>
-  <div class="destaques-carousel">
-    <div class="destaques-slides">
-        </div>
-    <button class="destaques-prev">❮</button>
-    <button class="destaques-next">❯</button>
-  </div>
-</section>
+</section> 
+<div id="resultados-filtro"></div>    
+<!-- DESTAQUES -->
+ <section class="destaques-carousel">
+    <h2>DESTAQUES</h2>
+    <div class="carousel-container">
+        <div class="destaques-slides">
+            </div>
+        <button class="prev destaques-prev">&lt;</button>
+        <button class="next destaques-next">&gt;</button>
+    </div>
+</section>    
 <!-- Seção de Chama Catálogo -->
     <section style="text-align: center; margin: 40px 0;">
     <h2 style="color: #28a745; font-size: 28px; font-weight: bold;">
@@ -427,197 +426,54 @@ document.addEventListener('DOMContentLoaded', async () => {
       <img src="imagem/whatsapp.png" alt="WhatsApp">
     </a>
   </div>
-   
+  
 <!-- Script Aviso -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>    
-<script>
-document.addEventListener("DOMContentLoaded", async () => {
-  const avisoTopo = document.getElementById("aviso-topo");
-
-  const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?output=csv";
-
-  try {
-    const resp = await fetch(CSV_URL);
-    if (!resp.ok) throw new Error("Erro ao buscar aviso: " + resp.status);
-
-    const csvText = await resp.text();
-    const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
-
-    console.log("Avisos lidos:", parsed.data);
-
-    let mensagem = "";
-
-    // 1º tenta encontrar coluna chamada "mensagem"
-    if (parsed.data.length > 0) {
-      if (parsed.data[0].mensagem) {
-        mensagem = parsed.data[0].mensagem.trim();
-      } else {
-        // 2º fallback: pega a primeira célula da primeira linha
-        const firstRow = Object.values(parsed.data[0]);
-        if (firstRow.length > 0) {
-          mensagem = firstRow[0].trim();
-        }
-      }
-    }
-
-    if (mensagem) {
-      avisoTopo.textContent = mensagem;
-      avisoTopo.style.display = "block";
-    } else {
-      avisoTopo.style.display = "none"; // não mostra nada
-    }
-  } catch (err) {
-    console.error("Erro ao carregar aviso topo:", err);
-    avisoTopo.style.display = "none";
-  }
-});
-</script>
-<script>
-window.addEventListener('load', ajustarCarrossel);
-window.addEventListener('resize', ajustarCarrossel);
-
-function ajustarCarrossel() {
-  const aviso = document.getElementById('aviso-topo');
-  const header = document.querySelector('header');
-  const menu = document.querySelector('.main-menu');
-  const carousel = document.querySelector('.carousel');
-
-  const alturaTotal = (aviso ? aviso.offsetHeight : 0)
-                    + (header ? header.offsetHeight : 0)
-                    + (menu ? menu.offsetHeight : 0);
-
-  if(carousel){
-    carousel.style.marginTop = alturaTotal + 'px';
-  }
-}
-</script>
-    
-<!-- ================= PROMOÇÕES AUTOMÁTICAS ================= -->   
-<!-- PapaParse -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', async () => {
-        const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?output=csv";
-
-        try {
-            const resp = await fetch(CSV_URL);
-            if (!resp.ok) throw new Error('Erro ao buscar CSV: ' + resp.status);
-
-            const csvText = await resp.text();
-            const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
-
-            const ofertasSlides = document.querySelector(".ofertas-slides");
-            const destaquesSlides = document.querySelector(".destaques-slides");
-            
-            if (!ofertasSlides || !destaquesSlides) {
-                console.error('Um ou mais containers de produtos não foram encontrados.');
-                return;
-            }
-
-            parsed.data.forEach(produto => {
-                const categoria = (produto["categoria"] || "").toLowerCase();
-                const nome = produto["nome"] || "Produto";
-                const preco = produto["preco"] || "";
-                const preco_antigo = produto["preco_antigo"] || "";
-                const imagem = produto["imagem"] || "imagem/placeholder.png";
-                const tag = produto["tag"] || "";
-                
-                const whats = "5575998623295";
-                const waText = encodeURIComponent(`Olá, quero este produto: ${nome}`);
-                const waLink = `https://wa.me/${whats}?text=${waText}`;
-
-                const card = document.createElement("div");
-                card.className = "promo-item";
-
-                card.innerHTML = `
-                    <img src="${imagem}" alt="${nome}">
-                    <h3>${nome}</h3>
-                    ${preco_antigo ? `<p class="preco-antigo">R$${preco_antigo}</p>` : ""}
-                    <p class="price">R$${preco} ${tag ? `<span class="tag">${tag}</span>` : ""}</p>
-                    <a href="${waLink}" class="btn-comprar" target="_blank" rel="noopener noreferrer">Comprar no WhatsApp</a>
-                `;
-
-                if (categoria === "oferta") {
-                    ofertasSlides.appendChild(card);
-                } else if (categoria === "destaque") {
-                    destaquesSlides.appendChild(card);
-                }
-            });
-
-            // Lógica de navegação para o carrossel de ofertas
-            const ofertasSlidesContainer = document.querySelector('.ofertas-slides');
-            const ofertasPrevBtn = document.querySelector('.ofertas-prev');
-            const ofertasNextBtn = document.querySelector('.ofertas-next');
-            if (ofertasPrevBtn && ofertasNextBtn && ofertasSlidesContainer) {
-                ofertasNextBtn.addEventListener('click', () => {
-                    ofertasSlidesContainer.scrollBy({ left: ofertasSlidesContainer.offsetWidth, behavior: 'smooth' });
-                });
-                ofertasPrevBtn.addEventListener('click', () => {
-                    ofertasSlidesContainer.scrollBy({ left: -ofertasSlidesContainer.offsetWidth, behavior: 'smooth' });
-                });
-            }
-
-            // Lógica de navegação para o carrossel de destaques
-            const destaquesSlidesContainer = document.querySelector('.destaques-slides');
-            const destaquesPrevBtn = document.querySelector('.destaques-prev');
-            const destaquesNextBtn = document.querySelector('.destaques-next');
-            if (destaquesPrevBtn && destaquesNextBtn && destaquesSlidesContainer) {
-                destaquesNextBtn.addEventListener('click', () => {
-                    destaquesSlidesContainer.scrollBy({ left: destaquesSlidesContainer.offsetWidth, behavior: 'smooth' });
-                });
-                destaquesPrevBtn.addEventListener('click', () => {
-                    destaquesSlidesContainer.scrollBy({ left: -destaquesSlidesContainer.offsetWidth, behavior: 'smooth' });
-                });
-            }
-            
-            // Adicionando a passagem automática dos carrosséis de produtos
-            function autoSlide(slidesContainer) {
-                if (!slidesContainer) return;
-                const scrollLeft = slidesContainer.scrollLeft;
-                const maxScrollLeft = slidesContainer.scrollWidth - slidesContainer.clientWidth;
-                
-                if (scrollLeft < maxScrollLeft) {
-                    slidesContainer.scrollBy({ left: slidesContainer.offsetWidth, behavior: 'smooth' });
-                } else {
-                    slidesContainer.scrollTo({ left: 0, behavior: 'smooth' });
-                }
-            }
-
-            // Define o intervalo para os carrosséis de ofertas e destaques
-            setInterval(() => autoSlide(ofertasSlidesContainer), 5000);
-            setInterval(() => autoSlide(destaquesSlidesContainer), 5000);
-
-        } catch (err) {
-            console.error("Erro carregando produtos:", err);
-            const ofertasContainer = document.querySelector('.ofertas-carousel');
-            const destaquesContainer = document.querySelector('.destaques-carousel');
-            if (ofertasContainer) ofertasContainer.innerHTML = '<p>Erro ao carregar ofertas. Ver console.</p>';
-            if (destaquesContainer) destaquesContainer.innerHTML = '<p>Erro ao carregar destaques. Ver console.</p>';
-        }
-    });
-</script>
+<<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', async () => {
         const PRODUTOS_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?output=csv";
-        const MOSAICO_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQB-6S2pkgnufWoNb4ayXBx1txEsfS0VFu0zSa0D72u5zjeBJooQ7VO9LJeqKzuOr_RXTb84t8sUYeE/pub?output=csv"; // <-- COLE SUA URL AQUI
+        const MOSAICO_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQB-6S2pkgnufWoNb4ayXBx1txEsfS0VFu0zSa0D72u5zjeBJooQ7VO9LJeqKzuOr_RXTb84t8sUYeE/pub?output=csv";
+        const resultadosDiv = document.createElement('div');
+        resultadosDiv.id = 'resultados-filtro';
+        document.body.appendChild(resultadosDiv);
 
-        try {
-            // --- CARREGAMENTO DE PRODUTOS ---
-            const produtosResp = await fetch(PRODUTOS_URL);
-            if (!produtosResp.ok) throw new Error('Erro ao buscar CSV de Produtos: ' + produtosResp.status);
-            const produtosCsvText = await produtosResp.text();
-            const produtosParsed = Papa.parse(produtosCsvText, { header: true, skipEmptyLines: true });
+        let todosProdutos = [];
 
+        async function carregarDados() {
+            try {
+                // Carrega produtos
+                const produtosResp = await fetch(PRODUTOS_URL);
+                if (!produtosResp.ok) throw new Error('Erro ao buscar CSV de Produtos: ' + produtosResp.status);
+                const produtosCsvText = await produtosResp.text();
+                const produtosParsed = Papa.parse(produtosCsvText, { header: true, skipEmptyLines: true });
+                todosProdutos = produtosParsed.data;
+
+                // Carrega mosaico
+                const mosaicoResp = await fetch(MOSAICO_URL);
+                if (!mosaicoResp.ok) throw new Error('Erro ao buscar CSV do Mosaico: ' + mosaicoResp.status);
+                const mosaicoCsvText = await mosaicoResp.text();
+                const mosaicoParsed = Papa.parse(mosaicoCsvText, { header: true, skipEmptyLines: true });
+                
+                return { produtos: todosProdutos, mosaico: mosaicoParsed.data };
+
+            } catch (err) {
+                console.error("Erro ao carregar dados:", err);
+                return { produtos: [], mosaico: [] };
+            }
+        }
+
+        function exibirProdutos(dados) {
+            const produtos = dados.produtos;
+            const mosaicoData = dados.mosaico;
+
+            // Carrosséis
             const ofertasSlides = document.querySelector(".ofertas-slides");
             const destaquesSlides = document.querySelector(".destaques-slides");
-            
-            if (!ofertasSlides || !destaquesSlides) {
-                console.error('Um ou mais containers de produtos não foram encontrados.');
-                return;
-            }
+            if (ofertasSlides) ofertasSlides.innerHTML = '';
+            if (destaquesSlides) destaquesSlides.innerHTML = '';
 
-            produtosParsed.data.forEach(produto => {
-                const categoria = (produto["categoria"] || "").toLowerCase();
+            produtos.forEach(produto => {
+                const secao = (produto["secao"] || "").toLowerCase();
                 const nome = produto["nome"] || "Produto";
                 const preco = produto["preco"] || "";
                 const preco_antigo = produto["preco_antigo"] || "";
@@ -630,73 +486,26 @@ function ajustarCarrossel() {
 
                 const card = document.createElement("div");
                 card.className = "promo-item";
-
                 card.innerHTML = `
                     <img src="${imagem}" alt="${nome}">
                     <h3>${nome}</h3>
                     ${preco_antigo ? `<p class="preco-antigo">R$${preco_antigo}</p>` : ""}
                     <p class="price">R$${preco} ${tag ? `<span class="tag">${tag}</span>` : ""}</p>
-                    <a href="${waLink}" class="btn-comprar" target="_blank" rel="noopener noreferrer">Comprar no WhatsApp</a>
+                    <a href="${waLink}" class="btn-comprar" target="_blank" rel="noopener noreferrer">COMPRAR</a>
                 `;
 
-                if (categoria === "oferta") {
+                if (secao === "oferta" && ofertasSlides) {
                     ofertasSlides.appendChild(card);
-                } else if (categoria === "destaque") {
+                } else if (secao === "destaque" && destaquesSlides) {
                     destaquesSlides.appendChild(card);
                 }
             });
 
-            // Lógica de navegação para o carrossel de ofertas
-            const ofertasSlidesContainer = document.querySelector('.ofertas-slides');
-            const ofertasPrevBtn = document.querySelector('.ofertas-prev');
-            const ofertasNextBtn = document.querySelector('.ofertas-next');
-            if (ofertasPrevBtn && ofertasNextBtn && ofertasSlidesContainer) {
-                ofertasNextBtn.addEventListener('click', () => {
-                    ofertasSlidesContainer.scrollBy({ left: ofertasSlidesContainer.offsetWidth, behavior: 'smooth' });
-                });
-                ofertasPrevBtn.addEventListener('click', () => {
-                    ofertasSlidesContainer.scrollBy({ left: -ofertasSlidesContainer.offsetWidth, behavior: 'smooth' });
-                });
-            }
-
-            // Lógica de navegação para o carrossel de destaques
-            const destaquesSlidesContainer = document.querySelector('.destaques-slides');
-            const destaquesPrevBtn = document.querySelector('.destaques-prev');
-            const destaquesNextBtn = document.querySelector('.destaques-next');
-            if (destaquesPrevBtn && destaquesNextBtn && destaquesSlidesContainer) {
-                destaquesNextBtn.addEventListener('click', () => {
-                    destaquesSlidesContainer.scrollBy({ left: destaquesSlidesContainer.offsetWidth, behavior: 'smooth' });
-                });
-                destaquesPrevBtn.addEventListener('click', () => {
-                    destaquesSlidesContainer.scrollBy({ left: -destaquesSlidesContainer.offsetWidth, behavior: 'smooth' });
-                });
-            }
-            
-            // Adicionando a passagem automática dos carrosséis de produtos
-            function autoSlide(slidesContainer) {
-                if (!slidesContainer) return;
-                const scrollLeft = slidesContainer.scrollLeft;
-                const maxScrollLeft = slidesContainer.scrollWidth - slidesContainer.clientWidth;
-                
-                if (scrollLeft < maxScrollLeft) {
-                    slidesContainer.scrollBy({ left: slidesContainer.offsetWidth, behavior: 'smooth' });
-                } else {
-                    slidesContainer.scrollTo({ left: 0, behavior: 'smooth' });
-                }
-            }
-
-            setInterval(() => autoSlide(ofertasSlidesContainer), 5000);
-            setInterval(() => autoSlide(destaquesSlidesContainer), 5000);
-
-           // --- CARREGAMENTO DO MOSAICO DE IMAGENS ---
-            const mosaicoResp = await fetch(MOSAICO_URL);
-            if (!mosaicoResp.ok) throw new Error('Erro ao buscar CSV do Mosaico: ' + mosaicoResp.status);
-            const mosaicoCsvText = await mosaicoResp.text();
-            const mosaicoParsed = Papa.parse(mosaicoCsvText, { header: true, skipEmptyLines: true });
-            
+            // Mosaico
             const mosaicoGrid = document.getElementById("mosaico-grid");
             if (mosaicoGrid) {
-                mosaicoParsed.data.forEach(item => {
+                mosaicoGrid.innerHTML = '';
+                mosaicoData.forEach(item => {
                     const imagem = item["imagem"] || "imagem/placeholder.png";
                     const link = item["link"] || "#";
                     const colunas = item["colunas"] || 1;
@@ -707,7 +516,6 @@ function ajustarCarrossel() {
                     itemElement.href = link;
                     itemElement.target = "_blank";
                     
-                    // Adiciona as classes com base nos valores da planilha
                     if (colunas > 1) {
                         itemElement.classList.add(`col-${colunas}`);
                     }
@@ -716,19 +524,123 @@ function ajustarCarrossel() {
                     }
                     
                     itemElement.innerHTML = `<img src="${imagem}" alt="Imagem do Mosaico" loading="lazy">`;
-
                     mosaicoGrid.appendChild(itemElement);
                 });
             }
-        } catch (err) {
-            console.error("Erro geral no carregamento:", err);
-            const ofertasContainer = document.querySelector('.ofertas-carousel');
-            const destaquesContainer = document.querySelector('.destaques-carousel');
-            const mosaicoContainer = document.getElementById('mosaico-grid');
-            if (ofertasContainer) ofertasContainer.innerHTML = '<p>Erro ao carregar ofertas. Ver console.</p>';
-            if (destaquesContainer) destaquesContainer.innerHTML = '<p>Erro ao carregar destaques. Ver console.</p>';
-            if (mosaicoContainer) mosaicoContainer.innerHTML = '<p>Erro ao carregar mosaico. Ver console.</p>';
+
+            // Ativa os listeners do carrossel, etc.
+            setupEventListeners();
         }
+
+        function setupEventListeners() {
+            // Lógica de navegação e automação dos carrosséis
+            const ofertasSlidesContainer = document.querySelector('.ofertas-slides');
+            const ofertasPrevBtn = document.querySelector('.ofertas-prev');
+            const ofertasNextBtn = document.querySelector('.ofertas-next');
+            if (ofertasPrevBtn && ofertasNextBtn && ofertasSlidesContainer) {
+                ofertasNextBtn.addEventListener('click', () => {
+                    ofertasSlidesContainer.scrollBy({ left: ofertasSlidesContainer.offsetWidth, behavior: 'smooth' });
+                });
+                ofertasPrevBtn.addEventListener('click', () => {
+                    ofertasSlidesContainer.scrollBy({ left: -ofertasSlidesContainer.offsetWidth, behavior: 'smooth' });
+                });
+            }
+
+            const destaquesSlidesContainer = document.querySelector('.destaques-slides');
+            const destaquesPrevBtn = document.querySelector('.destaques-prev');
+            const destaquesNextBtn = document.querySelector('.destaques-next');
+            if (destaquesPrevBtn && destaquesNextBtn && destaquesSlidesContainer) {
+                destaquesNextBtn.addEventListener('click', () => {
+                    destaquesSlidesContainer.scrollBy({ left: destaquesSlidesContainer.offsetWidth, behavior: 'smooth' });
+                });
+                destaquesPrevBtn.addEventListener('click', () => {
+                    destaquesSlidesContainer.scrollBy({ left: -destaquesSlidesContainer.offsetWidth, behavior: 'smooth' });
+                });
+            }
+            
+            function autoSlide(slidesContainer) {
+                if (!slidesContainer) return;
+                const scrollLeft = slidesContainer.scrollLeft;
+                const maxScrollLeft = slidesContainer.scrollWidth - slidesContainer.clientWidth;
+                
+                if (scrollLeft < maxScrollLeft) {
+                    slidesContainer.scrollBy({ left: slidesContainer.offsetWidth, behavior: 'smooth' });
+                } else {
+                    slidesContainer.scrollTo({ left: 0, behavior: 'smooth' });
+                }
+            }
+
+            setInterval(() => autoSlide(ofertasSlidesContainer), 5000);
+            setInterval(() => autoSlide(destaquesSlidesContainer), 5000);
+            
+            // Listeners para os links de categoria
+            const linksCategoria = document.querySelectorAll('nav.main-menu a');
+            linksCategoria.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const categoriaSelecionada = link.dataset.categoria;
+                    
+                    const ofertasContainer = document.querySelector('.ofertas-carousel');
+                    const destaquesContainer = document.querySelector('.destaques-carousel');
+                    const mosaicoContainer = document.querySelector('.mosaico-section');
+
+                    if (categoriaSelecionada === "promocoes") {
+                        if (ofertasContainer) ofertasContainer.style.display = 'block';
+                        if (destaquesContainer) destaquesContainer.style.display = 'block';
+                        if (mosaicoContainer) mosaicoContainer.style.display = 'block';
+                        document.getElementById('resultados-filtro').innerHTML = '';
+                    } else {
+                        if (ofertasContainer) ofertasContainer.style.display = 'none';
+                        if (destaquesContainer) destaquesContainer.style.display = 'none';
+                        if (mosaicoContainer) mosaicoContainer.style.display = 'none';
+                        
+                        const produtosFiltrados = todosProdutos.filter(p => (p["categoria"] || "").toLowerCase() === categoriaSelecionada);
+                        renderizarResultados(produtosFiltrados);
+                    }
+                });
+            });
+        }
+
+        function renderizarResultados(produtosFiltrados) {
+            const container = document.getElementById('resultados-filtro');
+            container.innerHTML = '';
+            
+            if (produtosFiltrados.length === 0) {
+                container.innerHTML = '<p style="text-align:center; padding: 20px;">Nenhum produto encontrado nesta categoria.</p>';
+                return;
+            }
+
+            const grid = document.createElement('div');
+            grid.className = 'produtos-grid';
+
+            produtosFiltrados.forEach(produto => {
+                const nome = produto["nome"] || "Produto";
+                const preco = produto["preco"] || "";
+                const preco_antigo = produto["preco_antigo"] || "";
+                const imagem = produto["imagem"] || "imagem/placeholder.png";
+                const tag = produto["tag"] || "";
+                
+                const whats = "5575998623295";
+                const waText = encodeURIComponent(`Olá, quero este produto: ${nome}`);
+                const waLink = `https://wa.me/${whats}?text=${waText}`;
+
+                const card = document.createElement("div");
+                card.className = "promo-item";
+                card.innerHTML = `
+                    <img src="${imagem}" alt="${nome}">
+                    <h3>${nome}</h3>
+                    ${preco_antigo ? `<p class="preco-antigo">R$${preco_antigo}</p>` : ""}
+                    <p class="price">R$${preco} ${tag ? `<span class="tag">${tag}</span>` : ""}</p>
+                    <a href="${waLink}" class="btn-comprar" target="_blank" rel="noopener noreferrer">COMPRAR</a>
+                `;
+                grid.appendChild(card);
+            });
+            container.appendChild(grid);
+        }
+
+        // Inicia o carregamento de todos os dados
+        const dados = await carregarDados();
+        exibirProdutos(dados);
     });
 </script>    
 </body>
