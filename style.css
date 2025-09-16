@@ -25,6 +25,7 @@ body {
   font-size: 15px;
   padding: 8px;
   z-index: 3000;
+  display: none;
 }
 
 /* HEADER */
