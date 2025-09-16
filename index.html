@@ -340,7 +340,7 @@
 
             let todosProdutos = [];
 
-           async function carregarAviso() {
+  async function carregarAviso() {
   const avisoBar = document.getElementById('aviso-topo');
   if (!avisoBar) return;
 
@@ -348,7 +348,9 @@
 
   try {
     const resp = await fetch(AVISO_URL);
-    if (!resp.ok) throw new Error('Erro ao buscar CSV de Avisos: ' + resp.status);
+    if (!resp.ok) {
+        throw new Error('Erro ao buscar CSV de Avisos: ' + resp.status);
+    }
     const csvText = await resp.text();
     const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
     
@@ -356,17 +358,17 @@
     const avisoAtivo = parsed.data.find(row => (row.Ativo || '').toLowerCase().trim() === 'sim');
 
     if (avisoAtivo && avisoAtivo.Aviso) {
-      // Usa .trim() para remover espaços extras da mensagem
       const mensagem = avisoAtivo.Aviso.trim();
       avisoBar.textContent = mensagem;
+      // Adicione a classe para exibir a barra
       avisoBar.classList.add('top-bar');
     } else {
-      // Se não houver aviso ativo, remove a classe e esconde a barra
+      // Se não houver aviso ativo, remove a classe para esconder a barra
       avisoBar.classList.remove('top-bar');
-      avisoBar.textContent = '';
     }
   } catch (err) {
     console.error("Erro ao carregar aviso:", err);
+    // Em caso de erro, remova a classe para esconder a barra
     avisoBar.classList.remove('top-bar');
     avisoBar.textContent = '';
   }
