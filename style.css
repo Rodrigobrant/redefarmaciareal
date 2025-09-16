@@ -317,7 +317,7 @@ header {
     height: 150px; 
     width: 100%;
     /* 🚩 Isso faz a imagem preencher o espaço sem distorcer */
-    object-fit: cover; 
+    object-fit: contain; 
     border-radius: 4px;
     margin-bottom: 10px;
 }
