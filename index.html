@@ -3,437 +3,337 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-   <!-- SEO Básico -->
     <title>Farmácias Real – Drogaria e Perfumaria em Esplanada-BA</title>
     <meta name="description" content="Farmácias Real em Esplanada-BA. Loja física até 21h e delivery até 22h. Medicamentos, perfumaria, vitaminas e muito mais. Peça pelo WhatsApp!">
     <meta name="keywords" content="farmácia em Esplanada, drogaria Esplanada, Farmácias Real, remédios delivery Esplanada, perfumaria Esplanada, comprar medicamentos online BA">
     <meta name="author" content="Farmácias Real">
     <link rel="stylesheet" href="style.css">
-    <!-- SEO Local -->
     <meta property="og:title" content="Farmácias Real – Drogaria e Perfumaria em Esplanada-BA">
     <meta property="og:description" content="Medicamentos, perfumaria e delivery até 00h em Esplanada. A sua saúde é o nosso compromisso.">
-    <meta property="og:image" content="https://redefarmaciareal.com.br/imagem/logo.png"> <!-- substitua pela URL real da sua logo -->
-    <meta property="og:url" content="https://redefarmaciareal.com.br/">
+    <meta property="og:image" content="https://redefarmaciareal.com.br/imagem/logo.png"> <meta property="og:url" content="https://redefarmaciareal.com.br/">
     <meta property="og:type" content="website">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="imagem/favicon.png">
     <style>
- /* Barra de aviso superior */
-    .top-bar {
-      background: #d32f2f;
-      color: #fff;
-      text-align: center;
-      padding: 6px 10px;
-      font-size: 14px;
-      font-weight: bold;
-    }
-/* Cabeçalho fixo */
-.site-header {
-  background: #2e7d32;   /* verde completo */
-  padding: 8px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  z-index: 1100; /* fica sobre o conteúdo */
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
+        /* Barra de aviso superior */
+        .top-bar {
+            background: #d32f2f;
+            color: #fff;
+            text-align: center;
+            padding: 6px 10px;
+            font-size: 14px;
+            font-weight: bold;
+        }
 
-/* Logo */
-.logo img {
-  height: 160px;      /* aumenta bastante a altura */
-  max-width: 320px;   /* permite largura maior */
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;     /* centraliza dentro do fundo verde */
-}
+        /* Cabeçalho fixo */
+        .site-header {
+            background: #2e7d32;
+            padding: 8px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1100;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
 
-/* Barra de busca */
-.search-bar {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  margin: 0 20px;
-}
-.search-bar input {
-  width: 100%;
-  max-width: 500px;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 20px;
-  font-size: 14px;
-}
+        /* Logo */
+        .logo img {
+            height: 160px;
+            max-width: 320px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+        }
 
-/* Ações */
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  font-size: 14px;
-}
-.header-actions a {
-  text-decoration: none;
-  color: #fff;
-  font-weight: bold;
-}
-.header-actions a:hover {
-  color: #ffeb3b;
-}
-.header-actions img {
-  width: 24px;
-  height: 24px;
-}
+        /* Barra de busca */
+        .search-bar {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            margin: 0 20px;
+        }
 
-/* ---------------- RESPONSIVO ---------------- */
-@media (max-width: 768px) {
-  .site-header {
-    flex-direction: column;
-    padding: 10px;
-    text-align: center;
-  }
+        .search-bar input {
+            width: 100%;
+            max-width: 500px;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+        }
 
-  .logo img {
-    height: 70px;
-    margin-bottom: 6px;
-  }
+        /* Ações */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 14px;
+        }
 
-  .search-bar {
-    width: 100%;
-    margin: 8px 0;
-  }
+        .header-actions a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+        }
 
-  .search-bar input {
-    max-width: 100%;
-    font-size: 13px;
-  }
+        .header-actions a:hover {
+            color: #ffeb3b;
+        }
 
-  .header-actions {
-    gap: 10px;
-    font-size: 12px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
+        .header-actions img {
+            width: 24px;
+            height: 24px;
+        }
 
-  .header-actions a {
-    font-size: 12px;
-  }
-}
-</style>
+        /* ---------------- RESPONSIVO ---------------- */
+        @media (max-width: 768px) {
+            .site-header {
+                flex-direction: column;
+                padding: 10px;
+                text-align: center;
+            }
+
+            .logo img {
+                height: 70px;
+                margin-bottom: 6px;
+            }
+
+            .search-bar {
+                width: 100%;
+                margin: 8px 0;
+            }
+
+            .search-bar input {
+                max-width: 100%;
+                font-size: 13px;
+            }
+
+            .header-actions {
+                gap: 10px;
+                font-size: 12px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .header-actions a {
+                font-size: 12px;
+            }
+        }
+
+        /* Estilos do Carrossel de Banners */
+        .carousel {
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .carousel img {
+            width: 100%;
+            display: none;
+        }
+
+        .carousel img.active {
+            display: block;
+        }
+
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            font-size: 24px;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        .dots {
+            text-align: center;
+            position: absolute;
+            bottom: 15px;
+            width: 100%;
+        }
+
+        .dot {
+            height: 12px;
+            width: 12px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background-color: #7ED957;
+        }
+
+        /* Estilos do Grid de Produtos Filtrados */
+        .produtos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            min-height: 40vh;
+        }
+
+        /* Estilo para a imagem do card */
+        .promo-item img {
+            height: 150px;
+            width: 100%;
+            object-fit: contain; /* Ajusta a imagem sem cortar */
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-<!-- PapaParse (parser CSV robusto) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js" integrity="" crossorigin="anonymous"></script>
-<div id="aviso-topo"></div>
-<script>
-document.addEventListener('DOMContentLoaded', async () => {
-  const container = document.getElementById('ofertas-catalogo') || document.getElementById('promocoes') || document.querySelector('.promo') ;
-  if (!container) {
-    console.error('Container de promoções não encontrado. IDs esperados: ofertas-catalogo, promocoes ou .promo');
-    return;
-  }
+    <div class="top-bar"></div>
 
-  // === substitua pela sua URL de CSV publicada (Arquivo → Publicar na Web → CSV) ===
-  const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?output=csv";
-
-  try {
-    const resp = await fetch(CSV_URL);
-    if (!resp.ok) {
-      console.error('Erro ao buscar CSV:', resp.status, resp.statusText);
-      container.innerHTML = `<p>Erro ao carregar ofertas (${resp.status}). Ver console.</p>`;
-      return;
-    }
-    const csvText = await resp.text();
-
-    // Parse seguro com PapaParse
-    const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
-    console.log('Dados da planilha:', parsed.data);
-
-    // Normaliza chaves (tenta várias variações de nomes)
-    const key = (obj, nameOptions) => {
-      for (const k of nameOptions) if (k in obj) return obj[k];
-      return '';
-    };
-
-    const promos = parsed.data.filter(row => {
-      const v = key(row, ['Promoção','Promocao','promocao','promoção','Promoçao','PromoÇão']);
-      return (v || '').toString().trim().toLowerCase() === 'sim';
-    });
-
-    if (!promos || promos.length === 0) {
-      container.innerHTML = '<p>Nenhuma oferta no momento.</p>';
-      return;
-    }
-
-    // Monta HTML seguro
-    const html = promos.map(p => {
-      const nome = key(p, ['Nome','nome','Produto','produto']) || 'Produto';
-      const desc = key(p, ['Descrição','Descricao','descricao']) || '';
-      const preco = key(p, ['Preço','Preco','preco']) || '';
-      const img = key(p, ['Imagem','imagem']) || 'imagem/placeholder.png';
-      const whats = key(p, ['WhatsApp','Whats','whatsapp','whats']) || '5575998623295';
-      const waText = encodeURIComponent(`Olá, quero este produto: ${nome}`);
-      const waLink = `https://wa.me/${whats.replace(/[^0-9]/g,'') || '5575998623295'}?text=${waText}`;
-
-      return `
-        <div class="promo-item">
-          <img src="${img}" alt="${nome}" loading="lazy" style="max-width:120px; height:auto; display:block; margin:0 auto 8px;" />
-          <h3 style="margin:6px 0">${nome}</h3>
-          <p style="color:#666; font-size:0.95rem; margin:6px 0">${desc}</p>
-          <p style="font-weight:800; color:#16713a; margin:6px 0">R$ ${preco}</p>
-          <a class="whatsapp-btn" href="${waLink}" target="_blank" rel="noopener noreferrer">Comprar</a>
+    <header class="site-header">
+        <div class="logo">
+            <img src="imagem/logo.png" alt="Farmácias Real">
         </div>
-      `;
-    }).join('');
+        <div class="search-bar">
+            <input type="text" placeholder="🔍  Precisou? Na Real Tem">
+        </div>
+        <div class="header-actions">
+            <a href="cadastro.html">Cadastro</a>
+            <a href="#">Fazer Pedidos</a>
+            <a href="#"><img src="imagem/carrinho.png" alt="Carrinho" style="width:26px;height:26px;"></a>
+        </div>
+    </header>
 
-    container.innerHTML = html;
-
-    // === ativa busca apenas após promo terem sido adicionadas ===
-    const searchInput = document.getElementById('searchInput') || document.querySelector('.search-bar input') || document.querySelector('.search-container input');
-    if (searchInput) {
-      searchInput.addEventListener('input', () => {
-        const q = searchInput.value.trim().toLowerCase();
-        document.querySelectorAll('.promo-item').forEach(it => {
-          const name = (it.querySelector('h3')?.textContent || '').toLowerCase();
-          it.style.display = (!q || name.includes(q)) ? '' : 'none';
-        });
-      });
-    }
-
-  } catch (err) {
-    console.error('Erro ao carregar/parsear CSV:', err);
-    container.innerHTML = '<p>Erro ao carregar ofertas. Ver console.</p>';
-  }
-});
-</script>
-<!-- Header principal -->
-  <header>
-    <div class="logo">
-      <img src="imagem/logo.png" alt="Farmácias Real">
-    </div>
-    <div class="search-bar">
-      <input type="text" placeholder="🔍   Precisou? Na Real Tem">
-    </div>
-    <div class="header-actions">
-      <a href="cadastro.html">Cadastro</a>
-      <a href="#">Fazer Pedidos</a>
-      <a href="#"><img src="imagem/carrinho.png" alt="Carrinho" style="width:26px;height:26px;"></a>
-    </div>
-  </header>
-  <!-- Menu hambúrguer   <div class="menu-toggle">☰ Menu</div> -->
-
-  <!-- Menu principal -->
-  <nav class="main-menu">
-  <ul>
-    <li><a href="#" data-categoria="medicamentos"><img src="imagem/medicamentos.png"><div>Medicamentos</div></a></li>
-    <li><a href="#" data-categoria="higiene"><img src="imagem/higiene.png"><div>Higiene</div></a></li>
-    <li><a href="#" data-categoria="beleza"><img src="imagem/beleza.png"><div>Beleza</div></a></li>
-    <li><a href="#" data-categoria="promocoes"><img src="imagem/promocoes.png"><div>Promoções</div></a></li>
-  </ul>
-</nav>
-</body>
-<!-- Espaço para não sobrepor o conteúdo -->
-<div style="height: 90px;"></div>
-   <!-- 🚩 Carrossel de Banners -->
-<div class="carousel">
-    <div class="slides">
-        <img src="imagem/banner1.png" class="active" alt="Oferta 1">
-        <img src="imagem/banner2.png" alt="Oferta 2">
-        <img src="imagem/banner3.png" alt="Oferta 3">
-        <img src="imagem/banner4.png" alt="Oferta 4">
-        <img src="imagem/banner5.png" alt="Oferta 5">
-        <img src="imagem/banner6.png" alt="Oferta 6">
-        <img src="imagem/banner7.png" alt="Oferta 7">
-     </div>
-
-    <!-- Botões -->
-    <button class="prev">&#10094;</button>
-    <button class="next">&#10095;</button>
-
-    <!-- Indicadores -->
-    <div class="dots">
-        <span class="dot active"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-    </div>
-</div>
-
-<style>
-.carousel {
-    position: relative;
-    max-width: 100%;
-    margin: auto;
-    overflow: hidden;
-    border-radius: 10px;
-}
-.carousel img {
-    width: 100%;
-    display: none;
-}
-.carousel img.active {
-    display: block;
-}
-.prev, .next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0,0,0,0.5);
-    color: white;
-    border: none;
-    font-size: 24px;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 50%;
-}
-.prev { left: 10px; }
-.next { right: 10px; }
-.dots {
-    text-align: center;
-    position: absolute;
-    bottom: 15px;
-    width: 100%;
-}
-.dot {
-    height: 12px;
-    width: 12px;
-    margin: 0 5px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    cursor: pointer;
-}
-.dot.active {
-    background-color: #7ED957;
-}
-</style>
-
-    <script>
-        let slideIndex = 0;
-         const slides = document.querySelectorAll(".carousel img");
-         const dots = document.querySelectorAll(".dot");
-
-    function showSlide(n) {
-        slides.forEach((slide, i) => {
-        slide.classList.remove("active");
-        dots[i].classList.remove("active");
-    });
-        slides[n].classList.add("active");
-        dots[n].classList.add("active");
-        slideIndex = n;
-     }
-
-     function nextSlide() {
-        slideIndex = (slideIndex + 1) % slides.length;
-        showSlide(slideIndex);
-     }
-
-    function prevSlide() {
-        slideIndex = (slideIndex - 1 + slides.length) % slides.length;
-        showSlide(slideIndex);
-     }
-
-        document.querySelector(".next").addEventListener("click", nextSlide);
-        document.querySelector(".prev").addEventListener("click", prevSlide);
-        dots.forEach((dot, index) => {
-        dot.addEventListener("click", () => showSlide(index));
-    });
-
-         setInterval(nextSlide, 4000); // troca automático a cada 4s
-    </script>
-  <!-- OFERTAS ESPECIAIS -->
-  <section class="ofertas-carousel">
-    <h2>OFERTAS ESPECIAIS</h2>
-    <div class="carousel-container">
-        <div class="ofertas-slides">
-            </div>
-        <button class="prev ofertas-prev">&lt;</button>
-        <button class="next ofertas-next">&gt;</button>
-    </div>
-</section>
+    <nav class="main-menu">
+        <ul>
+            <li><a href="#" data-categoria="medicamentos"><img src="imagem/medicamentos.png"><div>Medicamentos</div></a></li>
+            <li><a href="#" data-categoria="higiene"><img src="imagem/higiene.png"><div>Higiene</div></a></li>
+            <li><a href="#" data-categoria="beleza"><img src="imagem/beleza.png"><div>Beleza</div></a></li>
+            <li><a href="#" data-categoria="promocoes"><img src="imagem/promocoes.png"><div>Promoções</div></a></li>
+        </ul>
+    </nav>
     
-<!-- MOMENTO SAÚDE E BELEZA -->
-<section class="mosaico-section">
-    <h2>MOMENTO SAÚDE E BELEZA</h2>
-    <div id="mosaico-grid">
+    <div class="carousel">
+        <div class="slides">
+            <img src="imagem/banner1.png" class="active" alt="Oferta 1">
+            <img src="imagem/banner2.png" alt="Oferta 2">
+            <img src="imagem/banner3.png" alt="Oferta 3">
+            <img src="imagem/banner4.png" alt="Oferta 4">
+            <img src="imagem/banner5.png" alt="Oferta 5">
+            <img src="imagem/banner6.png" alt="Oferta 6">
+            <img src="imagem/banner7.png" alt="Oferta 7">
         </div>
-</section> 
-<div id="resultados-filtro"></div>    
-<!-- DESTAQUES -->
- <section class="destaques-carousel">
-    <h2>DESTAQUES</h2>
-    <div class="carousel-container">
-        <div class="destaques-slides">
-            </div>
-        <button class="prev destaques-prev">&lt;</button>
-        <button class="next destaques-next">&gt;</button>
+        <button class="prev">❮</button>
+        <button class="next">❯</button>
+        <div class="dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
     </div>
-</section>    
-<!-- Seção de Chama Catálogo -->
-    <section style="text-align: center; margin: 40px 0;">
-    <h2 style="color: #28a745; font-size: 28px; font-weight: bold;">
-        Bem-vindo à Farmácias Real
-    </h2>
-    <p style="font-size: 16px; color: #333; margin: 15px 0;">
-        Confira todas as nossas ofertas, medicamentos, perfumaria e muito mais!
-    </p>
+    
+    <section class="ofertas-carousel">
+        <h2>OFERTAS ESPECIAIS</h2>
+        <div class="carousel-container">
+            <div class="ofertas-slides"></div>
+            <button class="prev ofertas-prev"><</button>
+            <button class="next ofertas-next">></button>
+        </div>
+    </section>
 
-    <a href="catalogo.html" 
-       style="display: inline-block; 
-              padding: 14px 30px; 
-              background-color: #28a745; 
-              color: white; 
-              font-size: 18px; 
-              font-weight: bold; 
-              border-radius: 8px; 
-              text-decoration: none; 
-              transition: background-color 0.3s;">
-       📗 Ver Catálogo Completo
-    </a>
-</section>
-    <!-- Seção de Localização -->
+    <section class="mosaico-section">
+        <h2>MOMENTO SAÚDE E BELEZA</h2>
+        <div id="mosaico-grid"></div>
+    </section>
+
+    <section class="destaques-carousel">
+        <h2>DESTAQUES</h2>
+        <div class="carousel-container">
+            <div class="destaques-slides"></div>
+            <button class="prev destaques-prev"><</button>
+            <button class="next destaques-next">></button>
+        </div>
+    </section>
+
+    <div id="resultados-filtro"></div>
+
+    <section style="text-align: center; margin: 40px 0;">
+        <h2 style="color: #28a745; font-size: 28px; font-weight: bold;">
+            Bem-vindo à Farmácias Real
+        </h2>
+        <p style="font-size: 16px; color: #333; margin: 15px 0;">
+            Confira todas as nossas ofertas, medicamentos, perfumaria e muito mais!
+        </p>
+
+        <a href="catalogo.html"
+            style="display: inline-block;
+                    padding: 14px 30px;
+                    background-color: #28a745;
+                    color: white;
+                    font-size: 18px;
+                    font-weight: bold;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    transition: background-color 0.3s;">
+            📗 Ver Catálogo Completo
+        </a>
+    </section>
+    
     <section style="padding:40px 20px; text-align:center; background:#f9f9f9;">
         <h2>📍 Onde estamos</h2>
         <p>Praça Ladislau Cavalcante, 165 - Centro - Esplanada/BA</p>
         <div style="margin-top:20px;">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7791.781209691481!2d-37.9383!3d-11.5267!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7153f186ae9f7ff%3A0x6a1c77d41d8c52b8!2sPra%C3%A7a%20Ladislau%20Cavalcante%2C%20165%20-%20Centro%2C%20Esplanada%20-%20BA%2C%2048370-000!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" 
-                width="100%" 
-                height="350" 
-                style="border:0; border-radius:12px;" 
-                allowfullscreen="" 
-                loading="lazy" 
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3791.781206591441!2d-37.938313d-11.52672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x73d3ff69c897f7f3%3A0x8d61c77f41de52b8!2sDrogaria%20Real%20(Loja%20do%20Sr.%20Cezar)!5e0!3m2!1spt-BR!2sbr!4v1717000000000!5m2!1spt-BR!2sbr"
+                width="100%"
+                height="350"
+                style="border:0; border-radius:12px;"
+                allowfullscreen=""
+                loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade">
             </iframe>
         </div>
     </section>
-    <footer class="footer">
-        <img src="imagem/logo-anvisa.png" alt="Anvisa" class="logo-anvisa"> 
-            <p>A FARMÁCIAS REAL segue as determinações da Anvisa. As informações contidas neste site não devem ser usadas para automedicação e não substituem, em hipótese alguma, as orientações dadas pelo profissional da área médica. Somente o médico está apto a diagnosticar qualquer problema de saúde e prescrever o tratamento adequado.</p>
-            <p>Razão Social: BRANT E FIRMO LTDA | Nome Fantasia: REDE FARMÁCIA REAL - DROGARIA E PERFUMARIA | CNPJ: 11.767.169/0001-98</p>
-            <p>Endereço: Praça Ladislau Cavalcante, 165 - Centro - Esplanada/BA, CEP: 48370-000 | Horário de Atendimento: Das 08:00 às 21:00</p>
-            <p>Farmacêutico Responsável: Danielle Santana Cruz | CRF/BA: 19535 | AFE: 0.99.396-2 | SAC: Tel.: (75) 9-9862-3295</p>
-            <p>Os preços e as promoções são válidos apenas para compras via internet. As fotos contidas em nosso site são meramente ilustrativas. *Preços e disponibilidade sujeitos a alterações no decorrer do dia.</p>
-        </footer>
 
-    <!-- BOTÃO WHATSAPP FIXO -->
-  <div class="whatsapp-fixo">
-    <a href="https://wa.me/557598623295" target="_blank">
-      <img src="imagem/whatsapp.png" alt="WhatsApp">
-    </a>
-  </div>
-  
-<!-- Script Aviso -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <footer class="footer">
+        <img src="imagem/logo-anvisa.png" alt="Anvisa" class="logo-anvisa">
+        <p>A FARMÁCIAS REAL segue as determinações da Anvisa. As informações contidas neste site não devem ser usadas para automedicação e não substituem, em hipótese alguma, as orientações dadas pelo profissional da área médica. Somente o médico está apto a diagnosticar qualquer problema de saúde e prescrever o tratamento adequado.</p>
+        <p>Razão Social: BRANT E FIRMO LTDA | Nome Fantasia: REDE FARMÁCIA REAL - DROGARIA E PERFUMARIA | CNPJ: 11.767.169/0001-98</p>
+        <p>Endereço: Praça Ladislau Cavalcante, 165 - Centro - Esplanada/BA, CEP: 48370-000 | Horário de Atendimento: Das 08:00 às 21:00</p>
+        <p>Farmacêutico Responsável: Danielle Santana Cruz | CRF/BA: 19535 | AFE: 0.99.396-2 | SAC: Tel.: (75) 9-9862-3295</p>
+        <p>Os preços e as promoções são válidos apenas para compras via internet. As fotos contidas em nosso site são meramente ilustrativas. *Preços e disponibilidade sujeitos a alterações no decorrer do dia.</p>
+    </footer>
+
+    <div class="whatsapp-fixo">
+        <a href="https://wa.me/557598623295" target="_blank">
+            <img src="imagem/whatsapp.png" alt="WhatsApp">
+        </a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const PRODUTOS_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?output=csv";
             const MOSAICO_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQB-6S2pkgnufWoNb4ayXBx1txEsfS0VFu0zSa0D72u5zjeBJooQ7VO9LJeqKzuOr_RXTb84t8sUYeE/pub?output=csv";
-            const AVISO_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?output=csv"; // 🚩 SUBSTITUA PELA SUA URL REAL DO AVISO
+            const AVISO_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQn3-b8y-j5wJ7G-f7h4F7yW3G0f8-y0f_z_0y0y-0y_y0y-y0y_y-y_y0y-y_y_y/pub?output=csv"; // 🚩 SUBSTITUA PELA SUA URL REAL DO AVISO
 
             const resultadosDiv = document.getElementById('resultados-filtro');
             if (resultadosDiv) resultadosDiv.style.display = 'none';
@@ -664,6 +564,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             const dados = await carregarDados();
             exibirProdutos(dados);
         });
-</script>
+    </script>
 </body>
 </html>
