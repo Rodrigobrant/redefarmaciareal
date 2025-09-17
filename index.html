@@ -336,39 +336,38 @@
             if (resultadosDiv) resultadosDiv.style.display = 'none';
 
             let todosProdutos = [];
-          async function carregarAviso() {
-  const avisoBar = document.getElementById('aviso-topo');
-  if (!avisoBar) return;
+          <script>
+    // Substitua esta URL pela URL de publicação que você gerou
+    const AVISO_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?output=csv';
 
-  const AVISO_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?output=csv';
+    async function carregarAviso() {
+        const avisoBar = document.getElementById('aviso-topo');
+        if (!avisoBar) return;
 
-  try {
-    const resp = await fetch(AVISO_URL);
-    if (!resp.ok) {
-        throw new Error('Erro ao buscar CSV de Avisos: ' + resp.status);
+        try {
+            const resp = await fetch(AVISO_URL);
+            if (!resp.ok) {
+                throw new Error('Erro ao buscar CSV de Avisos: ' + resp.status);
+            }
+            const csvText = await resp.text();
+            const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
+            
+            const avisoAtivo = parsed.data.find(row => (row.Ativo || '').toLowerCase().trim() === 'sim');
+
+            if (avisoAtivo && avisoAtivo.Aviso) {
+                const mensagem = avisoAtivo.Aviso.trim();
+                avisoBar.textContent = mensagem;
+            } else {
+                avisoBar.style.display = 'none';
+            }
+        } catch (err) {
+            console.error("Erro ao carregar aviso:", err);
+            avisoBar.style.display = 'none';
+        }
     }
-    const csvText = await resp.text();
-    const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
-    
-    // Procura por uma linha onde a coluna "Ativo" tenha o valor "sim"
-    const avisoAtivo = parsed.data.find(row => (row.Ativo || '').toLowerCase().trim() === 'sim');
 
-    if (avisoAtivo && avisoAtivo.Aviso) {
-      const mensagem = avisoAtivo.Aviso.trim();
-      avisoBar.textContent = mensagem;
-      avisoBar.classList.add('top-bar'); // Ou o estilo que você estiver usando
-    } else {
-      avisoBar.classList.remove('top-bar'); // Esconde a barra
-      avisoBar.textContent = '';
-    }
-  } catch (err) {
-    console.error("Erro ao carregar aviso:", err);
-    avisoBar.classList.remove('top-bar');
-    avisoBar.textContent = '';
-  }
-}
-
-document.addEventListener('DOMContentLoaded', carregarAviso);
+    document.addEventListener('DOMContentLoaded', carregarAviso);
+</script>
             async function carregarDados() {
                 try {
                     const produtosResp = await fetch(PRODUTOS_URL);
