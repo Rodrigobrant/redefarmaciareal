@@ -337,7 +337,7 @@
 
             let todosProdutos = [];
           <script>
-    // Substitua esta URL pela URL de publicação que você gerou
+    // Substitua esta URL pela URL de publicação da sua planilha
     const AVISO_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?output=csv';
 
     async function carregarAviso() {
@@ -352,16 +352,19 @@
             const csvText = await resp.text();
             const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
             
+            // Encontra a linha onde a coluna "Ativo" tem o valor "sim"
             const avisoAtivo = parsed.data.find(row => (row.Ativo || '').toLowerCase().trim() === 'sim');
 
             if (avisoAtivo && avisoAtivo.Aviso) {
                 const mensagem = avisoAtivo.Aviso.trim();
                 avisoBar.textContent = mensagem;
             } else {
+                // Se não houver aviso, a barra pode ser escondida
                 avisoBar.style.display = 'none';
             }
         } catch (err) {
             console.error("Erro ao carregar aviso:", err);
+            // Em caso de erro, a barra deve ser escondida
             avisoBar.style.display = 'none';
         }
     }
