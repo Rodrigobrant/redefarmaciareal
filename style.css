@@ -133,28 +133,23 @@ header {
 /* Estilos para a seção de ofertas/promoções */
 /* Carrossel de Produtos */
 .ofertas-carousel {
-    position: relative;
-    max-width: 100%;
-    margin: 20px auto;
-    overflow: hidden;
-    padding: 0 40px; /* Adiciona espaço para os botões de navegação */
-    transition: opacity 0.5s ease-in-out, visibility 0s 0.5s;
-    /* Isso garante que elas possam ser escondidas sem afetar o layout */
-    display: block; 
+  width: 100%;
+  position: relative;
+  overflow: hidden;
 }
-
 .ofertas-slides {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    gap: 20px;
+  display: flex; /* Transforma o contêiner em um flexbox para alinhar os itens em linha */
+  gap: 20px; /* Adiciona um espaçamento entre os itens */
+  overflow-x: auto; /* Permite a rolagem horizontal */
+  scroll-behavior: smooth; /* Torna a rolagem suave */
+  -webkit-overflow-scrolling: touch; /* Melhora a rolagem em dispositivos móveis */
+  padding: 10px; /* Adiciona um espaçamento interno */
+  justify-content: flex-start; /* Alinha os itens à esquerda */
+  align-items: flex-start; /* Alinha os itens no topo */
 }
-
 .ofertas-slides::-webkit-scrollbar {
-    display: none; /* Esconde a barra de rolagem no Webkit browsers */
+  display: none;
 }
-
 /* Estilos para cada card de oferta dentro do carrossel */
 .ofertas-slides .promo-item {
     scroll-snap-align: start;
