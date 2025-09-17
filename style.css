@@ -11,9 +11,20 @@ body {
   line-height: 1.5;
   /* padding-top será ajustado dinamicamente se necessário */
 }
-
+/* Aviso no topo */
+#aviso-top {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+/* Header logo + busca */
+.site-header {
+  position: sticky;
+  top: 40px; /* altura do aviso */
+  z-index: 999;
+}
 /* AVISO FIXO */
-#aviso-topo {
+/*#aviso-topo {
   position: fixed;
   top: 0;
   left: 0;
@@ -26,7 +37,7 @@ body {
   padding: 10px 8px;
   z-index: 4000;   /* acima do header */
   display: none;   /* só aparece quando tiver aviso */
-}
+}*/
 /* HEADER */
 header {
   position: fixed;
