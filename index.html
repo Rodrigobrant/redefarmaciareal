@@ -331,8 +331,7 @@
         document.addEventListener('DOMContentLoaded', async () => {
             const PRODUTOS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?output=csv';
             const MOSAICO_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQB-6S2pkgnufWoNb4ayXBx1txEsfS0VFu0zSa0D72u5zjeBJooQ7VO9LJeqKzuOr_RXTb84t8sUYeE/pub?output=csv';
-            const AVISO_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?output=csv';
-
+            
             const resultadosDiv = document.getElementById('resultados-filtro');
             if (resultadosDiv) resultadosDiv.style.display = 'none';
 
@@ -345,29 +344,31 @@
 
   try {
     const resp = await fetch(AVISO_URL);
-    if (!resp.ok) throw new Error('Erro ao buscar CSV de Avisos: ' + resp.status);
-
+    if (!resp.ok) {
+        throw new Error('Erro ao buscar CSV de Avisos: ' + resp.status);
+    }
     const csvText = await resp.text();
     const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
-
-    // Procura aviso ativo
+    
+    // Procura por uma linha onde a coluna "Ativo" tenha o valor "sim"
     const avisoAtivo = parsed.data.find(row => (row.Ativo || '').toLowerCase().trim() === 'sim');
 
     if (avisoAtivo && avisoAtivo.Aviso) {
-      avisoBar.textContent = avisoAtivo.Aviso.trim();
-      avisoBar.style.display = 'block'; // mostra
+      const mensagem = avisoAtivo.Aviso.trim();
+      avisoBar.textContent = mensagem;
+      avisoBar.classList.add('top-bar'); // Ou o estilo que você estiver usando
     } else {
-      avisoBar.style.display = 'none'; // esconde
+      avisoBar.classList.remove('top-bar'); // Esconde a barra
+      avisoBar.textContent = '';
     }
   } catch (err) {
     console.error("Erro ao carregar aviso:", err);
-    avisoBar.style.display = 'none';
+    avisoBar.classList.remove('top-bar');
+    avisoBar.textContent = '';
   }
 }
 
-// Chama o aviso assim que a página carregar
 document.addEventListener('DOMContentLoaded', carregarAviso);
-
             async function carregarDados() {
                 try {
                     const produtosResp = await fetch(PRODUTOS_URL);
