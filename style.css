@@ -110,20 +110,23 @@ header {
 /* CARROSSEL/BANNERS */
 .carousel {
   position: relative;
-  width: 100%;
+  max-width: 100%;
+  margin: auto;
   overflow: hidden;
+  border-radius: 10px;
 }
-.carousel-slides {
-  display: flex; /* Alinha as imagens lado a lado */
+.carousel .slides {
+  display: flex; /* ESSENCIAL para alinhar as imagens lado a lado */
   overflow-x: auto; /* Permite a rolagem horizontal */
-  scroll-snap-type: x mandatory; /* Faz com que as imagens se encaixem perfeitamente */
-  scroll-behavior: smooth; /* Deixa a rolagem suave */
+  scroll-snap-type: x mandatory; /* Faz os banners se encaixarem */
+  scroll-behavior: smooth; /* Torna a rolagem suave */
 }
-
 .carousel .slides img {
-  flex-shrink: 0; /* Impede que as imagens diminuam */
-  width: 100%; /* Garante que a imagem ocupe a largura total do carrossel */
-  scroll-snap-align: center; /* Alinha cada banner ao centro quando a rolagem para */
+  width: 100%; /* Garante que cada imagem ocupe a largura total */
+  flex-shrink: 0; /* Impede que as imagens encolham */
+  scroll-snap-align: center; /* Alinha a imagem no centro */
+  /* Remove o 'display: none' do seu CSS */
+  display: block;
 }
 .carousel img {
   width: auto;
@@ -138,7 +141,13 @@ header {
 .carousel img.active {
   display: block;
 }
-
+/* Regras para os botões e pontos */
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  /* ... outros estilos */
+}
 /* Estilos para a seção de ofertas/promoções */
 /* Carrossel de Produtos */
 .ofertas-carousel {
