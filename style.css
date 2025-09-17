@@ -29,7 +29,7 @@ body {
 /* HEADER */
 header {
   position: fixed;
-  top: 36px; /* Altura do aviso topo */
+  top: 0; /* controlado dinamicamente via JS se houver aviso */
   left: 0;
   width: 100%;
   z-index: 2000;
@@ -76,12 +76,13 @@ header {
 /* MENU CATEGORIAS FIXO */
 .main-menu {
   position: fixed;
-  top: 116px; /* 36px (aviso) + 80px (header) */
   left: 0;
   width: 100%;
   background: #f4f7f5;
   padding: 10px 0;
   z-index: 1500;
+  top: calc(80px); /* 🔹 por padrão, logo abaixo do header */
+  transition: top 0.2s ease-in-out; /* suaviza quando aviso aparece/some */
 }
 .main-menu ul {
   display: flex;
@@ -466,13 +467,12 @@ header {
 }
 * RESPONSIVIDADE */
 @media(max-width:768px){
-  header {
-    top: 48px; /* altura do aviso no mobile */
+   header {
+    height: auto;
     flex-direction: column;
     align-items: center;
-    height: auto;
-    gap: 10px;
     padding: 10px;
+    gap: 10px;
   }
 
   .logo img {
@@ -480,8 +480,10 @@ header {
     max-width: 200px;
   }
 
-  .main-menu {
-    top: 138px; /* aviso + header no mobile */
+    .main-menu {
+    top: auto; /* valor controlado pelo JS */
+    margin-top: 0;
+    padding: 8px 0;
   }
 
   .main-menu ul {
@@ -493,7 +495,7 @@ header {
     width: 44px;
     height: 44px;
   }
-
+  
   .carousel {
     margin-top: 220px; /* aviso + header + menu no mobile */
     max-height: 160px;
