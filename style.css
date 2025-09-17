@@ -137,14 +137,15 @@ header {
   position: relative;
   overflow: hidden;
 }
+/* Estilo para o carrossel de Ofertas Especiais */
 .ofertas-slides {
   display: flex; /* Transforma o contêiner em um flexbox para alinhar os itens em linha */
-  gap: 20px; /* Adiciona um espaçamento entre os itens */
-  overflow-x: auto; /* Permite a rolagem horizontal */
+  gap: 20px; /* Adiciona um espaçamento de 20px entre os itens */
+  overflow-x: auto; /* Permite a rolagem horizontal, criando o efeito de carrossel */
   scroll-behavior: smooth; /* Torna a rolagem suave */
   -webkit-overflow-scrolling: touch; /* Melhora a rolagem em dispositivos móveis */
   padding: 10px; /* Adiciona um espaçamento interno */
-  justify-content: flex-start; /* Alinha os itens à esquerda */
+  justify-content: flex-start; /* Alinha os itens à esquerda, resolvendo a sobreposição */
   align-items: flex-start; /* Alinha os itens no topo */
 }
 .ofertas-slides::-webkit-scrollbar {
