@@ -337,56 +337,48 @@
 
     async function carregarAviso() {
     const avisoBar = document.getElementById('aviso-topo');
-    const header = document.querySelector('header');
-    const menu = document.querySelector('.main-menu');
-
-    if (!avisoBar) {
-        console.error('Elemento #aviso-topo não encontrado.');
-        return;
-    }
+    const header = document.querySelector("header");
+    const menu = document.querySelector(".main-menu");
 
     try {
-        const resp = await fetch(AVISO_URL);
-        if (!resp.ok) {
-            throw new Error('Erro ao buscar CSV de Avisos: ' + resp.status);
-        }
-
+        const resp = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?output=csv");
         const csvText = await resp.text();
         const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
 
         const avisoAtivo = parsed.data.find(row => (row.ativo || '').toLowerCase().trim() === 'sim');
-        
+
         if (avisoAtivo && avisoAtivo.mensagem) {
-            // Mostra aviso
             avisoBar.textContent = avisoAtivo.mensagem.trim();
             avisoBar.style.display = 'block';
 
+            // aplica cores personalizadas
             if (avisoAtivo.cor_fundo) avisoBar.style.backgroundColor = avisoAtivo.cor_fundo;
             if (avisoAtivo.cor_texto) avisoBar.style.color = avisoAtivo.cor_texto;
-
-            // Calcula altura dinâmica
-            const avisoAltura = avisoBar.offsetHeight;
-            const headerAltura = header.offsetHeight;
-
-            header.style.top = avisoAltura + 'px';
-            if (menu) menu.style.top = (avisoAltura + headerAltura) + 'px';
         } else {
-            // Esconde aviso
             avisoBar.style.display = 'none';
-
-            // Cola header e menu no topo
-            header.style.top = '0';
-            if (menu) menu.style.top = header.offsetHeight + 'px';
         }
+
+        ajustarPosicoes();
     } catch (err) {
         console.error("Erro ao carregar aviso:", err);
-
-        // fallback se der erro
         avisoBar.style.display = 'none';
-        header.style.top = '0';
-        if (menu) menu.style.top = header.offsetHeight + 'px';
+        ajustarPosicoes();
     }
 }
+
+function ajustarPosicoes() {
+    const avisoBar = document.getElementById('aviso-topo');
+    const header = document.querySelector("header");
+    const menu = document.querySelector(".main-menu");
+
+    const avisoHeight = (avisoBar.style.display !== "none") ? avisoBar.offsetHeight : 0;
+
+    header.style.top = avisoHeight + "px";
+    menu.style.top = (avisoHeight + header.offsetHeight) + "px";
+}
+
+// roda ao carregar
+document.addEventListener('DOMContentLoaded', carregarAviso);
 
 
 
