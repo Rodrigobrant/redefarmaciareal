@@ -358,14 +358,13 @@
             if (avisoAtivo && avisoAtivo.Aviso) {
                 const mensagem = avisoAtivo.Aviso.trim();
                 avisoBar.textContent = mensagem;
+                avisoBar.style.display = 'block'; // Garante que a barra esteja visível
             } else {
-                // Se não houver aviso, a barra pode ser escondida
-                avisoBar.style.display = 'none';
+                avisoBar.style.display = 'none'; // Esconde a barra se não houver aviso
             }
         } catch (err) {
             console.error("Erro ao carregar aviso:", err);
-            // Em caso de erro, a barra deve ser escondida
-            avisoBar.style.display = 'none';
+            avisoBar.style.display = 'none'; // Esconde a barra em caso de erro
         }
     }
 
