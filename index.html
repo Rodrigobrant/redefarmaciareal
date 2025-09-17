@@ -337,38 +337,53 @@
 
             let todosProdutos = [];
           <script>
-    // Substitua esta URL pela URL de publicação da sua planilha
+    // URL da planilha Google Sheets publicada em formato CSV.
     const AVISO_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?output=csv';
 
     async function carregarAviso() {
         const avisoBar = document.getElementById('aviso-topo');
-        if (!avisoBar) return;
+        if (!avisoBar) {
+            console.error('Elemento #aviso-topo não encontrado.');
+            return;
+        }
 
         try {
+            // Tenta buscar os dados da planilha
             const resp = await fetch(AVISO_URL);
+            
+            // Lança um erro se a resposta não for bem-sucedida (ex: 404, 400)
             if (!resp.ok) {
                 throw new Error('Erro ao buscar CSV de Avisos: ' + resp.status);
             }
+            
             const csvText = await resp.text();
+            
+            // Analisa o CSV com a biblioteca PapaParse
             const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
             
-            // Encontra a linha onde a coluna "Ativo" tem o valor "sim"
+            // Procura a linha com a coluna "Ativo" com o valor "sim"
             const avisoAtivo = parsed.data.find(row => (row.Ativo || '').toLowerCase().trim() === 'sim');
 
             if (avisoAtivo && avisoAtivo.Aviso) {
+                // Se encontrar um aviso ativo, atualiza o conteúdo e exibe a barra
                 const mensagem = avisoAtivo.Aviso.trim();
                 avisoBar.textContent = mensagem;
-                avisoBar.style.display = 'block'; // Garante que a barra esteja visível
+                avisoBar.style.display = 'block'; 
             } else {
-                avisoBar.style.display = 'none'; // Esconde a barra se não houver aviso
+                // Se não houver aviso ativo, esconde a barra
+                avisoBar.style.display = 'none';
             }
         } catch (err) {
+            // Em caso de qualquer erro, esconde a barra e exibe uma mensagem no console
             console.error("Erro ao carregar aviso:", err);
-            avisoBar.style.display = 'none'; // Esconde a barra em caso de erro
+            avisoBar.style.display = 'none';
+            avisoBar.textContent = '';
         }
     }
 
+    // Carrega o aviso quando o conteúdo da página estiver pronto
     document.addEventListener('DOMContentLoaded', carregarAviso);
+
 </script>
             async function carregarDados() {
                 try {
