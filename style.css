@@ -75,7 +75,7 @@ header {
 
 /* MENU CATEGORIAS FIXO */
 .main-menu {
-  position: fixed;
+  position: sticky;
   left: 0;
   width: 100%;
   background: #f4f7f5;
