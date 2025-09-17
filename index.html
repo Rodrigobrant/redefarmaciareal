@@ -328,11 +328,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 <script>
+    // URL da planilha de avisos publicada em formato CSV.
     const AVISO_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?output=csv';
-    const PRODUTOS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?output=csv';
-    const MOSAICO_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQB-6S2pkgnufWoNb4ayXBx1txEsfS0VFu0zSa0D72u5zjeBJooQ7VO9LJeqKzuOr_RXTb84t8sUYeE/pub?output=csv';
-
-    let todosProdutos = [];
 
     async function carregarAviso() {
         const avisoBar = document.getElementById('aviso-topo');
@@ -342,230 +339,34 @@
         }
 
         try {
-            const resp = await fetch(AVISO_URL);
-            if (!resp.ok) {
-                throw new Error('Erro ao buscar CSV de Avisos: ' + resp.status);
+            const response = await fetch(AVISO_URL);
+            if (!response.ok) {
+                throw new Error('Erro ao buscar CSV: ' + response.status);
             }
-            const csvText = await resp.text();
-            const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
+            const csvText = await response.text();
             
-            const avisoAtivo = parsed.data.find(row => (row.Ativo || '').toLowerCase().trim() === 'sim');
+            Papa.parse(csvText, {
+                header: true,
+                skipEmptyLines: true,
+                complete: function(results) {
+                    const avisoAtivo = results.data.find(row => (row.ativo || '').toLowerCase().trim() === 'sim');
 
-            if (avisoAtivo && avisoAtivo.Aviso) {
-                const mensagem = avisoAtivo.Aviso.trim();
-                avisoBar.textContent = mensagem;
-                avisoBar.style.display = 'block'; 
-            } else {
-                avisoBar.style.display = 'none';
-            }
-        } catch (err) {
-            console.error("Erro ao carregar aviso:", err);
+                    if (avisoAtivo && avisoAtivo.mensagem) {
+                        avisoBar.textContent = avisoAtivo.mensagem.trim();
+                        avisoBar.style.display = 'block';
+                    } else {
+                        avisoBar.style.display = 'none';
+                    }
+                }
+            });
+        } catch (error) {
+            console.error("Erro ao carregar aviso:", error);
             avisoBar.style.display = 'none';
-            avisoBar.textContent = '';
         }
     }
 
-    async function carregarDados() {
-        try {
-            const produtosResp = await fetch(PRODUTOS_URL);
-            if (!produtosResp.ok) throw new Error('Erro ao buscar CSV de Produtos: ' + produtosResp.status);
-            const produtosCsvText = await produtosResp.text();
-            const produtosParsed = Papa.parse(produtosCsvText, { header: true, skipEmptyLines: true });
-            todosProdutos = produtosParsed.data;
-
-            const mosaicoResp = await fetch(MOSAICO_URL);
-            if (!mosaicoResp.ok) throw new Error('Erro ao buscar CSV do Mosaico: ' + mosaicoResp.status);
-            const mosaicoCsvText = await mosaicoResp.text();
-            const mosaicoParsed = Papa.parse(mosaicoCsvText, { header: true, skipEmptyLines: true });
-
-            return { produtos: todosProdutos, mosaico: mosaicoParsed.data };
-        } catch (err) {
-            console.error("Erro ao carregar dados:", err);
-            return { produtos: [], mosaico: [] };
-        }
-    }
-
-    function exibirProdutos(dados) {
-        const produtos = dados.produtos;
-        const mosaicoData = dados.mosaico;
-
-        const ofertasSlides = document.querySelector(".ofertas-slides");
-        const destaquesSlides = document.querySelector(".destaques-slides");
-        if (ofertasSlides) ofertasSlides.innerHTML = '';
-        if (destaquesSlides) destaquesSlides.innerHTML = '';
-
-        produtos.forEach(produto => {
-            const secao = (produto["secao"] || "").toLowerCase();
-            const nome = produto["nome"] || "Produto";
-            const preco = produto["preco"] || "";
-            const preco_antigo = produto["preco_antigo"] || "";
-            const imagem = produto["imagem"] || "imagem/placeholder.png";
-            const tag = produto["tag"] || "";
-            
-            const whats = "5575998623295";
-            const waText = encodeURIComponent(`Olá, quero este produto: ${nome}`);
-            const waLink = `https://wa.me/${whats}?text=${waText}`;
-
-            const card = document.createElement("div");
-            card.className = "promo-item";
-            card.innerHTML = `
-                <img src="${imagem}" alt="${nome}">
-                <h3>${nome}</h3>
-                ${preco_antigo ? `<p class="preco-antigo">R$${preco_antigo}</p>` : ""}
-                <p class="price">R$${preco} ${tag ? `<span class="tag">${tag}</span>` : ""}</p>
-                <a href="${waLink}" class="btn-comprar" target="_blank" rel="noopener noreferrer">Comprar no WhatsApp</a>
-            `;
-
-            if (secao === "oferta" && ofertasSlides) {
-                ofertasSlides.appendChild(card);
-            } else if (secao === "destaque" && destaquesSlides) {
-                destaquesSlides.appendChild(card);
-            }
-        });
-
-        const mosaicoGrid = document.getElementById("mosaico-grid");
-        if (mosaicoGrid) {
-            mosaicoGrid.innerHTML = '';
-            mosaicoData.forEach(item => {
-                const imagem = item["imagem"] || "imagem/placeholder.png";
-                const link = item["link"] || "#";
-                const colunas = item["colunas"] || 1;
-                const linhas = item["linhas"] || 1;
-
-                const itemElement = document.createElement("a");
-                itemElement.className = "mosaico-item";
-                itemElement.href = link;
-                itemElement.target = "_blank";
-                
-                if (colunas > 1) {
-                    itemElement.classList.add(`col-${colunas}`);
-                }
-                if (linhas > 1) {
-                    itemElement.classList.add(`row-${linhas}`);
-                }
-                
-                itemElement.innerHTML = `<img src="${imagem}" alt="Imagem do Mosaico" loading="lazy">`;
-                mosaicoGrid.appendChild(itemElement);
-            });
-        }
-        setupEventListeners();
-    }
-
-    function setupEventListeners() {
-        const ofertasSlidesContainer = document.querySelector('.ofertas-slides');
-        const ofertasPrevBtn = document.querySelector('.ofertas-prev');
-        const ofertasNextBtn = document.querySelector('.ofertas-next');
-        if (ofertasPrevBtn && ofertasNextBtn && ofertasSlidesContainer) {
-            ofertasNextBtn.addEventListener('click', () => {
-                ofertasSlidesContainer.scrollBy({ left: ofertasSlidesContainer.offsetWidth, behavior: 'smooth' });
-            });
-            ofertasPrevBtn.addEventListener('click', () => {
-                ofertasSlidesContainer.scrollBy({ left: -ofertasSlidesContainer.offsetWidth, behavior: 'smooth' });
-            });
-        }
-
-        const destaquesSlidesContainer = document.querySelector('.destaques-slides');
-        const destaquesPrevBtn = document.querySelector('.destaques-prev');
-        const destaquesNextBtn = document.querySelector('.destaques-next');
-        if (destaquesPrevBtn && destaquesNextBtn && destaquesSlidesContainer) {
-            destaquesNextBtn.addEventListener('click', () => {
-                destaquesSlidesContainer.scrollBy({ left: destaquesSlidesContainer.offsetWidth, behavior: 'smooth' });
-            });
-            destaquesPrevBtn.addEventListener('click', () => {
-                destaquesSlidesContainer.scrollBy({ left: -destaquesSlidesContainer.offsetWidth, behavior: 'smooth' });
-            });
-        }
-        
-        function autoSlide(slidesContainer) {
-            if (!slidesContainer) return;
-            const scrollLeft = slidesContainer.scrollLeft;
-            const maxScrollLeft = slidesContainer.scrollWidth - slidesContainer.clientWidth;
-            
-            if (scrollLeft < maxScrollLeft) {
-                slidesContainer.scrollBy({ left: slidesContainer.offsetWidth, behavior: 'smooth' });
-            } else {
-                slidesContainer.scrollTo({ left: 0, behavior: 'smooth' });
-            }
-        }
-
-        setInterval(() => autoSlide(ofertasSlidesContainer), 5000);
-        setInterval(() => autoSlide(destaquesSlidesContainer), 5000);
-        
-        const linksCategoria = document.querySelectorAll('nav.main-menu a');
-        linksCategoria.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const categoriaSelecionada = link.dataset.categoria;
-                
-                const carrosselBanners = document.querySelector('.carousel');
-                const ofertasContainer = document.querySelector('.ofertas-carousel');
-                const destaquesContainer = document.querySelector('.destaques-carousel');
-                const mosaicoContainer = document.querySelector('.mosaico-section');
-                const resultadosContainer = document.getElementById('resultados-filtro');
-
-                if (categoriaSelecionada === "promocoes") {
-                    if (carrosselBanners) carrosselBanners.style.display = 'block';
-                    if (ofertasContainer) ofertasContainer.style.display = 'block';
-                    if (destaquesContainer) destaquesContainer.style.display = 'block';
-                    if (mosaicoContainer) mosaicoContainer.style.display = 'block';
-                    if (resultadosContainer) resultadosContainer.style.display = 'none';
-                    
-                } else {
-                    if (carrosselBanners) carrosselBanners.style.display = 'none';
-                    if (ofertasContainer) ofertasContainer.style.display = 'none';
-                    if (destaquesContainer) destaquesContainer.style.display = 'none';
-                    if (mosaicoContainer) mosaicoContainer.style.display = 'none';
-                    
-                    if (resultadosContainer) resultadosContainer.style.display = 'block';
-                    const produtosFiltrados = todosProdutos.filter(p => (p["categoria"] || "").toLowerCase() === categoriaSelecionada);
-                    renderizarResultados(produtosFiltrados);
-                }
-            });
-        });
-    }
-
-    function renderizarResultados(produtosFiltrados) {
-        const container = document.getElementById('resultados-filtro');
-        container.innerHTML = '';
-        
-        if (produtosFiltrados.length === 0) {
-            container.innerHTML = '<p style="text-align:center; padding: 20px;">Nenhum produto encontrado nesta categoria.</p>';
-            return;
-        }
-
-        const grid = document.createElement('div');
-        grid.className = 'produtos-grid';
-
-        produtosFiltrados.forEach(produto => {
-            const nome = produto["nome"] || "Produto";
-            const preco = produto["preco"] || "";
-            const preco_antigo = produto["preco_antigo"] || "";
-            const imagem = produto["imagem"] || "imagem/placeholder.png";
-            const tag = produto["tag"] || "";
-            
-            const whats = "5575998623295";
-            const waText = encodeURIComponent(`Olá, quero este produto: ${nome}`);
-            const waLink = `https://wa.me/${whats}?text=${waText}`;
-
-            const card = document.createElement("div");
-            card.className = "promo-item";
-            card.innerHTML = `
-                <img src="${imagem}" alt="${nome}">
-                <h3>${nome}</h3>
-                ${preco_antigo ? `<p class="preco-antigo">R$${preco_antigo}</p>` : ""}
-                <p class="price">R$${preco} ${tag ? `<span class="tag">${tag}</span>` : ""}</p>
-                <a href="${waLink}" class="btn-comprar" target="_blank" rel="noopener noreferrer">Comprar no WhatsApp</a>
-            `;
-            grid.appendChild(card);
-        });
-        container.appendChild(grid);
-    }
-
-    document.addEventListener('DOMContentLoaded', async () => {
-        carregarAviso();
-        const dados = await carregarDados();
-        exibirProdutos(dados);
-    });
+    // Carrega o aviso quando a página é completamente carregada
+    window.addEventListener('load', carregarAviso);
 </script>
 </body>
 </html>
