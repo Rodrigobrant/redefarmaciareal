@@ -14,23 +14,22 @@ body {
 
 /* AVISO TOPO */
 #aviso-topo {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: #d32f2f;
-  color: #fff;
-  text-align: center;
-  font-weight: bold;
-  font-size: 15px;
-  padding: 8px;
-  z-index: 3000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #d32f2f;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px; /* Aumentar um pouco o tamanho da fonte */
+  padding: 10px 8px; /* Aumentar o espaçamento interno */
+  z-index: 3000;
 }
-
 /* HEADER */
 header {
   position: fixed;
-  top: 36px;  /* altura do aviso */
+  top: 36px; /* Altura do aviso topo */
   left: 0;
   width: 100%;
   z-index: 2000;
@@ -42,7 +41,6 @@ header {
   height: 80px;
   border-bottom: 1px solid #eee;
 }
-
 .logo img {
   height: 65px;
   max-width: 140px;
@@ -77,15 +75,14 @@ header {
 
 /* MENU CATEGORIAS FIXO */
 .main-menu {
-  position: fixed;        /* agora fixo abaixo do header */
-  top: 116px;             /* aviso + header = 36 + 80 */
+  position: fixed;
+  top: 116px; /* 36px (aviso) + 80px (header) */
   left: 0;
   width: 100%;
   background: #f4f7f5;
   padding: 10px 0;
   z-index: 1500;
 }
-
 .main-menu ul {
   display: flex;
   justify-content: center;
@@ -112,11 +109,12 @@ header {
 
 /* CARROSSEL/BANNERS */
 .carousel {
-  margin-top: 200px; /* altura total aviso + header + menu */
-  max-width: 100%;
-  overflow: hidden;
-  text-align: center;
-  background: #fff;
+  /* 36px (aviso) + 80px (header) + 54px (menu) = 170px */
+  margin-top: 170px;
+  max-width: 100%;
+  overflow: hidden;
+  text-align: center;
+  background: #fff;
 }
 .carousel img {
   width: auto;
