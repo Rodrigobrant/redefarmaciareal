@@ -12,19 +12,20 @@ body {
   /* padding-top será ajustado dinamicamente se necessário */
 }
 
-/* AVISO TOPO */
+/* AVISO FIXO */
 #aviso-topo {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: #d32f2f;
-  color: #fff;
-  text-align: center;
-  font-weight: bold;
-  font-size: 16px; /* Aumentar um pouco o tamanho da fonte */
-  padding: 10px 8px; /* Aumentar o espaçamento interno */
-  z-index: 3000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #d32f2f;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 10px 8px;
+  z-index: 4000;   /* acima do header */
+  display: none;   /* só aparece quando tiver aviso */
 }
 /* HEADER */
 header {
