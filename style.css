@@ -109,12 +109,21 @@ header {
 
 /* CARROSSEL/BANNERS */
 .carousel {
-  /* 36px (aviso) + 80px (header) + 54px (menu) = 170px */
-  margin-top: 170px;
-  max-width: 100%;
-  overflow: hidden;
-  text-align: center;
-  background: #fff;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.carousel-slides {
+  display: flex; /* Alinha as imagens lado a lado */
+  overflow-x: auto; /* Permite a rolagem horizontal */
+  scroll-snap-type: x mandatory; /* Faz com que as imagens se encaixem perfeitamente */
+  scroll-behavior: smooth; /* Deixa a rolagem suave */
+}
+
+.carousel-slide {
+  flex-shrink: 0; /* Impede que as imagens encolham */
+  width: 100%; /* Garante que cada imagem ocupe a largura total do contêiner */
+  scroll-snap-align: start; /* Alinha a imagem no início da rolagem */
 }
 .carousel img {
   width: auto;
