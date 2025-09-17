@@ -120,10 +120,10 @@ header {
   scroll-behavior: smooth; /* Deixa a rolagem suave */
 }
 
-.carousel-slide {
-  flex-shrink: 0; /* Impede que as imagens encolham */
-  width: 100%; /* Garante que cada imagem ocupe a largura total do contêiner */
-  scroll-snap-align: start; /* Alinha a imagem no início da rolagem */
+.carousel .slides img {
+  flex-shrink: 0; /* Impede que as imagens diminuam */
+  width: 100%; /* Garante que a imagem ocupe a largura total do carrossel */
+  scroll-snap-align: center; /* Alinha cada banner ao centro quando a rolagem para */
 }
 .carousel img {
   width: auto;
