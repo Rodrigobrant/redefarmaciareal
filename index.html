@@ -348,9 +348,8 @@
             }
             const csvText = await resp.text();
             const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
+            const avisoAtivo = parsed.data.find(row => (row.mensagem || '').toLowerCase().trim() === 'sim');
             
-            const avisoAtivo = parsed.data.find(row => (row.Ativo || '').toLowerCase().trim() === 'sim');
-
             if (avisoAtivo && avisoAtivo.Aviso) {
                 const mensagem = avisoAtivo.Aviso.trim();
                 avisoBar.textContent = mensagem;
