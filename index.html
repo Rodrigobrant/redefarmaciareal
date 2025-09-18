@@ -312,12 +312,17 @@
     </iframe>
   </div>
 </section>
-<div id="chat-vendedor">
-    <h2>Fale com um de nossos especialistas!</h2>
-    <p>Escolha um de nossos vendedores disponíveis abaixo:</p>
-    <div id="vendedores-lista"></div>
-    <p id="chat-mensagem" style="display:none;">Nenhum vendedor disponível no momento. Por favor, tente novamente mais tarde.</p>
-</div>    <footer class="footer">
+<div id="chat-modal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div id="modal-header">
+            <h3>Fale com um de nossos especialistas!</h3>
+            <p>Escolha um de nossos vendedores disponíveis abaixo:</p>
+        </div>
+        <div id="vendedores-lista"></div>
+    </div>
+</div>
+<footer class="footer">
         <img src="imagem/logo-anvisa.png" alt="Anvisa" class="logo-anvisa">
         <p>A FARMÁCIAS REAL segue as determinações da Anvisa. As informações contidas neste site não devem ser usadas para automedicação e não substituem, em hipótese alguma, as orientações dadas pelo profissional da área médica. Somente o médico está apto a diagnosticar qualquer problema de saúde e prescrever o tratamento adequado.</p>
         <p>Razão Social: BRANT E FIRMO LTDA | Nome Fantasia: REDE FARMÁCIA REAL - DROGARIA E PERFUMARIA | CNPJ: 11.767.169/0001-98</p>
@@ -327,10 +332,10 @@
     </footer>
  </div>
     <div class="whatsapp-fixo">
-        <a href="https://wa.me/5575998623295" target="_blank">
-            <img src="imagem/whatsapp.png" alt="WhatsApp">
-        </a>
-    </div>
+    <a href="#" id="open-chat-modal">
+        <img src="imagem/whatsapp.png" alt="WhatsApp">
+    </a>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 <script>
@@ -338,8 +343,97 @@
     const AVISO_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRJFEgAJiV1cifj5vyuf47J4UyydN0711fSfAN_ICgf7LVA0JK7AVaHIFhCZPiV5HbprA91d4kvjPvn/pub?output=csv';
     const PRODUTOS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?output=csv';
     const MOSAICO_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQB-6S2pkgnufWoNb4ayXBx1txEsfS0VFu0zSa0D72u5zjeBJooQ7VO9LJeqKzuOr_RXTb84t8sUYeE/pub?output=csv';
+    const CHAT_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRa60M9mBxxagMG6tJ398bySotmGFgnzCyeOfN7PlhQwzsYQAbY3AtcTSpKYQwqqZb9_uyW0ShtUl1-/pub?output=csv';
 
     let todosProdutos = [];
+
+    // NOVA FUNÇÃO: Carrega e exibe os vendedores na janela modal
+async function carregarVendedoresModal() {
+    const listaVendedores = document.getElementById('vendedores-lista');
+    const modalHeader = document.getElementById('modal-header');
+
+    // Limpa a lista antes de carregar
+    listaVendedores.innerHTML = '';
+    
+    try {
+        const response = await fetch(CHAT_URL);
+        const csvText = await response.text();
+        const parsedData = Papa.parse(csvText, { header: true, skipEmptyLines: true }).data;
+
+        const vendedoresDisponiveis = parsedData.filter(vendedor => 
+            (vendedor.status || '').toLowerCase().trim() === 'disponível'
+        );
+
+        if (vendedoresDisponiveis.length > 0) {
+            modalHeader.innerHTML = `
+                <h3>Fale com um de nossos especialistas!</h3>
+                <p>Escolha um de nossos vendedores disponíveis abaixo:</p>
+            `;
+            vendedoresDisponiveis.forEach(vendedor => {
+                const nomeVendedor = vendedor.nome;
+                const numeroWhats = vendedor.whatsapp;
+                const mensagemPadrao = encodeURIComponent(`Olá, gostaria de um atendimento com ${nomeVendedor} da Farmácias Real.`);
+                
+                const link = document.createElement('a');
+                link.href = `https://wa.me/${numeroWhats}?text=${mensagemPadrao}`;
+                link.textContent = `Falar com ${nomeVendedor}`;
+                link.className = 'btn-chat';
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                
+                listaVendedores.appendChild(link);
+            });
+        } else {
+            modalHeader.innerHTML = `
+                <h3>Estamos offline no momento.</h3>
+                <p>Por favor, tente novamente mais tarde.</p>
+            `;
+        }
+    } catch (error) {
+        console.error('Erro ao carregar dados do vendedor:', error);
+        modalHeader.innerHTML = `
+            <h3>Erro ao carregar o chat.</h3>
+            <p>Tente novamente mais tarde.</p>
+        `;
+    }
+}
+
+// NOVA FUNÇÃO: Abre o modal e carrega os dados
+function openModal() {
+    const modal = document.getElementById('chat-modal');
+    modal.classList.add('show');
+    carregarVendedoresModal(); // Chama a função para carregar os dados
+}
+
+// NOVA FUNÇÃO: Fecha o modal
+function closeModal() {
+    const modal = document.getElementById('chat-modal');
+    modal.classList.remove('show');
+}
+
+// Adiciona os eventos de clique
+document.addEventListener('DOMContentLoaded', () => {
+    // Mantém a chamada das funções que você já tinha
+    carregarAviso();
+    carregarDados().then(exibirProdutos);
+
+    // Eventos para o modal
+    document.getElementById('open-chat-modal').addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal();
+    });
+
+    document.querySelector('.close-modal').addEventListener('click', () => {
+        closeModal();
+    });
+
+    // Fecha o modal ao clicar fora do conteúdo
+    document.getElementById('chat-modal').addEventListener('click', (e) => {
+        if (e.target.id === 'chat-modal') {
+            closeModal();
+        }
+    });
+});
 
     async function carregarAviso() {
     const avisoBar = document.getElementById('aviso-topo');
@@ -609,56 +703,6 @@ setInterval(nextSlide, 5000);
 // Mostra o primeiro slide quando a página é carregada
 showSlide(0);
 
-async function carregarVendedorChat() {
-    // Substitua esta URL pela sua URL da planilha de vendedores.
-    const CHAT_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRa60M9mBxxagMG6tJ398bySotmGFgnzCyeOfN7PlhQwzsYQAbY3AtcTSpKYQwqqZb9_uyW0ShtUl1-/pub?output=csv'; 
-
-    const listaVendedores = document.getElementById('vendedores-lista');
-    const chatMsg = document.getElementById('chat-mensagem');
-
-    // Limpa a lista antes de carregar
-    listaVendedores.innerHTML = '';
-    chatMsg.style.display = 'none';
-
-    try {
-        const response = await fetch(CHAT_URL);
-        const csvText = await response.text();
-        const parsedData = Papa.parse(csvText, { header: true, skipEmptyLines: true }).data;
-
-        // Filtra todos os vendedores que estão disponíveis
-        const vendedoresDisponiveis = parsedData.filter(vendedor => 
-            (vendedor.status || '').toLowerCase().trim() === 'disponível'
-        );
-
-        if (vendedoresDisponiveis.length > 0) {
-            // Se houver vendedores, cria um botão para cada um
-            vendedoresDisponiveis.forEach(vendedor => {
-                const nomeVendedor = vendedor.nome;
-                const numeroWhats = vendedor.whatsapp;
-                const mensagemPadrao = encodeURIComponent(`Olá, gostaria de um atendimento com ${nomeVendedor} da Farmácias Real.`);
-                
-                const link = document.createElement('a');
-                link.href = `https://wa.me/${numeroWhats}?text=${mensagemPadrao}`;
-                link.textContent = `Falar com ${nomeVendedor}`;
-                link.className = 'btn-chat';
-                link.target = '_blank';
-                link.rel = 'noopener noreferrer';
-                
-                listaVendedores.appendChild(link);
-            });
-        } else {
-            // Se não houver, exibe a mensagem de indisponibilidade
-            chatMsg.style.display = 'block';
-        }
-    } catch (error) {
-        console.error('Erro ao carregar dados do vendedor:', error);
-        chatMsg.textContent = 'Erro ao carregar o chat. Tente novamente mais tarde.';
-        chatMsg.style.display = 'block';
-    }
-}
-
-// Chame a função quando a página carregar
-document.addEventListener('DOMContentLoaded', carregarVendedorChat);    
 </script>
 </body>
 </html>
