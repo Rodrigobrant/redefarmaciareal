@@ -4,39 +4,6 @@
   margin: 0;
   padding: 0;
 }
-/* Container geral */
-.container {
-  max-width: 1200px;   /* largura máxima, pode ser 1140px ou 1280px */
-  margin: 0 auto;      /* centraliza no meio da tela */
-  padding: 0 20px;     /* espaçamento interno nas laterais */
-}
-
-/* Aplica em seções principais */
-header,
-.main-menu,
-.carousel,
-.ofertas-carousel,
-.mosaico-section,
-.destaques-carousel,
-#resultados-filtro,
-.footer {
-  width: 100%;
-}
-
-header .logo,
-.search-bar,
-.header-actions,
-.main-menu ul,
-.carousel,
-.ofertas-slides,
-.destaques-slides,
-.produtos-grid,
-#mosaico-grid {
-  max-width: 1200px;  /* mesmo limite */
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
 body {
   font-family: Arial, sans-serif;
   background: #fff;
@@ -498,9 +465,19 @@ header {
   margin: 12px auto;
   display: block;
 }
+/* CONTAINER CENTRALIZADO */
+.container {
+  max-width: 1200px;   /* largura máxima do conteúdo */
+  margin: 0 auto;      /* centraliza no meio */
+  padding: 0 20px;     /* espaçamento lateral */
+}
+
 * RESPONSIVIDADE */
 @media(max-width:768px){
-   header {
+  .container {
+    padding: 0 12px; /* menos espaço lateral no celular */
+  } 
+  header {
     height: auto;
     flex-direction: column;
     align-items: center;
