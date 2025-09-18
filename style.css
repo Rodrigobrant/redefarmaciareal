@@ -472,7 +472,7 @@ header {
   padding: 0 20px;     /* espaçamento lateral */
 }
 
-* RESPONSIVIDADE */
+/* RESPONSIVIDADE */
 @media(max-width:768px){
   .container {
     padding: 0 12px; /* menos espaço lateral no celular */
