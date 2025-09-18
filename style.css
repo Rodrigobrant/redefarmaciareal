@@ -499,27 +499,21 @@ header {
   text-align: center;
   font-size: 14px;
         }
-#chat-vendedor {
-    text-align: center;
-    padding: 20px;
-    margin: 30px auto;
+#vendedores-lista {
+    display: flex; /* Alinha os botões lado a lado */
+    flex-direction: column; /* Coloca um abaixo do outro */
+    gap: 15px; /* Espaço entre os botões */
+    margin-top: 20px;
+    align-items: center; /* Centraliza horizontalmente */
 }
 
+/* Garante que o botão ocupe a largura total dentro do contêiner flexível */
 .btn-chat {
-    display: inline-block;
-    background-color: #25d366;
-    color: white;
-    padding: 12px 24px;
-    font-size: 18px;
-    font-weight: bold;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: background-color 0.3s;
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
 }
 
-.btn-chat:hover {
-    background-color: #128c7e;
-}
 .logo-anvisa { 
   width: 120px;
   height: auto;
