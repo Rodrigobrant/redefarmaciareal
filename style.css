@@ -498,7 +498,28 @@ header {
   border-top: 1px solid #eee;
   text-align: center;
   font-size: 14px;
-        } 
+        }
+#chat-vendedor {
+    text-align: center;
+    padding: 20px;
+    margin: 30px auto;
+}
+
+.btn-chat {
+    display: inline-block;
+    background-color: #25d366;
+    color: white;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.btn-chat:hover {
+    background-color: #128c7e;
+}
 .logo-anvisa { 
   width: 120px;
   height: auto;
