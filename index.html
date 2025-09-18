@@ -312,16 +312,16 @@
     </iframe>
   </div>
 </section>
-<div id="chat-modal" class="modal-overlay">
-    <div class="modal-content">
-        <span class="close-modal">&times;</span>
-        <div id="modal-header">
-            <h3>Fale com um de nossos especialistas!</h3>
-            <p>Escolha um de nossos vendedores disponíveis abaixo:</p>
-        </div>
-        <div id="vendedores-lista"></div>
+<section class="vendedores-carousel">
+    <h3>Fale com um de nossos especialistas!</h3>
+    <p>Escolha um de nossos vendedores disponíveis abaixo:</p>
+    <div class="carousel-container">
+        <div class="vendedores-slides">
+            </div>
+        <button class="prev vendedores-prev">❮</button>
+        <button class="next vendedores-next">❯</button>
     </div>
-</div>
+</section>     
 <footer class="footer">
         <img src="imagem/logo-anvisa.png" alt="Anvisa" class="logo-anvisa">
         <p>A FARMÁCIAS REAL segue as determinações da Anvisa. As informações contidas neste site não devem ser usadas para automedicação e não substituem, em hipótese alguma, as orientações dadas pelo profissional da área médica. Somente o médico está apto a diagnosticar qualquer problema de saúde e prescrever o tratamento adequado.</p>
@@ -331,8 +331,8 @@
         <p>Os preços e as promoções são válidos apenas para compras via internet. As fotos contidas em nosso site são meramente ilustrativas. *Preços e disponibilidade sujeitos a alterações no decorrer do dia.</p>
     </footer>
  </div>
-    <div class="whatsapp-fixo">
-    <a href="#" id="open-chat-modal">
+   <div class="whatsapp-fixo">
+    <a href="https://wa.me/5575998623295" target="_blank">
         <img src="imagem/whatsapp.png" alt="WhatsApp">
     </a>
 </div>
@@ -347,94 +347,75 @@
 
     let todosProdutos = [];
 
-    // NOVA FUNÇÃO: Carrega e exibe os vendedores na janela modal
-async function carregarVendedoresModal() {
-    const listaVendedores = document.getElementById('vendedores-lista');
-    const modalHeader = document.getElementById('modal-header');
+    // NOVA FUNÇÃO: Carrega e exibe os vendedores em um carrossel
+    async function carregarVendedoresCarousel() {
+    const vendedoresSlides = document.querySelector('.vendedores-slides');
+    if (!vendedoresSlides) return;
+    vendedoresSlides.innerHTML = ''; // Limpa o conteúdo antes de carregar
 
-    // Limpa a lista antes de carregar
-    listaVendedores.innerHTML = '';
-    
     try {
         const response = await fetch(CHAT_URL);
         const csvText = await response.text();
         const parsedData = Papa.parse(csvText, { header: true, skipEmptyLines: true }).data;
 
         const vendedoresDisponiveis = parsedData.filter(vendedor => 
-            (vendedor.status || '').toLowerCase().trim() === 'disponível'
+            (vendedor.status || '').toLowerCase().trim() === 'disponível' && vendedor.foto
         );
 
         if (vendedoresDisponiveis.length > 0) {
-            modalHeader.innerHTML = `
-                <h3>Fale com um de nossos especialistas!</h3>
-                <p>Escolha um de nossos vendedores disponíveis abaixo:</p>
-            `;
             vendedoresDisponiveis.forEach(vendedor => {
                 const nomeVendedor = vendedor.nome;
                 const numeroWhats = vendedor.whatsapp;
+                const fotoVendedor = vendedor.foto;
                 const mensagemPadrao = encodeURIComponent(`Olá, gostaria de um atendimento com ${nomeVendedor} da Farmácias Real.`);
                 
-                const link = document.createElement('a');
-                link.href = `https://wa.me/${numeroWhats}?text=${mensagemPadrao}`;
-                link.textContent = `Falar com ${nomeVendedor}`;
-                link.className = 'btn-chat';
-                link.target = '_blank';
-                link.rel = 'noopener noreferrer';
-                
-                listaVendedores.appendChild(link);
+                const card = document.createElement('div');
+                card.className = 'vendedor-card';
+                card.innerHTML = `
+                    <img src="${fotoVendedor}" alt="Foto de ${nomeVendedor}">
+                    <h4>${nomeVendedor}</h4>
+                    <a href="https://wa.me/${numeroWhats}?text=${mensagemPadrao}" 
+                       class="btn-fale" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                       Falar com ${nomeVendedor}
+                    </a>
+                `;
+                vendedoresSlides.appendChild(card);
             });
+            setupVendedoresCarousel();
         } else {
-            modalHeader.innerHTML = `
-                <h3>Estamos offline no momento.</h3>
-                <p>Por favor, tente novamente mais tarde.</p>
-            `;
+            vendedoresSlides.innerHTML = '<p style="padding: 20px; text-align: center;">Nenhum vendedor disponível no momento.</p>';
         }
     } catch (error) {
         console.error('Erro ao carregar dados do vendedor:', error);
-        modalHeader.innerHTML = `
-            <h3>Erro ao carregar o chat.</h3>
-            <p>Tente novamente mais tarde.</p>
-        `;
+        vendedoresSlides.innerHTML = '<p style="padding: 20px; text-align: center;">Erro ao carregar a lista de vendedores. Tente novamente mais tarde.</p>';
     }
 }
 
-// NOVA FUNÇÃO: Abre o modal e carrega os dados
-function openModal() {
-    const modal = document.getElementById('chat-modal');
-    modal.classList.add('show');
-    carregarVendedoresModal(); // Chama a função para carregar os dados
+// Lógica de navegação do carrossel
+function setupVendedoresCarousel() {
+    const slidesContainer = document.querySelector('.vendedores-slides');
+    const prevBtn = document.querySelector('.vendedores-prev');
+    const nextBtn = document.querySelector('.vendedores-next');
+    
+    if (slidesContainer && prevBtn && nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            slidesContainer.scrollBy({ left: slidesContainer.offsetWidth, behavior: 'smooth' });
+        });
+        prevBtn.addEventListener('click', () => {
+            slidesContainer.scrollBy({ left: -slidesContainer.offsetWidth, behavior: 'smooth' });
+        });
+    }
 }
 
-// NOVA FUNÇÃO: Fecha o modal
-function closeModal() {
-    const modal = document.getElementById('chat-modal');
-    modal.classList.remove('show');
-}
-
-// Adiciona os eventos de clique
-document.addEventListener('DOMContentLoaded', () => {
-    // Mantém a chamada das funções que você já tinha
+// Adiciona a chamada à nova função no carregamento da página
+document.addEventListener('DOMContentLoaded', async () => {
     carregarAviso();
-    carregarDados().then(exibirProdutos);
-
-    // Eventos para o modal
-    document.getElementById('open-chat-modal').addEventListener('click', (e) => {
-        e.preventDefault();
-        openModal();
-    });
-
-    document.querySelector('.close-modal').addEventListener('click', () => {
-        closeModal();
-    });
-
-    // Fecha o modal ao clicar fora do conteúdo
-    document.getElementById('chat-modal').addEventListener('click', (e) => {
-        if (e.target.id === 'chat-modal') {
-            closeModal();
-        }
-    });
+    const dados = await carregarDados();
+    exibirProdutos(dados);
+    carregarVendedoresCarousel(); // NOVO: Chama a função para o carrossel de vendedores
 });
-
     async function carregarAviso() {
     const avisoBar = document.getElementById('aviso-topo');
     const header = document.querySelector("header");
