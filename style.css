@@ -129,15 +129,15 @@ header {
 
 .carousel-slides img {
     width: 100%;
-    height: auto; /* A imagem se ajusta à altura do contêiner */
-    display: none; /* Esconde todas as imagens por padrão */
-    object-fit: contain; /* Garante que a imagem se ajuste sem distorcer */
+    height: auto;
+    max-height: 400px; /* Você pode ajustar este valor (ex: 300px, 350px) */
+    object-fit: contain;
+    display: none;
 }
 
 .carousel-slides img.active {
-    display: block; /* Apenas a imagem com a classe 'active' será exibida */
+    display: block;
 }
-
 /* --- Botões de Navegação (prev, next) --- */
 .carousel .prev, .carousel .next {
     position: absolute;
