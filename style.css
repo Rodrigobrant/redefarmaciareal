@@ -518,15 +518,26 @@ header {
 
 .modal-content {
     background-color: #fff;
-    padding: 30px;
+    padding: 20px;
     border-radius: 12px;
     max-width: 400px;
     width: 90%;
-    position: relative;
+    position: fixed; /* Mude para fixed */
+    bottom: 90px;   /* Distância do fundo da tela */
+    right: 20px;    /* Distância da direita da tela */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     text-align: center;
+    /* Animação para aparecer de baixo para cima */
+    transform: translateY(100%);
+    opacity: 0;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
 }
 
+/* Quando o modal estiver visível, a janela sobe e fica visível */
+.modal-overlay.show .modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
 .close-modal {
     color: #aaa;
     position: absolute;
