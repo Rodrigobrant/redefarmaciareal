@@ -107,17 +107,6 @@ header {
   text-decoration: none;
   font-size: 0.9rem;
 }
-/* 🔹 CONTAINER APLICADO APENAS A SEÇÕES ESPECÍFICAS */
-.carousel,
-.ofertas-carousel,
-.mosaico-section,
-.destaques-carousel,
-.footer {
-  max-width: 1200px;   /* largura máxima */
-  margin: 0 auto;      /* centraliza */
-  padding: 0 20px;     /* espaçamento lateral */
-  box-sizing: border-box;
-}
 /* CARROSSEL/BANNERS */
 .carousel {
   position: relative;
@@ -477,14 +466,7 @@ header {
 }
 /* RESPONSIVIDADE */
 @media(max-width:768px){
-   .carousel,
-  .ofertas-carousel,
-  .mosaico-section,
-  .destaques-carousel,
-  .footer {
-    padding: 0 12px;
-  } 
-  header {
+   header {
     height: auto;
     flex-direction: column;
     align-items: center;
