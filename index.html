@@ -228,7 +228,7 @@
     </nav>
    <section class="carousel"> 
         <div class="carousel-container">
-         <div class="carousel-slides" style="display: flex; gap: 20px; overflow-x: auto; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding: 10px; justify-content: flex-start; align-items: flex-start; margin-top: 20px;">
+         <div class="carousel-slides">
             <img src="imagem/banner1.png" class="active" alt="Oferta 1">
             <img src="imagem/banner2.png" alt="Oferta 2">
             <img src="imagem/banner3.png" alt="Oferta 3">
@@ -556,6 +556,52 @@ document.addEventListener('DOMContentLoaded', carregarAviso);
         const dados = await carregarDados();
         exibirProdutos(dados);
     });
+    // --- Lógica para o carrossel de Banners Principal ---
+let slideIndex = 0;
+const slides = document.querySelectorAll('.carousel-slides img');
+const dots = document.querySelectorAll('.carousel .dots .dot');
+
+function showSlide(n) {
+    // Esconde todos os slides e remove a classe 'active'
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+
+    // Garante que o índice não saia do limite do array
+    slideIndex = (n + slides.length) % slides.length;
+
+    // Adiciona a classe 'active' para mostrar o slide e o ponto correto
+    slides[slideIndex].classList.add('active');
+    dots[slideIndex].classList.add('active');
+}
+
+function nextSlide() {
+    showSlide(slideIndex + 1);
+}
+
+function prevSlide() {
+    showSlide(slideIndex - 1);
+}
+
+// Configura os eventos de clique para os botões e pontos de navegação
+document.querySelector('.carousel .prev').addEventListener('click', () => {
+    prevSlide();
+});
+
+document.querySelector('.carousel .next').addEventListener('click', () => {
+    nextSlide();
+});
+
+dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        showSlide(index);
+    });
+});
+
+// Autoplay do carrossel principal a cada 5 segundos
+setInterval(nextSlide, 5000);
+
+// Mostra o primeiro slide quando a página é carregada
+showSlide(0);
 </script>
 </body>
 </html>
