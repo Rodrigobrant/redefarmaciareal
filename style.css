@@ -108,38 +108,33 @@ header {
   font-size: 0.9rem;
 }
 /* CARROSSEL/BANNERS */
+./* Estilos do Carrossel de Banners */
 .carousel {
-  position: relative;
-  max-width: 100%;
-  margin: auto;
-  overflow: hidden;
-  border-radius: 10px;
+    position: relative;
+    max-width: 100%;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 10px;
 }
-.carousel .slides {
-  display: flex; /* ESSENCIAL para alinhar as imagens lado a lado */
-  overflow-x: auto; /* Permite a rolagem horizontal */
-  scroll-snap-type: x mandatory; /* Faz os banners se encaixarem */
-  scroll-behavior: smooth; /* Torna a rolagem suave */
+
+/* Contêiner dos slides para habilitar a rolagem horizontal */
+.carousel-slides {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 10px 0; /* Ajustado para 0 nas laterais */
 }
-.carousel .slides img {
-  width: 100%; /* Garante que cada imagem ocupe a largura total */
-  flex-shrink: 0; /* Impede que as imagens encolham */
-  scroll-snap-align: center; /* Alinha a imagem no centro */
-  /* Remove o 'display: none' do seu CSS */
-  display: block;
+
+/* Estilo de cada imagem de banner */
+.carousel-slides img {
+    width: 100%;
+    flex-shrink: 0;
+    /* Removido o display:none; aqui */
 }
-.carousel img {
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 260px;
-  margin: 0 auto;
-  display: none;
-  object-fit: contain;
-  background: #fff;
-}
-.carousel img.active {
-  display: block;
+
+.carousel-slides img.active {
+    display: block;
 }
 /* Regras para os botões e pontos */
 .prev, .next {
