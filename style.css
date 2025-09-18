@@ -1,4 +1,9 @@
 /* RESET */
+.container {
+    max-width: 1140px; /* Largura máxima do conteúdo */
+    margin: 0 auto; /* Centraliza o contêiner na tela */
+    padding: 0 15px; /* Adiciona um espaço nas laterais em telas menores */
+}
 * {
   box-sizing: border-box;
   margin: 0;
