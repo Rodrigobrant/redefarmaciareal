@@ -548,8 +548,10 @@ header {
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    object-fit: cover;
+    object-fit: contain; /* ALTERADO: A imagem se ajusta dentro do círculo sem ser cortada */
+    background-color: #f0f0f0; /* COR DE FUNDO: Preenche o espaço se a imagem for menor */
     margin-bottom: 15px;
+    border: 1px solid #ddd; /* Opcional: Adiciona uma pequena borda para destacar */
 }
 
 .vendedor-card h4 {
