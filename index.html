@@ -351,32 +351,41 @@
     let todosProdutos = [];
 // NOVA FUNÇÃO: Carrega benefícios
     async function carregarBeneficios() {
-    try {
-      const resp = await fetch(BENEFICIOS_URL);
-      const csvText = await resp.text();
-      const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
+  try {
+    const resp = await fetch(BENEFICIOS_URL);
+    const csvText = await resp.text();
+    const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
 
-      const grid = document.getElementById("beneficios-grid");
+    const grid = document.getElementById("beneficios-grid");
     grid.innerHTML = "";
 
+    // Filtra apenas os itens ativos
     parsed.data
       .filter(item => (item.ativo || "").toLowerCase().trim() === "sim")
       .forEach(item => {
         let iconeUrl = (item.icone || "").trim();
+        let titulo = (item.titulo || "").trim();
+        let descricao = (item.descricao || "").trim();
+
         const card = document.createElement("div");
         card.className = "beneficio";
+        
+        // Caminho da imagem corrigido para a pasta 'imagem'
         card.innerHTML = `
-          <img src="${iconeUrl}" alt="${item.titulo}" onerror="this.src='imagem/placeholder.png'">
-          <p>${item.titulo}<br><small>${item.descricao || ""}</small></p>
+          <img src="imagem/${iconeUrl}" alt="${titulo}" onerror="this.src='imagem/placeholder.png'">
+          <p>${titulo}<br><small>${descricao}</small></p>
         `;
         grid.appendChild(card);
       });
   } catch (err) {
     console.error("Erro ao carregar benefícios:", err);
+    // Adiciona uma mensagem de erro na tela para ajudar a depurar
+    const grid = document.getElementById("beneficios-grid");
+    grid.innerHTML = '<p style="text-align: center; color: red;">Não foi possível carregar os benefícios. Verifique a planilha ou a conexão.</p>';
   }
 }
-document.addEventListener("DOMContentLoaded", carregarBeneficios);
-    
+
+document.addEventListener("DOMContentLoaded", carregarBeneficios);    
     // NOVA FUNÇÃO: Carrega e exibe os vendedores em um carrossel
     async function carregarVendedoresCarousel() {
     const vendedoresSlides = document.querySelector('.vendedores-slides');
