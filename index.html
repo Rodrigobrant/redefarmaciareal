@@ -363,12 +363,6 @@
       .filter(item => (item.ativo || "").toLowerCase().trim() === "sim")
       .forEach(item => {
         let iconeUrl = (item.icone || "").trim();
-
-        // 🔹 Se não começar com http, monta a URL absoluta usando o domínio atual
-        if (iconeUrl && !iconeUrl.startsWith("http")) {
-          iconeUrl = `${window.location.origin}/${iconeUrl.replace(/^\/+/, '')}`;
-        }
-
         const card = document.createElement("div");
         card.className = "beneficio";
         card.innerHTML = `
