@@ -436,44 +436,48 @@ header {
     background-color: #1a5e20;
 }
 /* SEÇÃO DE BENEFÍCIOS */
+/* GRID DE BENEFÍCIOS */
 .beneficios {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 20px;
+  padding: 30px 15px;
   text-align: center;
-  margin: 40px auto;
-  align-items: center;
 }
 
 .beneficio {
   background: #fff;
-  padding: 20px 15px;
   border-radius: 12px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  padding: 20px 15px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .beneficio:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+  transform: translateY(-5px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
 }
 
 .beneficio img {
-  width: 64px;
-  height: 64px;
-  margin-bottom: 12px;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  margin-bottom: 10px;
 }
 
 .beneficio p {
   font-size: 14px;
-  color: #333;
   font-weight: 600;
+  color: #2e7d32;
+  margin: 0;
 }
 
 .beneficio small {
-  font-size: 12px;
-  font-weight: 400;
-  color: #666;
+  display: block;
+  font-size: 13px;
+  font-weight: normal;
+  color: #555;
+  margin-top: 4px;
 }
 /* Carrossel de Destaques */
 .destaques-carousel {
@@ -694,4 +698,21 @@ header {
   .produtos-grid {
         grid-template-columns: 1fr; /* Em telas pequenas, mostra apenas 1 coluna */
     }
+  .beneficio {
+    padding: 15px 10px;
+  }
+
+  .beneficio img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .beneficio p {
+    font-size: 13px;
+  }
+
+  .beneficio small {
+    font-size: 12px;
+  }
+}  
 }
