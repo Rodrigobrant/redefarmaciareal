@@ -350,28 +350,29 @@
     const BENEFICIOS_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSm-QXLPSr3fgAqgNTw8QrBaciiUmFbZuyEFIuZ_srVnAkdr3vhgjp8UFn8t8lMntZzwMEVs9ENGzAN/pub?output=csv"; 
     let todosProdutos = [];
 // NOVA FUNÇÃO: Carrega benefícios
-async function carregarBeneficios() {
-  try {
-    const resp = await fetch(BENEFICIOS_URL);
-    const csvText = await resp.text();
-    const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
+    async function carregarBeneficios() {
+    try {
+      const resp = await fetch(BENEFICIOS_URL);
+      const csvText = await resp.text();
+      const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
 
-    const grid = document.getElementById("beneficios-grid");
+      const grid = document.getElementById("beneficios-grid");
     grid.innerHTML = "";
 
     parsed.data
       .filter(item => (item.ativo || "").toLowerCase().trim() === "sim")
       .forEach(item => {
-        // 🔹 Corrige o caminho da imagem
-        let iconeUrl = item.icone;
+        let iconeUrl = (item.icone || "").trim();
+
+        // 🔹 Se não começar com http, monta a URL absoluta usando o domínio atual
         if (iconeUrl && !iconeUrl.startsWith("http")) {
-          iconeUrl = `https://redefarmaciareal.com.br/${iconeUrl}`;
+          iconeUrl = `${window.location.origin}/${iconeUrl.replace(/^\/+/, '')}`;
         }
 
         const card = document.createElement("div");
         card.className = "beneficio";
         card.innerHTML = `
-          <img src="${iconeUrl}" alt="${item.titulo}">
+          <img src="${iconeUrl}" alt="${item.titulo}" onerror="this.src='imagem/placeholder.png'">
           <p>${item.titulo}<br><small>${item.descricao || ""}</small></p>
         `;
         grid.appendChild(card);
