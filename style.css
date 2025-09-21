@@ -189,6 +189,7 @@ header {
 .carousel .dot.active {
     background-color: #fff;
 }
+
 /* Estilos para a seção de ofertas/promoções */
 /* Carrossel de Produtos */
 .ofertas-carousel {
@@ -433,6 +434,46 @@ header {
 }
 .btn-comprar:hover {
     background-color: #1a5e20;
+}
+/* SEÇÃO DE BENEFÍCIOS */
+.beneficios {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 20px;
+  text-align: center;
+  margin: 40px auto;
+  align-items: center;
+}
+
+.beneficio {
+  background: #fff;
+  padding: 20px 15px;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.beneficio:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+.beneficio img {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 12px;
+}
+
+.beneficio p {
+  font-size: 14px;
+  color: #333;
+  font-weight: 600;
+}
+
+.beneficio small {
+  font-size: 12px;
+  font-weight: 400;
+  color: #666;
 }
 /* Carrossel de Destaques */
 .destaques-carousel {
