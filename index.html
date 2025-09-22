@@ -366,17 +366,12 @@ async function carregarBeneficios() {
         let titulo = (item.titulo || "").trim();
         let descricao = (item.descricao || "").trim();
 
-        // 🔹 Se não for URL completa, assume que está na pasta /imagem/
-        if (iconeUrl && !iconeUrl.startsWith("http")) {
-          iconeUrl = "imagem/" + iconeUrl.replace(/^\/+/, "");
-        }
-
         const card = document.createElement("div");
         card.className = "beneficio";
         
+        // CORREÇÃO: Usa o valor da planilha diretamente
         card.innerHTML = `
-          <img src="${iconeUrl}" alt="${titulo}" 
-               onerror="this.src='imagem/placeholder.png'">
+          <img src="${iconeUrl}" alt="${titulo}" onerror="this.src='imagem/placeholder.png'">
           <p>${titulo}<br><small>${descricao}</small></p>
         `;
         grid.appendChild(card);
