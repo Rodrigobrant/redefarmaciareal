@@ -352,37 +352,36 @@
 // NOVA FUNÇÃO: Carrega benefícios (ajuste igual produtos/mosaico)
 // A URL da sua planilha, que deve ser a mesma que você está usando
 async function carregarBeneficios() {
-  try {
-    const resp = await fetch(BENEFICIOS_URL);
-    const csvText = await resp.text();
-    const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
+  try {
+    const resp = await fetch(BENEFICIOS_URL);
+    const csvText = await resp.text();
+    const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
 
-    const grid = document.getElementById("beneficios-grid");
-    grid.innerHTML = "";
+    const grid = document.getElementById("beneficios-grid");
+    grid.innerHTML = "";
 
-    parsed.data
-      .filter(item => (item.ativo || "").toLowerCase().trim() === "sim")
-      .forEach(item => {
-        let iconeUrl = (item.icone || "").trim();
-        let titulo = (item.titulo || "").trim();
-        let descricao = (item.descricao || "").trim();
+    parsed.data
+      .filter(item => (item.ativo || "").toLowerCase().trim() === "sim")
+      .forEach(item => {
+        let iconeUrl = (item.icone || "").trim();
+        let titulo = (item.titulo || "").trim();
+        let descricao = (item.descricao || "").trim();
 
-        const card = document.createElement("div");
-        card.className = "beneficio";
-        
-        // Esta linha usa o caminho exato da sua planilha
-        // que está "imagem/frete.png"
-        card.innerHTML = `
-          <img src="${iconeUrl}" alt="${titulo}" onerror="this.src='imagem/placeholder.png'">
-          <p>${titulo}<br><small>${descricao}</small></p>
-        `;
-        grid.appendChild(card);
-      });
-  } catch (err) {
-    console.error("Erro ao carregar benefícios:", err);
-    const grid = document.getElementById("beneficios-grid");
-    grid.innerHTML = '<p style="text-align: center; color: red;">Não foi possível carregar os benefícios. Verifique a planilha ou a conexão.</p>';
-  }
+        const card = document.createElement("div");
+        card.className = "beneficio";
+        
+        // CORREÇÃO: Usa o valor da planilha diretamente
+        card.innerHTML = `
+          <img src="${iconeUrl}" alt="${titulo}" onerror="this.src='imagem/placeholder.png'">
+          <p>${titulo}<br><small>${descricao}</small></p>
+        `;
+        grid.appendChild(card);
+      });
+  } catch (err) {
+    console.error("Erro ao carregar benefícios:", err);
+    const grid = document.getElementById("beneficios-grid");
+    grid.innerHTML = '<p style="text-align: center; color: red;">Não foi possível carregar os benefícios. Verifique a planilha ou a conexão.</p>';
+  }
 }
     document.addEventListener("DOMContentLoaded", carregarBeneficios);
     // NOVA FUNÇÃO: Carrega e exibe os vendedores em um carrossel
