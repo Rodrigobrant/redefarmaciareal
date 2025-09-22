@@ -369,7 +369,6 @@ async function carregarBeneficios() {
         const card = document.createElement("div");
         card.className = "beneficio";
         
-        // CORREÇÃO: Usa o valor da planilha diretamente
         card.innerHTML = `
           <img src="${iconeUrl}" alt="${titulo}" onerror="this.src='imagem/placeholder.png'">
           <p>${titulo}<br><small>${descricao}</small></p>
@@ -382,7 +381,7 @@ async function carregarBeneficios() {
     grid.innerHTML = '<p style="text-align: center; color: red;">Não foi possível carregar os benefícios. Verifique a planilha ou a conexão.</p>';
   }
 }
-document.addEventListener("DOMContentLoaded", carregarBeneficios);
+    document.addEventListener("DOMContentLoaded", carregarBeneficios);
     // NOVA FUNÇÃO: Carrega e exibe os vendedores em um carrossel
     async function carregarVendedoresCarousel() {
     const vendedoresSlides = document.querySelector('.vendedores-slides');
