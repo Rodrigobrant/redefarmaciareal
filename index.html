@@ -366,25 +366,25 @@ async function carregarBeneficios() {
         let titulo = (item.titulo || "").trim();
         let descricao = (item.descricao || "").trim();
 
-        // Se o link não for completo, monta com base no domínio
+        // 🔹 Força URL absoluta no mesmo domínio para evitar bloqueio de CSP
         if (iconeUrl && !iconeUrl.startsWith("http")) {
-          iconeUrl = `${window.location.origin}/${iconeUrl.replace(/^\/+/, "")}`;
+          iconeUrl = `https://www.redefarmaciareal.com.br/${iconeUrl.replace(/^\/+/, "")}`;
         }
 
         const card = document.createElement("div");
         card.className = "beneficio";
-
+        
         card.innerHTML = `
-          <img src="${iconeUrl}" alt="${titulo}" onerror="this.src='imagem/placeholder.png'">
+          <img src="${iconeUrl}" alt="${titulo}" 
+               onerror="this.src='https://www.redefarmaciareal.com.br/imagem/placeholder.png'">
           <p>${titulo}<br><small>${descricao}</small></p>
         `;
-
         grid.appendChild(card);
       });
   } catch (err) {
     console.error("Erro ao carregar benefícios:", err);
     const grid = document.getElementById("beneficios-grid");
-    grid.innerHTML = '<p style="text-align: center; color: red;">Não foi possível carregar os benefícios.</p>';
+    grid.innerHTML = '<p style="text-align: center; color: red;">Não foi possível carregar os benefícios. Verifique a planilha ou a conexão.</p>';
   }
 }
 document.addEventListener("DOMContentLoaded", carregarBeneficios);
