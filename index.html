@@ -369,7 +369,7 @@
         const card = document.createElement("div");
         card.className = "beneficio";
         
-        // CORREÇÃO: Usando o valor completo da planilha, sem a pasta 'imagem/'
+        // CORREÇÃO FINAL: Usa a URL completa da planilha
         card.innerHTML = `
           <img src="${iconeUrl}" alt="${titulo}" onerror="this.src='imagem/placeholder.png'">
           <p>${titulo}<br><small>${descricao}</small></p>
