@@ -347,12 +347,10 @@
     const PRODUTOS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTPFvGL_R8uI0miwFf-ApxEfOsqIMiLv4px-xkHTbkmRhvyUgsF9eJlxTJXi7mCX2x7vFKfEoBJ3TLN/pub?output=csv';
     const MOSAICO_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQB-6S2pkgnufWoNb4ayXBx1txEsfS0VFu0zSa0D72u5zjeBJooQ7VO9LJeqKzuOr_RXTb84t8sUYeE/pub?output=csv';
     const CHAT_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRa60M9mBxxagMG6tJ398bySotmGFgnzCyeOfN7PlhQwzsYQAbY3AtcTSpKYQwqqZb9_uyW0ShtUl1-/pub?output=csv';
-    const BENEFICIOS_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSm-QXLPSr3fgAqgNTw8QrBaciiUmFbZuyEFIuZ_srVnAkdr3vhgjp8UFn8t8lMntZzwMEVs9ENGzAN/pub?output=csv"; 
+    const BENEFICIOS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSm-QXLPSr3fgAqgNTw8QrBaciiUmFbZuyEFIuZ_srVnAkdr3vhgjp8UFn8t8lMntZzwMEVs9ENGzAN/pub?output=csv'; 
     let todosProdutos = [];
 // NOVA FUNÇÃO: Carrega benefícios (ajuste igual produtos/mosaico)
 // A URL da sua planilha, que deve ser a mesma que você está usando
-const BENEFICIOS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSm-QXLPSr3fgAqgNTw8QrBaciiUmFbZuyEFIuZ_srVnAkdr3vhgjp8UFn8t8lMntZzwMEVs9ENGzAN/pub?output=csv';
-
 async function carregarBeneficios() {
   try {
     const resp = await fetch(BENEFICIOS_URL);
