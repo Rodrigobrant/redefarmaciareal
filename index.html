@@ -362,15 +362,16 @@
     parsed.data
       .filter(item => (item.ativo || "").toLowerCase().trim() === "sim")
       .forEach(item => {
-        let iconeUrl = (item.icone || "").trim(); // ex: iconeUrl = "frete.png"
+        let iconeUrl = (item.icone || "").trim(); // ex: iconeUrl será "imagem/frete.png"
         let titulo = (item.titulo || "").trim();
         let descricao = (item.descricao || "").trim();
 
         const card = document.createElement("div");
         card.className = "beneficio";
         
+        // AQUI ESTÁ O AJUSTE: O caminho completo é puxado direto da planilha
         card.innerHTML = `
-          <img src="imagem/${iconeUrl}" alt="${titulo}" onerror="this.src='imagem/placeholder.png'">
+          <img src="${iconeUrl}" alt="${titulo}" onerror="this.src='imagem/placeholder.png'">
           <p>${titulo}<br><small>${descricao}</small></p>
         `;
         grid.appendChild(card);
