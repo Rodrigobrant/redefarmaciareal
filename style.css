@@ -124,7 +124,10 @@ header {
     border-radius: 10px;
     margin-top: 50px;
 }
-
+/* Adiciona espaçamento entre o cabeçalho e o carrossel */
+.carousel-container {
+    margin-top: 35px; /* Valor sugerido para o espaçamento */
+}
 .carousel-slides {
     /* Não precisa de flexbox aqui, pois vamos usar 'display: block' para cada slide */
     position: relative;
