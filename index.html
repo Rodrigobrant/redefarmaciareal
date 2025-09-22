@@ -350,6 +350,9 @@
     const BENEFICIOS_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSm-QXLPSr3fgAqgNTw8QrBaciiUmFbZuyEFIuZ_srVnAkdr3vhgjp8UFn8t8lMntZzwMEVs9ENGzAN/pub?output=csv"; 
     let todosProdutos = [];
 // NOVA FUNÇÃO: Carrega benefícios (ajuste igual produtos/mosaico)
+// A URL da sua planilha, que deve ser a mesma que você está usando
+const BENEFICIOS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSm-QXLPSr3fgAqgNTw8QrBaciiUmFbZuyEFIuZ_srVnAkdr3vhgjp8UFn8t8lMntZzwMEVs9ENGzAN/pub?output=csv';
+
 async function carregarBeneficios() {
   try {
     const resp = await fetch(BENEFICIOS_URL);
@@ -369,7 +372,8 @@ async function carregarBeneficios() {
         const card = document.createElement("div");
         card.className = "beneficio";
         
-        // CORREÇÃO: Usa o valor da planilha diretamente
+        // Esta linha usa o caminho exato da sua planilha
+        // que está "imagem/frete.png"
         card.innerHTML = `
           <img src="${iconeUrl}" alt="${titulo}" onerror="this.src='imagem/placeholder.png'">
           <p>${titulo}<br><small>${descricao}</small></p>
@@ -381,8 +385,8 @@ async function carregarBeneficios() {
     const grid = document.getElementById("beneficios-grid");
     grid.innerHTML = '<p style="text-align: center; color: red;">Não foi possível carregar os benefícios. Verifique a planilha ou a conexão.</p>';
   }
-} 
-document.addEventListener("DOMContentLoaded", carregarBeneficios);
+}
+    document.addEventListener("DOMContentLoaded", carregarBeneficios);
     // NOVA FUNÇÃO: Carrega e exibe os vendedores em um carrossel
     async function carregarVendedoresCarousel() {
     const vendedoresSlides = document.querySelector('.vendedores-slides');
