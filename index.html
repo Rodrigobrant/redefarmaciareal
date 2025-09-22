@@ -350,7 +350,7 @@
     const BENEFICIOS_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSm-QXLPSr3fgAqgNTw8QrBaciiUmFbZuyEFIuZ_srVnAkdr3vhgjp8UFn8t8lMntZzwMEVs9ENGzAN/pub?output=csv"; 
     let todosProdutos = [];
 // NOVA FUNÇÃO: Carrega benefícios
-    async function carregarBeneficios() {
+  async function carregarBeneficios() {
   try {
     const resp = await fetch(BENEFICIOS_URL);
     const csvText = await resp.text();
@@ -359,18 +359,16 @@
     const grid = document.getElementById("beneficios-grid");
     grid.innerHTML = "";
 
-    // Filtra apenas os itens ativos
     parsed.data
       .filter(item => (item.ativo || "").toLowerCase().trim() === "sim")
       .forEach(item => {
-        let iconeUrl = (item.icone || "").trim();
+        let iconeUrl = (item.icone || "").trim(); // ex: iconeUrl = "frete.png"
         let titulo = (item.titulo || "").trim();
         let descricao = (item.descricao || "").trim();
 
         const card = document.createElement("div");
         card.className = "beneficio";
         
-        // Caminho da imagem corrigido para a pasta 'imagem'
         card.innerHTML = `
           <img src="imagem/${iconeUrl}" alt="${titulo}" onerror="this.src='imagem/placeholder.png'">
           <p>${titulo}<br><small>${descricao}</small></p>
@@ -379,12 +377,10 @@
       });
   } catch (err) {
     console.error("Erro ao carregar benefícios:", err);
-    // Adiciona uma mensagem de erro na tela para ajudar a depurar
     const grid = document.getElementById("beneficios-grid");
     grid.innerHTML = '<p style="text-align: center; color: red;">Não foi possível carregar os benefícios. Verifique a planilha ou a conexão.</p>';
   }
 }
-
 document.addEventListener("DOMContentLoaded", carregarBeneficios);    
     // NOVA FUNÇÃO: Carrega e exibe os vendedores em um carrossel
     async function carregarVendedoresCarousel() {
