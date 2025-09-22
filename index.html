@@ -349,7 +349,7 @@
     const CHAT_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRa60M9mBxxagMG6tJ398bySotmGFgnzCyeOfN7PlhQwzsYQAbY3AtcTSpKYQwqqZb9_uyW0ShtUl1-/pub?output=csv';
     const BENEFICIOS_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSm-QXLPSr3fgAqgNTw8QrBaciiUmFbZuyEFIuZ_srVnAkdr3vhgjp8UFn8t8lMntZzwMEVs9ENGzAN/pub?output=csv"; 
     let todosProdutos = [];
-// NOVA FUNÇÃO: Carrega benefícios
+// NOVA FUNÇÃO: Carrega benefícios (ajuste igual produtos/mosaico)
 async function carregarBeneficios() {
   try {
     const resp = await fetch(BENEFICIOS_URL);
@@ -366,9 +366,9 @@ async function carregarBeneficios() {
         let titulo = (item.titulo || "").trim();
         let descricao = (item.descricao || "").trim();
 
-        // 🔹 Força URL absoluta no mesmo domínio para evitar bloqueio de CSP
+        // 🔹 Se não for URL completa, assume que está na pasta /imagem/
         if (iconeUrl && !iconeUrl.startsWith("http")) {
-          iconeUrl = `https://www.redefarmaciareal.com.br/${iconeUrl.replace(/^\/+/, "")}`;
+          iconeUrl = "imagem/" + iconeUrl.replace(/^\/+/, "");
         }
 
         const card = document.createElement("div");
@@ -376,7 +376,7 @@ async function carregarBeneficios() {
         
         card.innerHTML = `
           <img src="${iconeUrl}" alt="${titulo}" 
-               onerror="this.src='https://www.redefarmaciareal.com.br/imagem/placeholder.png'">
+               onerror="this.src='imagem/placeholder.png'">
           <p>${titulo}<br><small>${descricao}</small></p>
         `;
         grid.appendChild(card);
